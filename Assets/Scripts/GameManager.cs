@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public void Start() {
         currentPuzzle = new Puzzle(Puzzle.puzzle1, tilePrefab);
-        currentPuzzle.displayPuzzle();
+        //currentPuzzle.displayPuzzle();
         currentPuzzle.displayConsole();
         TileType blue = TileType.Blue;
         currentPuzzle.moveUp(blue);
-        currentPuzzle.displayConsole();
+        currentPuzzle.displayPuzzle();
     }
 }
