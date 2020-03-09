@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 551643976}
   - component: {fileID: 551643975}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,6 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c627b860afe24d3d84716de2a0aec04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 4600706758828329129, guid: 17ab1bfd908eb4481a4d34327a9ebf1a,
+    type: 3}
 --- !u!4 &551643976
 Transform:
   m_ObjectHideFlags: 0
@@ -353,7 +355,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1720
+  m_Name: pb_Mesh-1212
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -608,7 +610,7 @@ PrefabInstance:
     - target: {fileID: 4600706758828329132, guid: 17ab1bfd908eb4481a4d34327a9ebf1a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 8.55
       objectReference: {fileID: 0}
     - target: {fileID: 4600706758828329132, guid: 17ab1bfd908eb4481a4d34327a9ebf1a,
         type: 3}
