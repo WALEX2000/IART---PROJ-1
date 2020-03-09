@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
         //currentPuzzle.displayPuzzle();
         currentPuzzle.displayConsole();
         TileType blue = TileType.Blue;
-        currentPuzzle.moveUp(blue);
+        // currentPuzzle.moveDown(blue);
+        currentPuzzle.moveLeft(blue);
         currentPuzzle.displayPuzzle();
     }
 }
