@@ -5,16 +5,19 @@ public enum TileType {Empty, Null, Red, Blue, Green, Yellow}
 
 public class Puzzle : ScriptableObject
 {
-    private static TileType[][] puzzle1 =
+    public static TileType[][] puzzle1 = new TileType[][]
     {
-        {TileType.Red, TileType.Empty, TileType.Null},
-        {TileType.Empty, TileType.Empty, TileType.Blue},
-        {TileType.Null, TileType.Null, TileType.Empty}
+        new TileType[] {TileType.Red, TileType.Empty, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Blue},
+        new TileType[] {TileType.Null, TileType.Null, TileType.Empty}
     };
-
     public TileType[][] puzzleMatrix;
 
-    public void generatePuzzle() {
+    public Puzzle(TileType[][] matrix) {
+        puzzleMatrix = matrix;
+    }
+
+    public void displayPuzzle() {
 
     }
 }

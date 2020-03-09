@@ -6,5 +6,10 @@ enum playerType { Bot, Player };
 
 public class GameManager : MonoBehaviour
 {
-    
+    private Puzzle currentPuzzle;
+    private playerType currentPlayer;
+
+    public void Start() {
+        currentPuzzle = new Puzzle(Puzzle.puzzle1);
+    }
 }
