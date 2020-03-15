@@ -1,19 +1,40 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections; 
 
-public enum TileType {Empty, Null, Red, Blue, Green, Yellow}
+public enum TileType {Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta}
 
 public class Puzzle
 {
     //HARDCODED PUZZLES//
     public static TileType[][] puzzle1 = new TileType[][]
     {
-        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Blue},
-        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Blue, TileType.Blue},
-        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Blue},
-        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
-        new TileType[] {TileType.Red, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty}
+        new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Empty}
+    };
+
+    public static TileType[][] puzzle2 = new TileType[][]
+    {
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Blue, TileType.Red, TileType.Empty}
+    };
+
+    public static TileType[][] puzzle3 = new TileType[][]
+    {
+        new TileType[] {TileType.Null, TileType.Green, TileType.Null, TileType.Null, TileType.Null, TileType.Null},
+        new TileType[] {TileType.Green, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Yellow, TileType.Empty, TileType.Empty, TileType.Null},
+        new TileType[] {TileType.Blue, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Magenta, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Gray, TileType.Empty, TileType.Magenta, TileType.Magenta},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Magenta, TileType.Magenta, TileType.Magenta},
+        new TileType[] {TileType.Empty, TileType.Red, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null}
+
     };
     //HARDCODED PUZZLES//
     private GameObject tilePrefab;
@@ -21,6 +42,11 @@ public class Puzzle
     public Puzzle(TileType[][] matrix, GameObject tilePrefab) {
         puzzleMatrix = matrix;
         this.tilePrefab = tilePrefab;
+    }
+
+    public Puzzle copy(){
+        Puzzle puzzle = new Puzzle(puzzleMatrix,tilePrefab);
+        return puzzle;
     }
 
     public void displayPuzzle() {
@@ -45,6 +71,12 @@ public class Puzzle
                             break;
                             case TileType.Green:
                                 instantiatedTile.GetComponent<Renderer>().material.color = Color.green;
+                            break;
+                            case TileType.Magenta:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.magenta;
+                            break;
+                            case TileType.Gray:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.gray;
                             break;
                             default:
                                 Debug.LogError("Unknown Material for tile: " + puzzleMatrix[i][j]);                        
@@ -179,7 +211,7 @@ public class Puzzle
 
         //Discover the rotation axis
         for (int i = 0; i < puzzleMatrix.Length; i++){
-            for (int j = 0; j < puzzleMatrix.Length; j++){
+            for (int j = 0; j < puzzleMatrix[i].Length; j++){
                 if(puzzleMatrix[i][j] == tile && j < rotationAxis){
                     rotationAxis = j;
                 }                
@@ -209,6 +241,7 @@ public class Puzzle
         return true;
     }
 
+    // Returns True if it is a valid Tile
     public bool canMove(int i , int j){
         if(i < puzzleMatrix.Length && i >= 0){
             if(j >= 0 && j < puzzleMatrix[i].Length){
@@ -218,16 +251,95 @@ public class Puzzle
         return false;
     }
 
+    public bool isComplete(){
+
+        for (int i = 0; i < puzzleMatrix.Length; i++){
+            for (int j = 0; j < puzzleMatrix[i].Length; j++){
+                if (canMove(i,j)){
+                    return false;                    
+                }                
+            }
+        }
+        return true; 
+    }
+
+    public List<TileType> puzzleColors(){
+
+        List<TileType> puzzleColors = new List<TileType>();
+
+        for (int i = 0; i < puzzleMatrix.Length; i++){
+            for (int j = 0; j < puzzleMatrix[i].Length; j++){
+                if( puzzleMatrix[i][j] != TileType.Empty && !puzzleColors.Contains(puzzleMatrix[i][j])){
+                    puzzleColors.Add(puzzleMatrix[i][j]);
+                }          
+            }
+        }
+            
+        return puzzleColors;
+
+    } 
+
     
     public void displayConsole(){
         string puzzleString="";
-        for (int i = 0; i < puzzle1.Length; i++)
+        for (int i = 0; i < puzzleMatrix.Length; i++)
         {
-            for (int j = 0; j < puzzle1[i].Length; j++)
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
             {
-                puzzleString+=puzzle1[i][j] + " ";
+                puzzleString+=puzzleMatrix[i][j] + " ";
             }            
         }
         Debug.Log(puzzleString);
+    }
+
+    public bool search(){
+        Queue<Puzzle> searchQueue = new Queue<Puzzle>();
+        Puzzle current = copy();
+
+        searchQueue.Enqueue(current);
+
+        List<TileType> colors = current.puzzleColors();
+
+
+        while(searchQueue.Count != 0){
+
+            current = searchQueue.Dequeue();
+
+            if(current.isComplete()){
+                
+                current.displayPuzzle();
+                return true;
+
+            } 
+
+            else{
+
+                current.displayConsole();
+                foreach (TileType tile in colors){
+                    Puzzle puzzleDown = current.copy();
+                    if (puzzleDown.moveDown(tile)){
+                        searchQueue.Enqueue(puzzleDown);                        
+                    }    
+                    Puzzle puzzleUp = current.copy();
+                    
+                    if (puzzleUp.moveUp(tile)){
+                        searchQueue.Enqueue(puzzleUp);                        
+                    }     
+                    Puzzle puzzleLeft = current.copy();
+                    if (puzzleLeft.moveLeft(tile)){
+                        searchQueue.Enqueue(puzzleLeft);                        
+                    }  
+                    Puzzle puzzleRight = current.copy();
+                    if (puzzleRight.moveRight(tile)){
+                        searchQueue.Enqueue(puzzleRight);                        
+                    }                                         
+                }
+            }
+
+
+        }
+
+        return false;
+
     }
 }
