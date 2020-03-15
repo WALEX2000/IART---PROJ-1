@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         currentPuzzle = new Puzzle(Puzzle.puzzle2, tilePrefab);
         currentPuzzle.displayPuzzle();
 
-        currentPuzzle.search();
+        currentPuzzle.search("bfs");
           
     }
 }
