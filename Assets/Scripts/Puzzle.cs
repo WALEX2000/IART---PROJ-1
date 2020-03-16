@@ -295,29 +295,74 @@ public class Puzzle
     }
 
     public bool search(String typeOfSearch){
-        Queue<Puzzle> searchQueue = new Queue<Puzzle>();
+        List<Puzzle> searchList = new List<Puzzle>();
         Puzzle current = copy();
+        var visited = new HashSet<Puzzle>();
 
-        searchQueue.Enqueue(current);
+        searchList.Add(current);
 
         List<TileType> colors = current.puzzleColors();
 
 
-        while(searchQueue.Count != 0){
-
-            current = searchQueue.Dequeue();
-
-            if(current.isComplete()){
-                
-                current.displayPuzzle();
-                return true;
-            } 
-
-            else{
-                if(typeOfSearch == "bfs"){
-                    current.breadthFirstSearch(searchQueue,colors);
-                }          
+        while(searchList.Count != 0){
+   
+            if(typeOfSearch == "bfs"){
+                if(current.breadthFirstSearch(searchList,colors,visited)){
+                    return true;
+                }
+            } else if(typeOfSearch == "dfs"){
+                if(current.depthFirstSearch(searchList,colors,visited)){
+                    return true;
+                }
             }
+            
+        }
+
+        return false;
+
+    }
+
+    public bool depthFirstSearch(List<Puzzle> searchStack,List<TileType> colors, HashSet<Puzzle> visited){
+
+
+        Puzzle current = searchStack[0];
+        searchStack.RemoveAt(0);
+
+        if(visited.Contains(current)){   
+            current.displayPuzzle();
+            return false;
+        } 
+
+
+        if(current.isComplete()){   
+            current.displayPuzzle();
+            return true;
+        }
+
+        displayConsole();
+
+
+        visited.Add(current);
+
+        foreach (TileType tile in colors){
+            Puzzle puzzleDown = copy();
+            if (puzzleDown.moveDown(tile)){
+                searchStack.Insert(0,puzzleDown);                        
+            }    
+            Puzzle puzzleUp = copy();
+            
+            if (puzzleUp.moveUp(tile)){
+                searchStack.Insert(0,puzzleUp);                        
+            }     
+            Puzzle puzzleLeft = copy();
+            if (puzzleLeft.moveLeft(tile)){
+                searchStack.Insert(0,puzzleLeft);                        
+            }  
+            Puzzle puzzleRight = copy();
+            if (puzzleRight.moveRight(tile)){
+                searchStack.Insert(0,puzzleRight);                        
+            } 
+                                        
         }
 
         return false;
@@ -325,29 +370,48 @@ public class Puzzle
     }
 
 
-    public void breadthFirstSearch(Queue<Puzzle> searchQueue,List<TileType> colors){
+    public bool breadthFirstSearch(List<Puzzle> searchQueue,List<TileType> colors, HashSet<Puzzle> visited){
 
         displayConsole();
+
+        Puzzle current = searchQueue[searchQueue.Count-1];
+        searchQueue.RemoveAt(searchQueue.Count -1);
+
+        if(visited.Contains(current)){   
+            current.displayPuzzle();
+            return false;
+        } 
+
+        if(current.isComplete()){   
+            current.displayPuzzle();
+            return true;
+        } 
+
+
+        visited.Add(current);
+
 
         foreach (TileType tile in colors){
             Puzzle puzzleDown = copy();
             if (puzzleDown.moveDown(tile)){
-                searchQueue.Enqueue(puzzleDown);                        
+                searchQueue.Add(puzzleDown);                        
             }    
             Puzzle puzzleUp = copy();
             
             if (puzzleUp.moveUp(tile)){
-                searchQueue.Enqueue(puzzleUp);                        
+                searchQueue.Add(puzzleUp);                        
             }     
             Puzzle puzzleLeft = copy();
             if (puzzleLeft.moveLeft(tile)){
-                searchQueue.Enqueue(puzzleLeft);                        
+                searchQueue.Add(puzzleLeft);                        
             }  
             Puzzle puzzleRight = copy();
             if (puzzleRight.moveRight(tile)){
-                searchQueue.Enqueue(puzzleRight);                        
+                searchQueue.Add(puzzleRight);                        
             }                                         
         }
+
+        return false;
 
     }
 }
