@@ -8,6 +8,13 @@ public enum TileType {Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta}
 public class Puzzle
 {
     //HARDCODED PUZZLES//
+    public static TileType[][] puzzle0 = new TileType[][]
+    {
+        new TileType[] {TileType.Red, TileType.Empty, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Blue},
+        new TileType[] {TileType.Null, TileType.Null, TileType.Empty},
+    };
+
     public static TileType[][] puzzle1 = new TileType[][]
     {
         new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
