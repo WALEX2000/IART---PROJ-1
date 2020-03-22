@@ -328,7 +328,7 @@ public class Puzzle
             
             if(searchList.Count == 0) return false;   
 
-
+            
             if(typeOfSearch == "bfs"){
                 if(current.breadthFirstSearch(searchList,colors,visited)){
                     return true;
@@ -360,6 +360,7 @@ public class Puzzle
             current.displayPuzzle();
             return true;
         }
+        
 
         displayConsole();
         current.displayPuzzle();
@@ -367,34 +368,27 @@ public class Puzzle
         visited.Add(current);
 
         foreach (TileType tile in colors){ 
-            bool moved = false;
 
             Puzzle puzzleDown = copy();
             if (puzzleDown.moveDown(tile)){
                 searchStack.Insert(0,puzzleDown); 
-                moved = true;
             }    
             Puzzle puzzleUp = copy();
             
             if (puzzleUp.moveUp(tile)){
                 searchStack.Insert(0,puzzleUp);  
-                moved = true;
             }     
             Puzzle puzzleLeft = copy();
             if (puzzleLeft.moveLeft(tile)){
                 searchStack.Insert(0,puzzleLeft); 
-                moved = true;
             }  
             Puzzle puzzleRight = copy();
             if (puzzleRight.moveRight(tile)){
                 searchStack.Insert(0,puzzleRight);  
-                moved = true;
             } 
-            if(moved) break;
-        }
-                                    
-    
 
+        }
+                                
         return false;
 
     }
