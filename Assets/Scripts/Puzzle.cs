@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections; 
+using System.Threading;
 
 public enum TileType {Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta}
 
@@ -56,15 +57,18 @@ public class Puzzle
 
     };
     //HARDCODED PUZZLES//
+
+    private GameManager gameManager;
     private GameObject tilePrefab;
     private TileType[][] puzzleMatrix;
-    public Puzzle(TileType[][] matrix, GameObject tilePrefab) {
+    public Puzzle(TileType[][] matrix, GameObject tilePrefab, GameManager gameManager) {
         puzzleMatrix = matrix;
         this.tilePrefab = tilePrefab;
+        this.gameManager = gameManager;
     }
 
     public Puzzle copy(){
-        Puzzle puzzle = new Puzzle(puzzleMatrix,tilePrefab);
+        Puzzle puzzle = new Puzzle(puzzleMatrix,tilePrefab, gameManager);
         return puzzle;
     }
 
@@ -296,11 +300,7 @@ public class Puzzle
             
         return puzzleColors;
 
-    } 
-
-    
-
-    
+    }
     public void displayConsole(){
         
         string puzzleString="";
@@ -351,19 +351,19 @@ public class Puzzle
 
         searchStack.RemoveAt(0);
 
+        gameManager.DisplayState(current);
+
         if(visited.Contains(current)){   
-            current.displayPuzzle();
+            //current.displayPuzzle();
             return false;
         } 
 
         if(current.isComplete()){   
-            current.displayPuzzle();
+            //current.displayPuzzle();
             return true;
         }
-        
 
-        displayConsole();
-        current.displayPuzzle();
+        //displayConsole();
 
         visited.Add(current);
 
@@ -395,49 +395,46 @@ public class Puzzle
 
 
     public bool breadthFirstSearch(List<Puzzle> searchQueue,List<TileType> colors, HashSet<Puzzle> visited){
-
-
         Puzzle current = searchQueue[searchQueue.Count-1];
         searchQueue.RemoveAt(searchQueue.Count -1);
 
+        gameManager.DisplayState(current);
+
         if(visited.Contains(current)){   
-            current.displayPuzzle();
+            //current.displayPuzzle();
             return false;
         } 
 
         if(current.isComplete()){   
-            current.displayPuzzle();
+            //current.displayPuzzle();
             return true;
         } 
 
-        displayConsole();
+        //displayConsole();
 
         visited.Add(current);
         foreach (TileType tile in colors)
         {
-            
             Puzzle puzzleDown = copy();
             if (puzzleDown.moveDown(tile)){
                 searchQueue.Add(puzzleDown);                        
-            }    
+            }   
+
             Puzzle puzzleUp = copy();
-            
             if (puzzleUp.moveUp(tile)){
                 searchQueue.Add(puzzleUp);                        
             }     
+
             Puzzle puzzleLeft = copy();
             if (puzzleLeft.moveLeft(tile)){
                 searchQueue.Add(puzzleLeft);                        
-            }  
+            }
+
             Puzzle puzzleRight = copy();
             if (puzzleRight.moveRight(tile)){
                 searchQueue.Add(puzzleRight);                        
             }        
         }
-
-    
-
         return false;
-
     }
 }
