@@ -57,7 +57,17 @@ public class Puzzle
     }
 
     public Puzzle copy(){
-        Puzzle puzzle = new Puzzle(puzzleMatrix,tilePrefab);
+
+        TileType[][] copy = new TileType[puzzleMatrix.Length][];
+        
+
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            copy[i] = new TileType[puzzleMatrix[i].Length];
+            Array.Copy(puzzleMatrix[i], copy[i],puzzleMatrix[i].Length);
+            
+        }
+        Puzzle puzzle = new Puzzle(copy,tilePrefab);
         return puzzle;
     }
 
@@ -356,7 +366,6 @@ public class Puzzle
         
 
         displayConsole();
-        current.displayPuzzle();
 
         visited.Add(current);
 
@@ -427,8 +436,6 @@ public class Puzzle
                 searchQueue.Add(puzzleRight);                        
             }        
         }
-
-    
 
         return false;
 
