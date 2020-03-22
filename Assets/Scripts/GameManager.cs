@@ -12,9 +12,10 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public void Start() {
 
-        currentPuzzle = new Puzzle(Puzzle.puzzle2, tilePrefab);
+        currentPuzzle = new Puzzle(Puzzle.puzzle4, tilePrefab);
         currentPuzzle.displayPuzzle();
         currentPuzzle.search("dfs");
+
           
     }
 }
