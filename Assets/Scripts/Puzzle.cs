@@ -43,6 +43,18 @@ public class Puzzle
         new TileType[] {TileType.Empty, TileType.Red, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null}
 
     };
+    public static TileType[][] puzzle4 = new TileType[][]
+    {
+        new TileType[] {TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Green, TileType.Green, TileType.Green},
+        new TileType[] {TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Green, TileType.Green, TileType.Green},
+        new TileType[] {TileType.Null, TileType.Blue, TileType.Blue, TileType.Empty, TileType.Green, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Null, TileType.Blue, TileType.Blue, TileType.Empty, TileType.Green, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Null, TileType.Blue, TileType.Blue, TileType.Blue, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Red, TileType.Yellow, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Magenta, TileType.Empty, TileType.Null, TileType.Null},
+        new TileType[] {TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Empty, TileType.Null, TileType.Null}
+
+    };
     //HARDCODED PUZZLES//
     private GameObject tilePrefab;
     private TileType[][] puzzleMatrix;
@@ -276,7 +288,7 @@ public class Puzzle
 
         for (int i = 0; i < puzzleMatrix.Length; i++){
             for (int j = 0; j < puzzleMatrix[i].Length; j++){
-                if( puzzleMatrix[i][j] != TileType.Empty && !puzzleColors.Contains(puzzleMatrix[i][j])){
+                if( puzzleMatrix[i][j] != TileType.Empty && puzzleMatrix[i][j] != TileType.Null && !puzzleColors.Contains(puzzleMatrix[i][j])){
                     puzzleColors.Add(puzzleMatrix[i][j]);
                 }          
             }
@@ -290,6 +302,7 @@ public class Puzzle
 
     
     public void displayConsole(){
+        
         string puzzleString="";
         for (int i = 0; i < puzzleMatrix.Length; i++)
         {
@@ -312,7 +325,10 @@ public class Puzzle
 
 
         while(searchList.Count != 0){
-   
+            
+            if(searchList.Count == 0) return false;   
+
+
             if(typeOfSearch == "bfs"){
                 if(current.breadthFirstSearch(searchList,colors,visited)){
                     return true;
@@ -331,8 +347,8 @@ public class Puzzle
 
     public bool depthFirstSearch(List<Puzzle> searchStack,List<TileType> colors, HashSet<Puzzle> visited){
 
-
         Puzzle current = searchStack[0];
+
         searchStack.RemoveAt(0);
 
         if(visited.Contains(current)){   
@@ -340,37 +356,44 @@ public class Puzzle
             return false;
         } 
 
-
         if(current.isComplete()){   
             current.displayPuzzle();
             return true;
         }
 
         displayConsole();
-
+        current.displayPuzzle();
 
         visited.Add(current);
 
-        foreach (TileType tile in colors){
+        foreach (TileType tile in colors){ 
+            bool moved = false;
+
             Puzzle puzzleDown = copy();
             if (puzzleDown.moveDown(tile)){
-                searchStack.Insert(0,puzzleDown);                        
+                searchStack.Insert(0,puzzleDown); 
+                moved = true;
             }    
             Puzzle puzzleUp = copy();
             
             if (puzzleUp.moveUp(tile)){
-                searchStack.Insert(0,puzzleUp);                        
+                searchStack.Insert(0,puzzleUp);  
+                moved = true;
             }     
             Puzzle puzzleLeft = copy();
             if (puzzleLeft.moveLeft(tile)){
-                searchStack.Insert(0,puzzleLeft);                        
+                searchStack.Insert(0,puzzleLeft); 
+                moved = true;
             }  
             Puzzle puzzleRight = copy();
             if (puzzleRight.moveRight(tile)){
-                searchStack.Insert(0,puzzleRight);                        
+                searchStack.Insert(0,puzzleRight);  
+                moved = true;
             } 
-                                        
+            if(moved) break;
         }
+                                    
+    
 
         return false;
 
@@ -379,7 +402,6 @@ public class Puzzle
 
     public bool breadthFirstSearch(List<Puzzle> searchQueue,List<TileType> colors, HashSet<Puzzle> visited){
 
-        displayConsole();
 
         Puzzle current = searchQueue[searchQueue.Count-1];
         searchQueue.RemoveAt(searchQueue.Count -1);
@@ -394,11 +416,12 @@ public class Puzzle
             return true;
         } 
 
+        displayConsole();
 
         visited.Add(current);
-
-
-        foreach (TileType tile in colors){
+        foreach (TileType tile in colors)
+        {
+            
             Puzzle puzzleDown = copy();
             if (puzzleDown.moveDown(tile)){
                 searchQueue.Add(puzzleDown);                        
@@ -415,8 +438,10 @@ public class Puzzle
             Puzzle puzzleRight = copy();
             if (puzzleRight.moveRight(tile)){
                 searchQueue.Add(puzzleRight);                        
-            }                                         
+            }        
         }
+
+    
 
         return false;
 
