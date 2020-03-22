@@ -11,10 +11,10 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public void Start() {
 
-        currentPuzzle = new Puzzle(Puzzle.puzzle4, tilePrefab, this);
+        currentPuzzle = new Puzzle(Puzzle.puzzle4, tilePrefab);
         //currentPuzzle.displayPuzzle();
         currentPuzzle.search("dfs");
-        //currentPuzzle.displayPuzzle();
+        currentPuzzle.displayPuzzle();
         Debug.Log("Ended DFS");
         StartCoroutine(DisplayPuzzleStates(2));
     }

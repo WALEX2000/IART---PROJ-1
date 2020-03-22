@@ -2,20 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Collections; 
-using System.Threading;
 
 public enum TileType {Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta}
 
 public class Puzzle
 {
     //HARDCODED PUZZLES//
-    public static TileType[][] puzzle0 = new TileType[][]
-    {
-        new TileType[] {TileType.Red, TileType.Empty, TileType.Null},
-        new TileType[] {TileType.Empty, TileType.Empty, TileType.Blue},
-        new TileType[] {TileType.Null, TileType.Null, TileType.Empty},
-    };
-
     public static TileType[][] puzzle1 = new TileType[][]
     {
         new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
@@ -57,14 +49,11 @@ public class Puzzle
 
     };
     //HARDCODED PUZZLES//
-
-    private GameManager gameManager;
     private GameObject tilePrefab;
     private TileType[][] puzzleMatrix;
-    public Puzzle(TileType[][] matrix, GameObject tilePrefab, GameManager gameManager) {
+    public Puzzle(TileType[][] matrix, GameObject tilePrefab) {
         puzzleMatrix = matrix;
         this.tilePrefab = tilePrefab;
-        this.gameManager = gameManager;
     }
 
     public Puzzle copy(){
@@ -162,6 +151,33 @@ public class Puzzle
         return true;
     }
 
+    public void undoMoveUp(TileType tile) {
+        int lowerBound = 0;
+        int upperBound = puzzleMatrix[0].Length-1;
+
+        //Discover the bounds
+        for (int i = 0; i < puzzleMatrix.Length; i++) {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++) {
+                if(puzzleMatrix[i][j] == tile) {
+                    if(i < upperBound)
+                        upperBound = i;
+                    if(i > lowerBound)
+                        lowerBound = i;
+                }
+            }
+        }
+    
+        int symetryAxis = (upperBound+lowerBound)/2;
+
+        for (int i = 0; i <= symetryAxis; i++) {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++) {
+                if(puzzleMatrix[i][j] == tile){
+                    puzzleMatrix[i][j] = TileType.Empty;
+                }
+            }
+        }
+    }
+
     public bool moveDown(TileType tile){
 
         int rotationAxis = -1;
@@ -202,6 +218,33 @@ public class Puzzle
         return true;
     }
 
+    public void undoMoveDown(TileType tile) {
+        int lowerBound = 0;
+        int upperBound = puzzleMatrix[0].Length-1;
+
+        //Discover the bounds
+        for (int i = 0; i < puzzleMatrix.Length; i++) {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++) {
+                if(puzzleMatrix[i][j] == tile) {
+                    if(i < upperBound)
+                        upperBound = i;
+                    if(i > lowerBound)
+                        lowerBound = i;
+                }
+            }
+        }
+    
+        int symetryAxis = (upperBound+lowerBound)/2;
+
+        for (int i = puzzleMatrix.Length-1; i > symetryAxis; i--) {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++) {
+                if(puzzleMatrix[i][j] == tile){
+                    puzzleMatrix[i][j] = TileType.Empty;
+                }
+            }
+        }
+    }
+
      public bool moveRight(TileType tile){
 
         int rotationAxis = -1;
@@ -238,7 +281,34 @@ public class Puzzle
         return true;
     }
 
-        public bool moveLeft(TileType tile){
+    public void undoMoveRight(TileType tile) {
+        int leftBound = puzzleMatrix.Length;
+        int rightBound = 0;
+
+        //Discover the bounds
+        for (int i = 0; i < puzzleMatrix.Length; i++) {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++) {
+                if(puzzleMatrix[i][j] == tile) {
+                    if(j < leftBound)
+                        leftBound = j;
+                    if(j > rightBound)
+                        rightBound = j;
+                }
+            }
+        }
+    
+        int symetryAxis = (rightBound+leftBound)/2;
+
+        for (int i = 0; i < puzzleMatrix.Length; i++) {
+            for (int j = puzzleMatrix[i].Length-1; j > symetryAxis; j--) {
+                if(puzzleMatrix[i][j] == tile){
+                    puzzleMatrix[i][j] = TileType.Empty;
+                }
+            }
+        }
+    }
+
+    public bool moveLeft(TileType tile){
 
         int rotationAxis = puzzleMatrix.Length;
 
@@ -272,6 +342,33 @@ public class Puzzle
         }
 
         return true;
+    }
+
+    public void undoMoveLeft(TileType tile) {
+        int leftBound = puzzleMatrix.Length;
+        int rightBound = 0;
+
+        //Discover the bounds
+        for (int i = 0; i < puzzleMatrix.Length; i++) {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++) {
+                if(puzzleMatrix[i][j] == tile) {
+                    if(j < leftBound)
+                        leftBound = j;
+                    if(j > rightBound)
+                        rightBound = j;
+                }
+            }
+        }
+    
+        int symetryAxis = (rightBound+leftBound)/2;
+
+        for (int i = 0; i < puzzleMatrix.Length; i++) {
+            for (int j = 0; j <= symetryAxis; j++) {
+                if(puzzleMatrix[i][j] == tile){
+                    puzzleMatrix[i][j] = TileType.Empty;
+                }
+            }
+        }
     }
 
     // Returns True if it is a valid Tile
@@ -310,7 +407,11 @@ public class Puzzle
             
         return puzzleColors;
 
-    }
+    } 
+
+    
+
+    
     public void displayConsole(){
         
         string puzzleString="";
@@ -344,7 +445,7 @@ public class Puzzle
                     return true;
                 }
             } else if(typeOfSearch == "dfs"){
-                if(current.depthFirstSearch(searchList,colors,visited)){
+                if(current.depthFirstSearch(current,colors)){
                     return true;
                 }
             }
@@ -355,48 +456,42 @@ public class Puzzle
 
     }
 
-    public bool depthFirstSearch(List<Puzzle> searchStack,List<TileType> colors, HashSet<Puzzle> visited){
-
-        Puzzle current = searchStack[0];
-
-        searchStack.RemoveAt(0);
-
-        gameManager.DisplayState(current);
-
-        if(visited.Contains(current)){   
-            //current.displayPuzzle();
-            return false;
-        } 
-
+    public bool depthFirstSearch(Puzzle current, List<TileType> colors){
         if(current.isComplete()){   
-            //current.displayPuzzle();
+            current.displayPuzzle();
             return true;
         }
 
-        //displayConsole();
-
-        visited.Add(current);
-
         foreach (TileType tile in colors){ 
 
-            Puzzle puzzleDown = copy();
-            if (puzzleDown.moveDown(tile)){
-                searchStack.Insert(0,puzzleDown); 
+            if (current.moveDown(tile)){
+                Debug.Log("Moving " + tile + " down");
+                if(depthFirstSearch(current, colors))
+                    return true;
+                Debug.Log("Undoing move " + tile + " down");
+                current.undoMoveDown(tile);
             }    
-            Puzzle puzzleUp = copy();
-            
-            if (puzzleUp.moveUp(tile)){
-                searchStack.Insert(0,puzzleUp);  
+            if (current.moveUp(tile)){
+                Debug.Log("Moving " + tile + " up");
+                if(depthFirstSearch(current, colors))
+                    return true;
+                Debug.Log("Undoing move " + tile + " up");
+                current.undoMoveUp(tile);
             }     
-            Puzzle puzzleLeft = copy();
-            if (puzzleLeft.moveLeft(tile)){
-                searchStack.Insert(0,puzzleLeft); 
+            if (current.moveLeft(tile)){
+                Debug.Log("Moving " + tile + " left");
+                if(depthFirstSearch(current, colors))
+                    return true;
+                Debug.Log("Undoing move " + tile + " left");
+                current.undoMoveLeft(tile);
             }  
-            Puzzle puzzleRight = copy();
-            if (puzzleRight.moveRight(tile)){
-                searchStack.Insert(0,puzzleRight);  
-            } 
-
+            if (current.moveRight(tile)){
+                Debug.Log("Moving " + tile + " right");
+                if(depthFirstSearch(current, colors))
+                    return true;
+                Debug.Log("Undoing move " + tile + " right");
+                current.undoMoveRight(tile);
+            }
         }
                                 
         return false;
@@ -405,46 +500,47 @@ public class Puzzle
 
 
     public bool breadthFirstSearch(List<Puzzle> searchQueue,List<TileType> colors, HashSet<Puzzle> visited){
+
+
         Puzzle current = searchQueue[searchQueue.Count-1];
         searchQueue.RemoveAt(searchQueue.Count -1);
 
-        gameManager.DisplayState(current);
-
         if(visited.Contains(current)){   
-            //current.displayPuzzle();
+            current.displayPuzzle();
             return false;
         } 
 
         if(current.isComplete()){   
-            //current.displayPuzzle();
+            current.displayPuzzle();
             return true;
         } 
 
-        //displayConsole();
+        displayConsole();
 
         visited.Add(current);
         foreach (TileType tile in colors)
         {
+            
             Puzzle puzzleDown = copy();
             if (puzzleDown.moveDown(tile)){
                 searchQueue.Add(puzzleDown);                        
-            }   
-
+            }    
             Puzzle puzzleUp = copy();
+            
             if (puzzleUp.moveUp(tile)){
                 searchQueue.Add(puzzleUp);                        
             }     
-
             Puzzle puzzleLeft = copy();
             if (puzzleLeft.moveLeft(tile)){
                 searchQueue.Add(puzzleLeft);                        
-            }
-
+            }  
             Puzzle puzzleRight = copy();
             if (puzzleRight.moveRight(tile)){
                 searchQueue.Add(puzzleRight);                        
             }        
         }
+
         return false;
+
     }
 }
