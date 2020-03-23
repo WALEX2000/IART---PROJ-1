@@ -428,119 +428,31 @@ public class Puzzle
     public bool search(String typeOfSearch){
         List<Puzzle> searchList = new List<Puzzle>();
         Puzzle current = copy();
-        var visited = new HashSet<Puzzle>();
 
         searchList.Add(current);
 
         List<TileType> colors = current.puzzleColors();
 
+        if(typeOfSearch == "dfs"){
+            DFS dfs = new DFS();
+            if(dfs.depthFirstSearch(current,colors))
+                return true;
 
-        while(searchList.Count != 0){
-            
-            if(searchList.Count == 0) return false;   
-
-            
-            if(typeOfSearch == "bfs"){
-                if(current.breadthFirstSearch(searchList,colors,visited)){
-                    return true;
-                }
-            } else if(typeOfSearch == "dfs"){
-                if(current.depthFirstSearch(current,colors)){
+        } else if(typeOfSearch == "bfs"){
+            BFS bfs = new BFS();
+            while(searchList.Count != 0){          
+                if(bfs.breadthFirstSearch(searchList,colors)){
                     return true;
                 }
             }
-            
         }
-
-        return false;
-
-    }
-
-    public bool depthFirstSearch(Puzzle current, List<TileType> colors){
-        if(current.isComplete()){   
-            current.displayPuzzle();
-            return true;
-        }
-
-        foreach (TileType tile in colors){ 
-
-            if (current.moveDown(tile)){
-                Debug.Log("Moving " + tile + " down");
-                if(depthFirstSearch(current, colors))
-                    return true;
-                Debug.Log("Undoing move " + tile + " down");
-                current.undoMoveDown(tile);
-            }    
-            if (current.moveUp(tile)){
-                Debug.Log("Moving " + tile + " up");
-                if(depthFirstSearch(current, colors))
-                    return true;
-                Debug.Log("Undoing move " + tile + " up");
-                current.undoMoveUp(tile);
-            }     
-            if (current.moveLeft(tile)){
-                Debug.Log("Moving " + tile + " left");
-                if(depthFirstSearch(current, colors))
-                    return true;
-                Debug.Log("Undoing move " + tile + " left");
-                current.undoMoveLeft(tile);
-            }  
-            if (current.moveRight(tile)){
-                Debug.Log("Moving " + tile + " right");
-                if(depthFirstSearch(current, colors))
-                    return true;
-                Debug.Log("Undoing move " + tile + " right");
-                current.undoMoveRight(tile);
-            }
-        }
-                                
+    
         return false;
 
     }
 
 
-    public bool breadthFirstSearch(List<Puzzle> searchQueue,List<TileType> colors, HashSet<Puzzle> visited){
 
 
-        Puzzle current = searchQueue[searchQueue.Count-1];
-        searchQueue.RemoveAt(searchQueue.Count -1);
-
-        if(visited.Contains(current)){   
-            current.displayPuzzle();
-            return false;
-        } 
-
-        if(current.isComplete()){   
-            current.displayPuzzle();
-            return true;
-        } 
-
-        displayConsole();
-
-        visited.Add(current);
-        foreach (TileType tile in colors)
-        {
-            
-            Puzzle puzzleDown = copy();
-            if (puzzleDown.moveDown(tile)){
-                searchQueue.Add(puzzleDown);                        
-            }    
-            Puzzle puzzleUp = copy();
-            
-            if (puzzleUp.moveUp(tile)){
-                searchQueue.Add(puzzleUp);                        
-            }     
-            Puzzle puzzleLeft = copy();
-            if (puzzleLeft.moveLeft(tile)){
-                searchQueue.Add(puzzleLeft);                        
-            }  
-            Puzzle puzzleRight = copy();
-            if (puzzleRight.moveRight(tile)){
-                searchQueue.Add(puzzleRight);                        
-            }        
-        }
-
-        return false;
-
-    }
+    
 }
