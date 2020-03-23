@@ -51,10 +51,13 @@ public class Puzzle
     //HARDCODED PUZZLES//
     private GameObject tilePrefab;
     private TileType[][] puzzleMatrix;
+    public TileType[][] PuzzleMatrix{get; set;}
     public Puzzle(TileType[][] matrix, GameObject tilePrefab) {
         puzzleMatrix = matrix;
         this.tilePrefab = tilePrefab;
     }
+
+    
 
     public Puzzle copy(){
 
@@ -432,8 +435,8 @@ public class Puzzle
 
         if(typeOfSearch == "dfs"){
 
-            DFS dfs = new DFS();
-            if(dfs.search(current,colors))
+            DFS dfs = new DFS(current);
+            if(dfs.search(current))
                 return true;
 
         } else if(typeOfSearch == "bfs"){
