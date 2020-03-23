@@ -11,10 +11,21 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public void Start() {
 
-        currentPuzzle = new Puzzle(Puzzle.puzzle4, tilePrefab);
-        //currentPuzzle.displayPuzzle();
-        currentPuzzle.search("IDDFS");
+        currentPuzzle = new Puzzle(Puzzle.puzzle2, tilePrefab);
         currentPuzzle.displayPuzzle();
+
+        // var watch = System.Diagnostics.Stopwatch.StartNew();
+
+        // currentPuzzle.search("DFS");
+
+        // watch.Stop();
+        // Debug.Log(watch.ElapsedMilliseconds/1000.0);
+
+
+        Greedy gred = new Greedy(currentPuzzle);
+        gred.calculateMatrix(currentPuzzle);
+        gred.calculatePuzzleScore(currentPuzzle);
+
         StartCoroutine(DisplayPuzzleStates(2));
     }
 
