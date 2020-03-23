@@ -7,18 +7,28 @@ using UnityEngine;
 public class BFS{
     private List<Puzzle> searchQueue;
 
-    public bool search(Puzzle current,List<TileType> colors){
+    private List<TileType> colors;
+    private Puzzle puzzle;
+
+
+    public BFS(Puzzle puzzle){
+        colors = puzzle.puzzleColors();
+        this.puzzle = puzzle;
+
+    }
+
+    public bool search(){
         searchQueue = new List<Puzzle>();
-        searchQueue.Add(current);
+        searchQueue.Add(puzzle);
         while(searchQueue.Count != 0){          
-            if(breadthFirstSearch(colors)){
+            if(breadthFirstSearch()){
                 return true;
             }
         }
         return false;
     }
-    
-    public bool breadthFirstSearch(List<TileType> colors){
+
+    public bool breadthFirstSearch(){
 
 
         Puzzle current = searchQueue[searchQueue.Count-1];

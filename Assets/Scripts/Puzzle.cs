@@ -431,7 +431,6 @@ public class Puzzle
     public bool search(String typeOfSearch){
 
         Puzzle current = copy();
-        List<TileType> colors = current.puzzleColors();
 
         if(typeOfSearch == "dfs"){
 
@@ -441,8 +440,8 @@ public class Puzzle
 
         } else if(typeOfSearch == "bfs"){
 
-            BFS bfs = new BFS();
-            bfs.search(current,colors);
+            BFS bfs = new BFS(current);
+            bfs.search();
         }
     
         return false;
