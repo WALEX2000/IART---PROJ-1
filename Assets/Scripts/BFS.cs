@@ -5,12 +5,25 @@ using UnityEngine;
 
 
 public class BFS{
-public bool breadthFirstSearch(List<Puzzle> searchQueue,List<TileType> colors){
+    private List<Puzzle> searchQueue;
+
+    public bool search(Puzzle current,List<TileType> colors){
+        searchQueue = new List<Puzzle>();
+        searchQueue.Add(current);
+        while(searchQueue.Count != 0){          
+            if(breadthFirstSearch(colors)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public bool breadthFirstSearch(List<TileType> colors){
 
 
         Puzzle current = searchQueue[searchQueue.Count-1];
         searchQueue.RemoveAt(searchQueue.Count -1);
-
+  
         if(current.isComplete()){   
             current.displayPuzzle();
             return true;

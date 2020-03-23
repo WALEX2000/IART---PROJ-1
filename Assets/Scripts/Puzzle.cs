@@ -426,25 +426,20 @@ public class Puzzle
     }
 
     public bool search(String typeOfSearch){
-        List<Puzzle> searchList = new List<Puzzle>();
+
         Puzzle current = copy();
-
-        searchList.Add(current);
-
         List<TileType> colors = current.puzzleColors();
 
         if(typeOfSearch == "dfs"){
+
             DFS dfs = new DFS();
-            if(dfs.depthFirstSearch(current,colors))
+            if(dfs.search(current,colors))
                 return true;
 
         } else if(typeOfSearch == "bfs"){
+
             BFS bfs = new BFS();
-            while(searchList.Count != 0){          
-                if(bfs.breadthFirstSearch(searchList,colors)){
-                    return true;
-                }
-            }
+            bfs.search(current,colors);
         }
     
         return false;
