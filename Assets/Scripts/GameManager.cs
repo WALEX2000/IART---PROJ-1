@@ -14,17 +14,13 @@ public class GameManager : MonoBehaviour
         currentPuzzle = new Puzzle(Puzzle.puzzle2, tilePrefab);
         currentPuzzle.displayPuzzle();
 
-        // var watch = System.Diagnostics.Stopwatch.StartNew();
+        var watch = System.Diagnostics.Stopwatch.StartNew();
 
-        // currentPuzzle.search("DFS");
+        currentPuzzle.search("DFS");
 
-        // watch.Stop();
-        // Debug.Log(watch.ElapsedMilliseconds/1000.0);
+        watch.Stop();
+        Debug.Log(watch.ElapsedMilliseconds/1000.0);
 
-
-        Greedy gred = new Greedy(currentPuzzle);
-        gred.calculateMatrix(currentPuzzle);
-        gred.calculatePuzzleScore(currentPuzzle);
 
         StartCoroutine(DisplayPuzzleStates(2));
     }
