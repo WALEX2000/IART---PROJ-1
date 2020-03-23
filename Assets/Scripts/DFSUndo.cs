@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class DFS{
+public class DFSUndo{
     List<TileType> colors;
     Puzzle current;
 
 
 
-    public DFS(Puzzle puzzle){
+    public DFSUndo(Puzzle puzzle){
         colors = puzzle.puzzleColors();
         this.current = puzzle;
     }
@@ -23,32 +23,34 @@ public class DFS{
         }
 
         foreach (TileType tile in colors){ 
-            
-            Puzzle puzzleDown = current.copy();
-            if (puzzleDown.moveDown(tile)){
+
+            if (current.moveDown(tile)){
                 Debug.Log("Moving " + tile + " down");
-                if(search(puzzleDown))
+                if(search(current))
                     return true;
+                Debug.Log("Undoing move " + tile + " down");
+                current.undoMoveDown(tile);
             }    
-
-            Puzzle puzzleUp= current.copy();
-            if (puzzleUp.moveUp(tile)){
+            if (current.moveUp(tile)){
                 Debug.Log("Moving " + tile + " up");
-                if(search(puzzleUp))
+                if(search(current))
                     return true;
-
+                Debug.Log("Undoing move " + tile + " up");
+                current.undoMoveUp(tile);
             }     
-            Puzzle puzzleLeft = current.copy();
-            if (puzzleLeft.moveLeft(tile)){
+            if (current.moveLeft(tile)){
                 Debug.Log("Moving " + tile + " left");
-                if(search(puzzleLeft))
+                if(search(current))
                     return true;
+                Debug.Log("Undoing move " + tile + " left");
+                current.undoMoveLeft(tile);
             }  
-            Puzzle puzzleRight = current.copy();
-            if (puzzleRight.moveRight(tile)){
+            if (current.moveRight(tile)){
                 Debug.Log("Moving " + tile + " right");
-                if(search(puzzleRight))
+                if(search(current))
                     return true;
+                Debug.Log("Undoing move " + tile + " right");
+                current.undoMoveRight(tile);
             }
         }
                                 

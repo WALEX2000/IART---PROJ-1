@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
         currentPuzzle = new Puzzle(Puzzle.puzzle4, tilePrefab);
         //currentPuzzle.displayPuzzle();
-        currentPuzzle.search("bfs");
+        currentPuzzle.search("IDDFS");
         currentPuzzle.displayPuzzle();
         StartCoroutine(DisplayPuzzleStates(2));
     }

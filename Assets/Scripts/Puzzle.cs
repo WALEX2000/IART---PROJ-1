@@ -432,16 +432,28 @@ public class Puzzle
 
         Puzzle current = copy();
 
-        if(typeOfSearch == "dfs"){
+        if(typeOfSearch == "DFS"){
 
             DFS dfs = new DFS(current);
             if(dfs.search(current))
                 return true;
 
-        } else if(typeOfSearch == "bfs"){
+        }else if(typeOfSearch == "DFSUndo"){
+
+            DFSUndo dfsU = new DFSUndo(current);
+            if(dfsU.search(current))
+                return true;
+
+        } 
+        else if(typeOfSearch == "BFS"){
 
             BFS bfs = new BFS(current);
             bfs.search();
+
+        } else if(typeOfSearch == "IDDFS"){
+
+            IDDFS iDDFS = new IDDFS(current,7);
+            iDDFS.search();
         }
     
         return false;

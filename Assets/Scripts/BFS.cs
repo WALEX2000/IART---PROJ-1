@@ -13,8 +13,7 @@ public class BFS{
 
     public BFS(Puzzle puzzle){
         colors = puzzle.puzzleColors();
-        this.puzzle = puzzle;
-
+        this.puzzle = puzzle.copy();
     }
 
     public bool search(){
