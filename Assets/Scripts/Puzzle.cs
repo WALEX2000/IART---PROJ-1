@@ -97,15 +97,9 @@ public class Puzzle
                     if(j > rotationAxis[3]){
                         rotationAxis[3] = j;
                     }  
-    
-                }   
-                
-            }
-            
+                }         
+            }   
         }
-
-
-
         return rotationAxis;
 
     }
