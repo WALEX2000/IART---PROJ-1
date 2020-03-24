@@ -7,19 +7,29 @@ public class DFS{
     List<TileType> colors;
     Puzzle current;
 
+    HashSet<Puzzle> visited;
+
 
 
     public DFS(Puzzle puzzle){
         colors = puzzle.puzzleColors();
         this.current = puzzle;
+        visited = new HashSet<Puzzle>();
     }
 
 
     public List<Puzzle> search(Puzzle current){
 
+
         if(current.isComplete()){   
             return new List<Puzzle>{current.copy()};
         }
+
+        //Acho que nao piora!! o problema e que estava a ser passado como argumento
+        // if(visited.Contains(current)){
+        //     return false;
+        // }
+        // visited.Add(current);
 
         List<Puzzle> puzzleList;
         foreach (TileType tile in colors){ 
