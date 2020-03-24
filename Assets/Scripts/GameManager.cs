@@ -12,19 +12,19 @@ public class GameManager : MonoBehaviour
     public void Start() {
 
         Example example = new Example();
-        currentPuzzle = new Puzzle(example.puzzleMedium, tilePrefab);
+        currentPuzzle = new Puzzle(example.puzzle4, tilePrefab);
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
-        currentPuzzle.search("DFS");
+        List<Puzzle> steps = currentPuzzle.search("DFSUndo");
+        steps.Reverse();
+        Debug.Log("Steps taken: "+ steps.Count);
 
         watch.Stop();
-        Debug.Log(watch.ElapsedMilliseconds/1000.0);
-  
+        Debug.Log("Time taken: "+watch.ElapsedMilliseconds/1000.0);
 
-
-        StartCoroutine(DisplayPuzzleStates(2));
+        StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();
@@ -32,10 +32,12 @@ public class GameManager : MonoBehaviour
         puzzleStates.Add(puzzle);
     }
 
-    private IEnumerator DisplayPuzzleStates(int time) {
-        Debug.Log(puzzleStates.Count);
-        for(int i = 0; i < puzzleStates.Count; i++) {
-            Puzzle puzzle = puzzleStates[i];
+    private IEnumerator DisplayPuzzleStates(List<Puzzle> steps, int time) {
+        //Debug.Log(puzzleStates.Count);
+        for(int i = 0; i < steps.Count; i++) {
+            if(i!=0)
+                steps[i-1].hidePuzzle();
+            Puzzle puzzle = steps[i];
             Debug.Log("Started Displaying");
             puzzle.displayPuzzle();
             yield return new WaitForSeconds(time);

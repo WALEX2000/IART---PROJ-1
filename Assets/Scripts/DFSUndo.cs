@@ -15,47 +15,58 @@ public class DFSUndo{
     }
 
 
-    public bool search(Puzzle current){
+    public List<Puzzle> search(Puzzle current){
 
         if(current.isComplete()){   
-            current.displayPuzzle();
-            return true;
+            return new List<Puzzle>{current.copy()};
         }
 
+        List<Puzzle> puzzleList;
         foreach (TileType tile in colors){ 
 
             if (current.moveDown(tile)){
-                Debug.Log("Moving " + tile + " down");
-                if(search(current))
-                    return true;
-                Debug.Log("Undoing move " + tile + " down");
+                
+                if((puzzleList=search(current))!=null) {
+                    current.undoMoveDown(tile);
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
+                
                 current.undoMoveDown(tile);
             }    
             if (current.moveUp(tile)){
-                Debug.Log("Moving " + tile + " up");
-                if(search(current))
-                    return true;
-                Debug.Log("Undoing move " + tile + " up");
+                
+                if((puzzleList=search(current))!=null) {
+                    current.undoMoveUp(tile);
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
+                
                 current.undoMoveUp(tile);
             }     
             if (current.moveLeft(tile)){
-                Debug.Log("Moving " + tile + " left");
-                if(search(current))
-                    return true;
-                Debug.Log("Undoing move " + tile + " left");
+                
+                if((puzzleList=search(current))!=null) {
+                    current.undoMoveLeft(tile);
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
+                
                 current.undoMoveLeft(tile);
             }  
             if (current.moveRight(tile)){
-                Debug.Log("Moving " + tile + " right");
-                if(search(current))
-                    return true;
-                Debug.Log("Undoing move " + tile + " right");
+                
+                if((puzzleList=search(current))!=null) {
+                    current.undoMoveRight(tile);
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
+                
                 current.undoMoveRight(tile);
             }
         }
                                 
-        return false;
-
+        return null;
     }
 
 }
