@@ -7,7 +7,7 @@ public enum TileType {Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta}
 
 public class Puzzle
 {
-
+    private List<GameObject> gameObjects = new List<GameObject>();
     private GameObject tilePrefab;
     private TileType[][] puzzleMatrix;
     public TileType[][] PuzzleMatrix{get {return puzzleMatrix;} set{puzzleMatrix = value;}}
@@ -39,9 +39,11 @@ public class Puzzle
                 if(puzzleMatrix[i][j] != TileType.Null) {
                     GameObject baseTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(i, 0.125f, j), Quaternion.identity); //Base Block Below
                     baseTile.GetComponent<MeshRenderer>().material.color = Color.white;
+                    gameObjects.Add(baseTile);
                           
                     if((int)puzzleMatrix[i][j] > 1) {
                         GameObject instantiatedTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(i, 0.375f, j), Quaternion.identity); //Actual Tiles on top                    
+                        gameObjects.Add(instantiatedTile);
 
                         switch(puzzleMatrix[i][j]) {
                             case TileType.Blue:
@@ -69,6 +71,12 @@ public class Puzzle
                     }
                 }
             }
+        }
+    }
+
+    public void hidePuzzle() {
+        for(int i = 0; i < gameObjects.Count; i++) {
+            UnityEngine.Object.Destroy(gameObjects[i]);
         }
     }
     public int[] findRotationAxis(TileType tile){
@@ -426,7 +434,7 @@ public class Puzzle
 
 
 
-    public bool search(String typeOfSearch){
+    public List<Puzzle> search(String typeOfSearch){
 
         Puzzle current = copy();
 
@@ -434,14 +442,12 @@ public class Puzzle
         if(typeOfSearch == "DFS"){
 
             DFS dfs = new DFS(current);
-            if(dfs.search(current))
-                return true;
+            return dfs.search(current);
 
         }else if(typeOfSearch == "DFSUndo"){
 
             DFSUndo dfsU = new DFSUndo(current);
-            if(dfsU.search(current))
-                return true;
+            return dfsU.search(current);
 
         } 
         else if(typeOfSearch == "BFS"){
@@ -457,7 +463,7 @@ public class Puzzle
 
   
     
-        return false;
+        return null;
 
     }
 

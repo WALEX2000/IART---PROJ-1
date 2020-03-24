@@ -15,45 +15,47 @@ public class DFS{
     }
 
 
-    public bool search(Puzzle current){
+    public List<Puzzle> search(Puzzle current){
 
         if(current.isComplete()){   
-            current.displayPuzzle();
-            return true;
+            return new List<Puzzle>{current.copy()};
         }
 
+        List<Puzzle> puzzleList;
         foreach (TileType tile in colors){ 
             
             Puzzle puzzleDown = current.copy();
             if (puzzleDown.moveDown(tile)){
-                // Debug.Log("Moving " + tile + " down");
-                if(search(puzzleDown))
-                    return true;
+                if((puzzleList=search(puzzleDown))!=null) {
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
             }    
 
             Puzzle puzzleUp= current.copy();
             if (puzzleUp.moveUp(tile)){
-                // Debug.Log("Moving " + tile + " up");
-                if(search(puzzleUp))
-                    return true;
-
+                if((puzzleList=search(puzzleUp))!=null) {
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
             }     
             Puzzle puzzleLeft = current.copy();
             if (puzzleLeft.moveLeft(tile)){
-                // Debug.Log("Moving " + tile + " left");
-                if(search(puzzleLeft))
-                    return true;
+                if((puzzleList=search(puzzleLeft))!=null) {
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
             }  
             Puzzle puzzleRight = current.copy();
             if (puzzleRight.moveRight(tile)){
-                // Debug.Log("Moving " + tile + " right");
-                if(search(puzzleRight))
-                    return true;
+                if((puzzleList=search(puzzleRight))!=null) {
+                    puzzleList.Add(current.copy());
+                    return puzzleList;
+                }
             }
         }
                                 
-        return false;
-
+        return null;
     }
 
 }
