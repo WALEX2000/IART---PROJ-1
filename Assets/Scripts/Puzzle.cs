@@ -71,6 +71,8 @@ public class Puzzle
             }
         }
     }
+
+    //Does not work so well
     public int[] findRotationAxis(TileType tile){
 
         int[] rotationAxis = new int[4];
