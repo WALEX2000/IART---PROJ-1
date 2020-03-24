@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
         Example example = new Example();
         currentPuzzle = new Puzzle(example.puzzleMedium, tilePrefab);
+
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();

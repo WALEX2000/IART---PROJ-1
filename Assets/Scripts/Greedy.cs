@@ -28,29 +28,29 @@ public class Greedy{
     //Ver os filhos e calcular matriz de score de todas somadas
     public int calculateMatrixScore(Puzzle puzzle){
 
-        List<List<int>> matrix = new List<List<int>>();
+        // List<List<int>> matrix = new List<List<int>>();
 
 
 
-        foreach (TileType tile in colors){
+        // foreach (TileType tile in colors){
             
-            Puzzle puzzleDown = current.copy();
-            if (puzzleDown.moveDown(tile)){
+        //     Puzzle puzzleDown = current.copy();
+        //     if (puzzleDown.moveDown(tile)){
 
-            }    
-            Puzzle puzzleUp =current.copy();
+        //     }    
+        //     Puzzle puzzleUp =current.copy();
             
-            if (puzzleUp.moveUp(tile)){
-            }     
-            Puzzle puzzleLeft =current.copy();
-            if (puzzleLeft.moveLeft(tile)){
-            }  
-            Puzzle puzzleRight =current.copy();
-            if (puzzleRight.moveRight(tile)){
+        //     if (puzzleUp.moveUp(tile)){
+        //     }     
+        //     Puzzle puzzleLeft =current.copy();
+        //     if (puzzleLeft.moveLeft(tile)){
+        //     }  
+        //     Puzzle puzzleRight =current.copy();
+        //     if (puzzleRight.moveRight(tile)){
 
-            }        
+        //     }        
 
-        }
+        // }
         return 0;
 
     }
@@ -107,35 +107,35 @@ public class Greedy{
     public bool greedySearch(){
 
 
-        Puzzle current = priorityQueue.Dequeue();
+        // Puzzle current = priorityQueue.Dequeue();
   
-        if(current.isComplete()){   
-            current.displayPuzzle();
-            return true;
-        } 
+        // if(current.isComplete()){   
+        //     current.displayPuzzle();
+        //     return true;
+        // } 
 
-        current.displayConsole();
+        // current.displayConsole();
 
-        foreach (TileType tile in colors){
+        // foreach (TileType tile in colors){
             
-            Puzzle puzzleDown = current.copy();
-            if (puzzleDown.moveDown(tile)){
-                priorityQueue.Enqueue(puzzleDown);                        
-            }    
-            Puzzle puzzleUp =current.copy();
+        //     Puzzle puzzleDown = current.copy();
+        //     if (puzzleDown.moveDown(tile)){
+        //         priorityQueue.Enqueue(puzzleDown);                        
+        //     }    
+        //     Puzzle puzzleUp =current.copy();
             
-            if (puzzleUp.moveUp(tile)){
-                priorityQueue.Enqueue(puzzleUp);                        
-            }     
-            Puzzle puzzleLeft =current.copy();
-            if (puzzleLeft.moveLeft(tile)){
-                priorityQueue.Enqueue(puzzleLeft);                        
-            }  
-            Puzzle puzzleRight =current.copy();
-            if (puzzleRight.moveRight(tile)){
-                priorityQueue.Enqueue(puzzleRight);                        
-            }        
-        }
+        //     if (puzzleUp.moveUp(tile)){
+        //         priorityQueue.Enqueue(puzzleUp);                        
+        //     }     
+        //     Puzzle puzzleLeft =current.copy();
+        //     if (puzzleLeft.moveLeft(tile)){
+        //         priorityQueue.Enqueue(puzzleLeft);                        
+        //     }  
+        //     Puzzle puzzleRight =current.copy();
+        //     if (puzzleRight.moveRight(tile)){
+        //         priorityQueue.Enqueue(puzzleRight);                        
+        //     }        
+        // }
 
         return false;
 

@@ -108,23 +108,7 @@ public class Puzzle
 
     }
 
-    public bool moveUp(TileType tile){
-
-        int rotationAxis = puzzleMatrix.Length;
-        bool foundAxis = false;
-
-        //Discover the rotation axis
-        for (int i = 0; (i < puzzleMatrix.Length) && (!foundAxis); i++){
-            for (int j = 0; j < puzzleMatrix[i].Length; j++){
-
-                if(puzzleMatrix[i][j] == tile){
-                    rotationAxis = i;
-                    foundAxis = true;
-                    break;
-                } 
-                               
-            }
-        }
+    public bool moveUp(TileType tile,int rotationAxis){
 
         List<Tuple<int,int>> positions = new List<Tuple<int,int>>() ;
 
@@ -177,21 +161,8 @@ public class Puzzle
         }
     }
 
-    public bool moveDown(TileType tile){
+    public bool moveDown(TileType tile, int rotationAxis){
 
-        int rotationAxis = -1;
-        bool foundAxis = false;
-
-        //Discover the rotation axis
-        for (int i = puzzleMatrix.Length-1; (i >= 0) && (!foundAxis); i--){
-            for (int j = 0; j < puzzleMatrix[i].Length; j++){
-                if(puzzleMatrix[i][j] == tile){
-                    rotationAxis = i;
-                    foundAxis = true;
-                    break;
-                }                
-            }
-        }
 
         List<Tuple<int,int>> positions = new List<Tuple<int,int>>() ;
 
@@ -244,18 +215,7 @@ public class Puzzle
         }
     }
 
-     public bool moveRight(TileType tile){
-
-        int rotationAxis = -1;
-
-        //Discover the rotation axis
-        for (int i = 0; i < puzzleMatrix.Length; i++){
-            for (int j = puzzleMatrix[i].Length-1; (j >= 0); j--){
-                if(puzzleMatrix[i][j] == tile && j > rotationAxis){
-                    rotationAxis = j;
-                }                
-            }
-        }
+     public bool moveRight(TileType tile, int rotationAxis){
 
         List<Tuple<int,int>> positions = new List<Tuple<int,int>>() ;
 
@@ -307,18 +267,8 @@ public class Puzzle
         }
     }
 
-    public bool moveLeft(TileType tile){
+    public bool moveLeft(TileType tile, int rotationAxis){
 
-        int rotationAxis = puzzleMatrix.Length;
-
-        //Discover the rotation axis
-        for (int i = 0; i < puzzleMatrix.Length; i++){
-            for (int j = 0; j < puzzleMatrix[i].Length; j++){
-                if(puzzleMatrix[i][j] == tile && j < rotationAxis){
-                    rotationAxis = j;
-                }                
-            }
-        }
 
         List<Tuple<int,int>> positions = new List<Tuple<int,int>>() ;
 

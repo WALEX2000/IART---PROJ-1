@@ -27,44 +27,44 @@ public class IDDFSUndo{
 
      public bool dls(Puzzle current,int limit){
 
-        if(current.isComplete()){   
-            current.displayPuzzle();
-            return true;
-        }
+        // if(current.isComplete()){   
+        //     current.displayPuzzle();
+        //     return true;
+        // }
 
-        if(limit <= 0) return false;
+        // if(limit <= 0) return false;
 
-        foreach (TileType tile in colors){ 
+        // foreach (TileType tile in colors){ 
 
-            if (current.moveDown(tile)){
-                Debug.Log("Moving " + tile + " down");
-                if(dls(current,limit-1))
-                    return true;
-                Debug.Log("Undoing move " + tile + " down");
-                current.undoMoveDown(tile);
-            }    
-            if (current.moveUp(tile)){
-                Debug.Log("Moving " + tile + " up");
-                if(dls(current,limit-1))
-                    return true;
-                Debug.Log("Undoing move " + tile + " up");
-                current.undoMoveUp(tile);
-            }     
-            if (current.moveLeft(tile)){
-                Debug.Log("Moving " + tile + " left");
-                if(dls(current,limit-1))
-                    return true;
-                Debug.Log("Undoing move " + tile + " left");
-                current.undoMoveLeft(tile);
-            }  
-            if (current.moveRight(tile)){
-                Debug.Log("Moving " + tile + " right");
-                if(dls(current,limit-1))
-                    return true;
-                Debug.Log("Undoing move " + tile + " right");
-                current.undoMoveRight(tile);
-            }
-        }
+        //     if (current.moveDown(tile)){
+        //         Debug.Log("Moving " + tile + " down");
+        //         if(dls(current,limit-1))
+        //             return true;
+        //         Debug.Log("Undoing move " + tile + " down");
+        //         current.undoMoveDown(tile);
+        //     }    
+        //     if (current.moveUp(tile)){
+        //         Debug.Log("Moving " + tile + " up");
+        //         if(dls(current,limit-1))
+        //             return true;
+        //         Debug.Log("Undoing move " + tile + " up");
+        //         current.undoMoveUp(tile);
+        //     }     
+        //     if (current.moveLeft(tile)){
+        //         Debug.Log("Moving " + tile + " left");
+        //         if(dls(current,limit-1))
+        //             return true;
+        //         Debug.Log("Undoing move " + tile + " left");
+        //         current.undoMoveLeft(tile);
+        //     }  
+        //     if (current.moveRight(tile)){
+        //         Debug.Log("Moving " + tile + " right");
+        //         if(dls(current,limit-1))
+        //             return true;
+        //         Debug.Log("Undoing move " + tile + " right");
+        //         current.undoMoveRight(tile);
+        //     }
+        // }
                                 
         return false;
 
