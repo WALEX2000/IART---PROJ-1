@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public void Start() {
 
-        currentPuzzle = new Puzzle(Puzzle.puzzleExpert, tilePrefab);
+        Example example = new Example();
+        currentPuzzle = new Puzzle(example.puzzleMedium, tilePrefab);
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();

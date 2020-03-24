@@ -76,6 +76,8 @@ public class Greedy{
     }
 
 
+
+    //Tambem pode servir como heuristica para quao mais preenchido melhor
     public int calculatePuzzleScore(Puzzle current){
 
         int score = 0;
