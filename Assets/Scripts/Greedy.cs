@@ -15,9 +15,12 @@ public class Greedy{
 
     private List<TileType> colors;
     private Puzzle current;
+
+    private Queue<Puzzle> priorityQueue;
     public Greedy(Puzzle puzzle){
         colors = puzzle.puzzleColors();
         this.current = puzzle;
+        priorityQueue = new Queue<Puzzle>();
     }
 
 
@@ -85,6 +88,55 @@ public class Greedy{
         }
         Debug.Log("Matrix score = " + score);
         return score;
+    }
+
+
+    public bool search(){
+        priorityQueue.Enqueue(current);
+        while(priorityQueue.Count != 0){          
+            if(greedySearch()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Nao esquecer que o BFS funcionava melhor com uma lista do que com uma queue
+    public bool greedySearch(){
+
+
+        Puzzle current = priorityQueue.Dequeue();
+  
+        if(current.isComplete()){   
+            current.displayPuzzle();
+            return true;
+        } 
+
+        current.displayConsole();
+
+        foreach (TileType tile in colors){
+            
+            Puzzle puzzleDown = current.copy();
+            if (puzzleDown.moveDown(tile)){
+                priorityQueue.Enqueue(puzzleDown);                        
+            }    
+            Puzzle puzzleUp =current.copy();
+            
+            if (puzzleUp.moveUp(tile)){
+                priorityQueue.Enqueue(puzzleUp);                        
+            }     
+            Puzzle puzzleLeft =current.copy();
+            if (puzzleLeft.moveLeft(tile)){
+                priorityQueue.Enqueue(puzzleLeft);                        
+            }  
+            Puzzle puzzleRight =current.copy();
+            if (puzzleRight.moveRight(tile)){
+                priorityQueue.Enqueue(puzzleRight);                        
+            }        
+        }
+
+        return false;
+
     }
 
 
