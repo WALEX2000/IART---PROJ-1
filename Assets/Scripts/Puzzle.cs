@@ -71,6 +71,42 @@ public class Puzzle
             }
         }
     }
+    public int[] findRotationAxis(TileType tile){
+
+        int[] rotationAxis = new int[4];
+        rotationAxis[0] = puzzleMatrix.Length;
+        rotationAxis[2] = puzzleMatrix[0].Length;
+        rotationAxis[3] = -1;
+
+        //Discover the rotation axis
+        for (int i = 0; i < puzzleMatrix.Length; i++){
+            for (int j = 0; j < puzzleMatrix[0].Length; j++){
+                if(puzzleMatrix[i][j] == tile){
+
+                    if(i < rotationAxis[0]){
+                        rotationAxis[0] = i;
+                    }
+                    rotationAxis[1] = i; //Calculates the DownRotationAxis
+
+                    if(j < rotationAxis[2]){
+                        rotationAxis[2] = j;
+                    } 
+
+                    if(j > rotationAxis[3]){
+                        rotationAxis[3] = j;
+                    }  
+    
+                }   
+                
+            }
+            
+        }
+
+
+
+        return rotationAxis;
+
+    }
 
     public bool moveUp(TileType tile){
 
@@ -85,7 +121,8 @@ public class Puzzle
                     rotationAxis = i;
                     foundAxis = true;
                     break;
-                }                
+                } 
+                               
             }
         }
 
@@ -387,7 +424,7 @@ public class Puzzle
         Debug.Log(puzzleString);
     }
 
-    
+
 
     public bool search(String typeOfSearch){
 

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
         watch.Stop();
         Debug.Log(watch.ElapsedMilliseconds/1000.0);
+  
 
 
         StartCoroutine(DisplayPuzzleStates(2));
