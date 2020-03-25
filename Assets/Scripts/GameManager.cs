@@ -18,19 +18,19 @@ public class GameManager : MonoBehaviour
     {
 
         Example example = new Example();
-        currentPuzzle = new Puzzle(example.puzzleEasy2, tilePrefab);
+        currentPuzzle = new Puzzle(example.puzzleDifficult, tilePrefab);
 
 
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
         List<Puzzle> steps = currentPuzzle.search("SimpleGreedy");
-        steps.Reverse();
-        Debug.Log("Steps taken: " + steps.Count);
 
         watch.Stop();
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
+        steps.Reverse();
+        Debug.Log("Steps taken: " + steps.Count);
         StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 

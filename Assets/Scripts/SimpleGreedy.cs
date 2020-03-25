@@ -63,8 +63,6 @@ public class SimpleGreedy
     {
 
 
-
-
         Puzzle current = priorityQueue.Dequeue();
 
         if (current.isComplete())
