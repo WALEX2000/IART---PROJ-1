@@ -1,17 +1,34 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
-using System.Collections; 
+using System.Collections;
 
 
-public class Example{
+public class Example
+{
     //HARDCODED PUZZLES//
-    public TileType[][] puzzle1 = new TileType[][]
+    public TileType[][] puzzleEasy1 = new TileType[][]
     {
         new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Empty}
+    };
+    public TileType[][] puzzleEasy2 = new TileType[][]
+    {
+        new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Blue}
+    };
+    public TileType[][] puzzleEasy3 = new TileType[][]
+    {
+        new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Blue, TileType.Blue},
         new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Blue}
     };
 
