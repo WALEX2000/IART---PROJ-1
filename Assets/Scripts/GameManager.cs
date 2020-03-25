@@ -18,13 +18,13 @@ public class GameManager : MonoBehaviour
     {
 
         Example example = new Example();
-        currentPuzzle = new Puzzle(example.puzzleDifficult, tilePrefab);
+        currentPuzzle = new Puzzle(example.puzzleEasy3, tilePrefab);
 
 
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
-        List<Puzzle> steps = currentPuzzle.search("SimpleGreedy");
+        List<Puzzle> steps = currentPuzzle.search("BFS");
 
         watch.Stop();
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
