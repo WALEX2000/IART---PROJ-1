@@ -13,7 +13,6 @@ using UnityEngine;
 public class SimpleGreedy
 {
 
-
     private List<TileType> colors;
     private Puzzle current;
 
@@ -24,10 +23,7 @@ public class SimpleGreedy
         colors = puzzle.puzzleColors();
         this.current = puzzle;
         priorityQueue = new PriorityQueue<Puzzle>();
-
     }
-
-
 
     //Preenche primeiro os maiores
     public static int calculatePuzzleScore(Puzzle current)
