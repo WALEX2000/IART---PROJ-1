@@ -10,7 +10,8 @@ public class BFS{
     private Puzzle puzzle;
 
 
-    public BFS(Puzzle puzzle){
+    public BFS(Puzzle puzzle)
+    {
         colors = puzzle.puzzleColors();
         this.puzzle = puzzle.copy();
     }
