@@ -27,9 +27,7 @@ public class GameManager : MonoBehaviour
 
         watch.Stop();
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
-
-        steps.Reverse();
-        Debug.Log("Steps taken: " + steps.Count);
+        
         StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 
