@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
         Example example = new Example();
         currentPuzzle = new Puzzle(example.puzzleEasy3, tilePrefab);
 
-
-
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
         List<Puzzle> steps = currentPuzzle.search("BFS");

@@ -15,15 +15,18 @@ public class DFSUndo{
     }
 
 
-    public Node search(Node current){
+    public List<Puzzle> search(Puzzle current){
 
         if(current.isComplete()){
-            return this;
+            return new List<Puzzle>{current.copy()};
         }
 
+        List<Puzzle> puzzleList;
         foreach (TileType tile in colors){ 
-            if (current.getPuzzle().moveDown(tile)) {
-                if((nextNode=search(current))!=null) {
+
+            if (current.moveDown(tile)){
+                
+                if((puzzleList=search(current))!=null) {
                     current.undoMoveDown(tile);
                     puzzleList.Add(current.copy());
                     return puzzleList;
