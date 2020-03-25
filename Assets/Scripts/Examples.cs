@@ -12,7 +12,7 @@ public class Example{
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
-        new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Empty}
+        new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Blue}
     };
 
     public TileType[][] puzzle2 = new TileType[][]

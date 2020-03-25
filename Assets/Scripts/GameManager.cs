@@ -12,12 +12,12 @@ public class GameManager : MonoBehaviour
     public void Start() {
 
         Example example = new Example();
-        currentPuzzle = new Puzzle(example.puzzle4, tilePrefab);
+        currentPuzzle = new Puzzle(example.puzzle1, tilePrefab);
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
-        List<Puzzle> steps = currentPuzzle.search("DFSUndo");
+        List<Puzzle> steps = currentPuzzle.search("SimpleGreedy");
         steps.Reverse();
         Debug.Log("Steps taken: "+ steps.Count);
 

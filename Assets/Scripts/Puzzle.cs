@@ -5,7 +5,7 @@ using System.Collections;
 
 public enum TileType {Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta}
 
-public class Puzzle
+public class Puzzle: IComparable<Puzzle>
 {
     private List<GameObject> gameObjects = new List<GameObject>();
     private GameObject tilePrefab;
@@ -422,6 +422,8 @@ public class Puzzle
             {
                 puzzleString+=puzzleMatrix[i][j] + " ";
             }            
+                puzzleString+="\n";
+
         }
         Debug.Log(puzzleString);
     }
@@ -453,12 +455,23 @@ public class Puzzle
 
             IDDFS iDDFS = new IDDFS(current,6);
             iDDFS.search();
+        } else if(typeOfSearch == "SimpleGreedy"){
+
+            SimpleGreedy simpleGreedy = new SimpleGreedy(current);
+            simpleGreedy.search();
         }
 
-  
-    
         return null;
 
+    }
+    //Using Simple Greedy algorithm
+    public int CompareTo(Puzzle other)
+    {
+      int thisScore = SimpleGreedy.calculatePuzzleScore(this);
+      int otherScore = SimpleGreedy.calculatePuzzleScore(this);
+      if (thisScore < otherScore) return -1;
+      else if (thisScore > otherScore) return 1;
+      else return 0;
     }
 
 

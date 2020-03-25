@@ -17,10 +17,13 @@ public class Greedy{
     private Puzzle current;
 
     private Queue<Puzzle> priorityQueue;
+
     public Greedy(Puzzle puzzle){
         colors = puzzle.puzzleColors();
         this.current = puzzle;
         priorityQueue = new Queue<Puzzle>();
+        PriorityQueue<Puzzle> pq = new PriorityQueue<Puzzle>();
+
     }
 
 
@@ -78,7 +81,7 @@ public class Greedy{
 
 
     //Tambem pode servir como heuristica para quao mais preenchido melhor
-    public int calculatePuzzleScore(Puzzle current){
+    public static int calculatePuzzleScore(Puzzle current){
 
         int score = 0;
         for (int i = 0; i < current.PuzzleMatrix.Length; i++){
