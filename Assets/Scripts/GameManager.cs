@@ -16,14 +16,13 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-
         Example example = new Example();
         currentPuzzle = new Puzzle(example.puzzleEasy2, tilePrefab);
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
-        List<Puzzle> steps = currentPuzzle.search("SimpleGreedy");
-        steps.Reverse();
+        Node solution = currentPuzzle.search("DFSUndo");
+        List<Puzzle> steps = solution.getPath();
         Debug.Log("Steps taken: " + steps.Count);
 
         watch.Stop();
@@ -46,7 +45,6 @@ public class GameManager : MonoBehaviour
             if (i != 0)
                 steps[i - 1].hidePuzzle();
             Puzzle puzzle = steps[i];
-            Debug.Log("Started Displaying");
             puzzle.displayPuzzle();
             yield return new WaitForSeconds(time);
         }

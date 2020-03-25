@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class DFSUndo{
     List<TileType> colors;
     Puzzle current;
@@ -14,55 +13,51 @@ public class DFSUndo{
         this.current = puzzle;
     }
 
-
-    public List<Puzzle> search(Puzzle current){
-
-        if(current.isComplete()){
-            return new List<Puzzle>{current.copy()};
+    public Node search() {
+        return depthFirstSearchUndo(new Node(current, null, 0));
+    }
+    public Node depthFirstSearchUndo(Node current){
+        if(current.puzzle.isComplete()){
+            current.puzzle = current.puzzle.copy();
+            return current;
         }
 
-        List<Puzzle> puzzleList;
+        Node finalNode;
         foreach (TileType tile in colors){ 
+            if (current.puzzle.moveDown(tile)){
+                if((finalNode=depthFirstSearchUndo(new Node(current.puzzle, current, 0)))!=null) {
+                    current.puzzle.undoMoveDown(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
+                }
+                current.puzzle.undoMoveDown(tile);
+            }
 
-            if (current.moveDown(tile)){
-                
-                if((puzzleList=search(current))!=null) {
-                    current.undoMoveDown(tile);
-                    puzzleList.Add(current.copy());
-                    return puzzleList;
+            if (current.puzzle.moveUp(tile)){
+                if((finalNode=depthFirstSearchUndo(new Node(current.puzzle, current, 0)))!=null) {
+                    current.puzzle.undoMoveUp(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
                 }
-                
-                current.undoMoveDown(tile);
-            }    
-            if (current.moveUp(tile)){
-                
-                if((puzzleList=search(current))!=null) {
-                    current.undoMoveUp(tile);
-                    puzzleList.Add(current.copy());
-                    return puzzleList;
+                current.puzzle.undoMoveUp(tile);
+            }
+
+            if (current.puzzle.moveLeft(tile)){
+                if((finalNode=depthFirstSearchUndo(new Node(current.puzzle, current, 0)))!=null) {
+                    current.puzzle.undoMoveLeft(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
                 }
-                
-                current.undoMoveUp(tile);
-            }     
-            if (current.moveLeft(tile)){
-                
-                if((puzzleList=search(current))!=null) {
-                    current.undoMoveLeft(tile);
-                    puzzleList.Add(current.copy());
-                    return puzzleList;
+                current.puzzle.undoMoveLeft(tile);
+            }
+
+            if (current.puzzle.moveRight(tile)){
+                if((finalNode=depthFirstSearchUndo(new Node(current.puzzle, current, 0)))!=null) {
+                    current.puzzle.undoMoveRight(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
                 }
-                
-                current.undoMoveLeft(tile);
-            }  
-            if (current.moveRight(tile)){
-                
-                if((puzzleList=search(current))!=null) {
-                    current.undoMoveRight(tile);
-                    puzzleList.Add(current.copy());
-                    return puzzleList;
-                }
-                
-                current.undoMoveRight(tile);
+                current.puzzle.undoMoveRight(tile);
             }
         }
                                 
@@ -70,6 +65,4 @@ public class DFSUndo{
     }
 
 }
-
-
    

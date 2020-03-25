@@ -526,30 +526,30 @@ public class Puzzle : IComparable<Puzzle>
 
 
 
-    public List<Puzzle> search(String typeOfSearch)
+    public Node search(String typeOfSearch)
     {
         Puzzle current = copy();
         if (typeOfSearch == "DFS")
         {
             DFS dfs = new DFS(current);
-            return dfs.search(current);
+            return dfs.search();
 
         }
         else if (typeOfSearch == "DFSUndo")
         {
 
             DFSUndo dfsU = new DFSUndo(current);
-            return dfsU.search(current);
+            return dfsU.search();
 
         }
         else if (typeOfSearch == "BFS")
         {
 
             BFS bfs = new BFS(current);
-            bfs.search();
+            return bfs.search();
 
         }
-        else if (typeOfSearch == "IDDFS")
+        /*else if (typeOfSearch == "IDDFS")
         {
 
             IDDFS iDDFS = new IDDFS(current, 6);
@@ -560,7 +560,7 @@ public class Puzzle : IComparable<Puzzle>
 
             SimpleGreedy simpleGreedy = new SimpleGreedy(current);
             simpleGreedy.search();
-        }
+        }*/
 
         return null;
 
