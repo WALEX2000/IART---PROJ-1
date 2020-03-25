@@ -526,13 +526,13 @@ public class Puzzle : IComparable<Puzzle>
 
 
 
-    public Node search(String typeOfSearch)
+    public List<Puzzle> search(String typeOfSearch)
     {
-        Node initialNode = new Node(this.copy(), null, 0);
+        Puzzle current = copy();
         if (typeOfSearch == "DFS")
         {
-            DFS dfs = new DFS(this.copy());
-            return dfs.search(initialNode);
+            DFS dfs = new DFS(current);
+            return dfs.search(current);
 
         }
         else if (typeOfSearch == "DFSUndo")
