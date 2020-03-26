@@ -114,7 +114,7 @@ public class Greedy
                 else score += 1; //Give 1 Point to each color
             }
         }
-        Debug.Log("Matrix score = " + score);
+
         return score;
     }
 

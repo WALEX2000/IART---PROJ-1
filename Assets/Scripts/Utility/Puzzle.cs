@@ -529,7 +529,13 @@ public class Puzzle : IComparable<Puzzle>
     public Node search(String typeOfSearch)
     {
         Puzzle current = copy();
-        if (typeOfSearch == "DFS")
+        if (typeOfSearch == "BFS")
+        {
+            BFS bfs = new BFS();
+            return bfs.search(current);
+
+        }
+        else if (typeOfSearch == "DFS")
         {
             DFS dfs = new DFS();
             return dfs.search(current);
@@ -540,22 +546,22 @@ public class Puzzle : IComparable<Puzzle>
             DFSUndo dfsU = new DFSUndo();
             return dfsU.search(current);
         }
-        else if (typeOfSearch == "BFS")
-        {
-            BFS bfs = new BFS();
-            return bfs.search(current);
-
-        }
         else if (typeOfSearch == "IDDFS")
         {
             IDDFS iDDFS = new IDDFS();
-            iDDFS.search(current, 6);
+            iDDFS.search(current, 20);
+        }
+        else if (typeOfSearch == "IDDFSUndo")
+        {
+            IDDFSUndo iDDFSUndo = new IDDFSUndo();
+            iDDFSUndo.search(current, 20);
         }
         else if (typeOfSearch == "SimpleGreedy")
         {
             SimpleGreedy simpleGreedy = new SimpleGreedy();
             simpleGreedy.search(current);
         }
+        else Debug.Log("Algortithm does not exist");
 
         return null;
 

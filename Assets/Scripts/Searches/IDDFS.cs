@@ -43,7 +43,6 @@ public class IDDFS
             Puzzle puzzleDown = current.copy();
             if (puzzleDown.moveDown(tile))
             {
-                Debug.Log("Moving " + tile + " down");
                 if (dls(puzzleDown, limit - 1))
                     return true;
             }
@@ -51,7 +50,6 @@ public class IDDFS
             Puzzle puzzleUp = current.copy();
             if (puzzleUp.moveUp(tile))
             {
-                Debug.Log("Moving " + tile + " up");
                 if (dls(puzzleUp, limit - 1))
                     return true;
 
@@ -59,14 +57,12 @@ public class IDDFS
             Puzzle puzzleLeft = current.copy();
             if (puzzleLeft.moveLeft(tile))
             {
-                Debug.Log("Moving " + tile + " left");
                 if (dls(puzzleLeft, limit - 1))
                     return true;
             }
             Puzzle puzzleRight = current.copy();
             if (puzzleRight.moveRight(tile))
             {
-                Debug.Log("Moving " + tile + " right");
                 if (dls(puzzleRight, limit - 1))
                     return true;
             }
