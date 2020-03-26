@@ -13,21 +13,21 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        // Test test = new Test(tilePrefab);
-        // test.runTests(5, "Assets/Scripts/results.txt");
+        Test test = new Test(tilePrefab);
+        test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
-        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+        // currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
 
-        var watch = System.Diagnostics.Stopwatch.StartNew();
-        Node solution = currentPuzzle.search("BFS");
-        watch.Stop();
+        // var watch = System.Diagnostics.Stopwatch.StartNew();
+        // Node solution = currentPuzzle.search("BFS");
+        // watch.Stop();
 
-        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+        // Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
-        List<Puzzle> steps = solution.getPath();
-        Debug.Log("Steps taken: " + steps.Count);
+        // List<Puzzle> steps = solution.getPath();
+        // Debug.Log("Steps taken: " + steps.Count);
 
-        StartCoroutine(DisplayPuzzleStates(steps, 2));
+        // StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();
