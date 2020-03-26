@@ -15,41 +15,31 @@ public class Test
         operators = new List<string>(new string[] { "BFS", "DFSUndo", "IDDFSUndo", "SimpleGreedy" });
     }
 
-    public void runTests(int times)
+    public void runTests(int times, string path)
     {
         Puzzle puzzleEasy = new Puzzle(Example.puzzleEasy1, tilePrefab);
-        List<string> results = runPuzzleTests(times, puzzleEasy);
-        System.IO.File.WriteAllLines("Assets/Scripts/results.txt", results);
+        System.IO.File.WriteAllLines(path, runPuzzleTests(times, puzzleEasy));
 
         Puzzle puzzleEasy2 = new Puzzle(Example.puzzleEasy2, tilePrefab);
-        results = runPuzzleTests(times, puzzleEasy2);
-        System.IO.File.AppendAllLines("Assets/Scripts/results.txt", results);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleEasy2));
 
+        // Puzzle puzzle4 = new Puzzle(Example.puzzle4, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle4));
 
-        Puzzle puzzle4 = new Puzzle(Example.puzzle4, tilePrefab);
-        results = runPuzzleTests(times, puzzle4);
-        System.IO.File.AppendAllLines("Assets/Scripts/results.txt", results);
+        // Puzzle puzzleMedium = new Puzzle(Example.puzzleMedium, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleMedium));
 
+        // Puzzle puzzleIntermidiate = new Puzzle(Example.puzzleIntermidiate, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleIntermidiate));
 
-        Puzzle puzzleMedium = new Puzzle(Example.puzzleMedium, tilePrefab);
-        results = runPuzzleTests(times, puzzleMedium);
-        System.IO.File.AppendAllLines("Assets/Scripts/results.txt", results);
+        // Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleDifficult));
 
-        Puzzle puzzleIntermidiate = new Puzzle(Example.puzzleIntermidiate, tilePrefab);
-        results = runPuzzleTests(times, puzzleIntermidiate);
-        System.IO.File.AppendAllLines("Assets/Scripts/results.txt", results);
+        // Puzzle puzzleHard = new Puzzle(Example.puzzleHard, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleHard));
 
-        Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
-        results = runPuzzleTests(times, puzzleDifficult);
-        System.IO.File.AppendAllLines("Assets/Scripts/results.txt", results);
-
-        Puzzle puzzleHard = new Puzzle(Example.puzzleHard, tilePrefab);
-        results = runPuzzleTests(times, puzzleHard);
-        System.IO.File.AppendAllLines("Assets/Scripts/results.txt", results);
-
-        Puzzle puzzleExpert = new Puzzle(Example.puzzleExpert, tilePrefab);
-        results = runPuzzleTests(times, puzzleExpert);
-        System.IO.File.AppendAllLines("Assets/Scripts/results.txt", results);
+        // Puzzle puzzleExpert = new Puzzle(Example.puzzleExpert, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleExpert));
 
     }
     public List<string> runPuzzleTests(int numberOfTimes, Puzzle puzzle)

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         // Test test = new Test(tilePrefab);
-        // test.runTests(5);
+        // test.runTests(5, "Assets/Scripts/results.txt");
 
         currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
 
