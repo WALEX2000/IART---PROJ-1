@@ -137,8 +137,6 @@ public class Greedy
         visited.Add(current);
 
 
-        current.displayConsole();
-
         foreach (TileType tile in colors)
         {
             Puzzle puzzleDown = current.copy();

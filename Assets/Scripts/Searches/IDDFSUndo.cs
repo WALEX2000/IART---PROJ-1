@@ -31,7 +31,6 @@ public class IDDFSUndo
         if (current.isComplete())
         {
             current.displayPuzzle();
-            Debug.Log("ZAS");
             return true;
         }
 

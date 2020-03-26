@@ -13,11 +13,13 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        Example example = new Example();
-        currentPuzzle = new Puzzle(example.puzzle4, tilePrefab);
+        // Test test = new Test(tilePrefab);
+        // test.runTests(5);
+
+        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
-        Node solution = currentPuzzle.search("IDDFSUndo");
+        Node solution = currentPuzzle.search("BFS");
         watch.Stop();
 
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);

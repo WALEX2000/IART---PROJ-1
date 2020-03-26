@@ -70,8 +70,6 @@ public class SimpleGreedy
         if (visited.Contains(current)) return false;
         visited.Add(current);
 
-        current.displayConsole();
-
         foreach (TileType tile in colors)
         {
 

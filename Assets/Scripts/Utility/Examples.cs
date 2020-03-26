@@ -7,7 +7,7 @@ using System.Collections;
 public class Example
 {
     //HARDCODED PUZZLES//
-    public TileType[][] puzzleEasy1 = new TileType[][]
+    public static TileType[][] puzzleEasy1 = new TileType[][]
     {
         new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
@@ -15,7 +15,7 @@ public class Example
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Empty}
     };
-    public TileType[][] puzzleEasy2 = new TileType[][]
+    public static TileType[][] puzzleEasy2 = new TileType[][]
     {
         new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
@@ -23,7 +23,7 @@ public class Example
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Blue}
     };
-    public TileType[][] puzzleEasy3 = new TileType[][]
+    public static TileType[][] puzzleEasy3 = new TileType[][]
     {
         new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
@@ -32,7 +32,7 @@ public class Example
         new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Blue}
     };
 
-    public TileType[][] puzzle2 = new TileType[][]
+    public static TileType[][] puzzle2 = new TileType[][]
     {
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty},
@@ -40,7 +40,7 @@ public class Example
         new TileType[] {TileType.Blue, TileType.Red, TileType.Empty}
     };
 
-    public TileType[][] puzzleMedium = new TileType[][]
+    public static TileType[][] puzzleMedium = new TileType[][]
     {
         new TileType[] {TileType.Null, TileType.Green, TileType.Null, TileType.Null, TileType.Null, TileType.Null},
         new TileType[] {TileType.Green, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
@@ -51,7 +51,7 @@ public class Example
         new TileType[] {TileType.Empty, TileType.Red, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null}
 
     };
-    public TileType[][] puzzle4 = new TileType[][]
+    public static TileType[][] puzzle4 = new TileType[][]
     {
         new TileType[] {TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Green, TileType.Green, TileType.Green},
         new TileType[] {TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Green, TileType.Green, TileType.Green},
@@ -64,7 +64,7 @@ public class Example
 
     };
 
-    public TileType[][] puzzleIntermidiate = new TileType[][]
+    public static TileType[][] puzzleIntermidiate = new TileType[][]
     {
         new TileType[] {TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Green, TileType.Green},
         new TileType[] {TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Green, TileType.Green},
@@ -76,7 +76,7 @@ public class Example
 
     };
 
-    public TileType[][] puzzleDifficult = new TileType[][]
+    public static TileType[][] puzzleDifficult = new TileType[][]
     {
         new TileType[] {TileType.Null,TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty},
         new TileType[] {TileType.Null,TileType.Null, TileType.Green, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
@@ -89,7 +89,7 @@ public class Example
         new TileType[] {TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null, TileType.Null, TileType.Null}
 
     };
-    public TileType[][] puzzleHard = new TileType[][]
+    public static TileType[][] puzzleHard = new TileType[][]
     {
         new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
         new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Blue, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
@@ -103,7 +103,7 @@ public class Example
         new TileType[] {TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty}
 
     };
-    public TileType[][] puzzleExpert = new TileType[][]
+    public static TileType[][] puzzleExpert = new TileType[][]
     {
         new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty,TileType.Empty},
         new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty,TileType.Empty},
