@@ -531,36 +531,31 @@ public class Puzzle : IComparable<Puzzle>
         Puzzle current = copy();
         if (typeOfSearch == "DFS")
         {
-            DFS dfs = new DFS(current);
-            return dfs.search();
+            DFS dfs = new DFS();
+            return dfs.search(current);
 
         }
         else if (typeOfSearch == "DFSUndo")
         {
-
-            DFSUndo dfsU = new DFSUndo(current);
-            return dfsU.search();
-
+            DFSUndo dfsU = new DFSUndo();
+            return dfsU.search(current);
         }
         else if (typeOfSearch == "BFS")
         {
-
-            BFS bfs = new BFS(current);
-            return bfs.search();
+            BFS bfs = new BFS();
+            return bfs.search(current);
 
         }
-        /*else if (typeOfSearch == "IDDFS")
+        else if (typeOfSearch == "IDDFS")
         {
-
-            IDDFS iDDFS = new IDDFS(current, 6);
-            iDDFS.search();
+            IDDFS iDDFS = new IDDFS();
+            iDDFS.search(current, 6);
         }
         else if (typeOfSearch == "SimpleGreedy")
         {
-
-            SimpleGreedy simpleGreedy = new SimpleGreedy(current);
-            simpleGreedy.search();
-        }*/
+            SimpleGreedy simpleGreedy = new SimpleGreedy();
+            simpleGreedy.search(current);
+        }
 
         return null;
 

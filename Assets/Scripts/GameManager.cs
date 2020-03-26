@@ -17,17 +17,17 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         Example example = new Example();
-        currentPuzzle = new Puzzle(example.puzzleEasy3, tilePrefab);
+        currentPuzzle = new Puzzle(example.puzzle4, tilePrefab);
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
-        Node solution = currentPuzzle.search("DFSUndo");
+        Node solution = currentPuzzle.search("SimpleGreedy");
+        watch.Stop();
+        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+
         List<Puzzle> steps = solution.getPath();
         Debug.Log("Steps taken: " + steps.Count);
 
-        watch.Stop();
-        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
-        
         StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 

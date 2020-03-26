@@ -15,14 +15,27 @@ public class SimpleGreedy
 
     private List<TileType> colors;
     private Puzzle current;
+    private HashSet<Puzzle> visited;
 
     private PriorityQueue<Puzzle> priorityQueue;
 
-    public SimpleGreedy(Puzzle puzzle)
+
+    public bool search(Puzzle puzzle)
     {
         colors = puzzle.puzzleColors();
         this.current = puzzle;
         priorityQueue = new PriorityQueue<Puzzle>();
+        visited = new HashSet<Puzzle>();
+
+        priorityQueue.Enqueue(current);
+        while (priorityQueue.Count() != 0)
+        {
+            if (greedySearch())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     //Preenche primeiro os maiores
@@ -41,26 +54,11 @@ public class SimpleGreedy
     }
 
 
-    public bool search()
-    {
-        priorityQueue.Enqueue(current);
-        while (priorityQueue.Count() != 0)
-        {
-            if (greedySearch())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     //Nao esquecer que o BFS funcionava melhor com uma lista do que com uma queue
-    public bool greedySearch()
+    private bool greedySearch()
     {
-
-
-
-
         Puzzle current = priorityQueue.Dequeue();
 
         if (current.isComplete())
@@ -68,6 +66,9 @@ public class SimpleGreedy
             current.displayPuzzle();
             return true;
         }
+
+        if (visited.Contains(current)) return false;
+        visited.Add(current);
 
         current.displayConsole();
 

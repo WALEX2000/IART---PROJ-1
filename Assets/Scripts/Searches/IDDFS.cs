@@ -11,15 +11,12 @@ public class IDDFS
     private Puzzle puzzle;
 
 
-    public IDDFS(Puzzle puzzle, int depth)
+    //Deve implmentar se visited? Nao porque senao ele nao ia voltar ver a arovre completa
+    public bool search(Puzzle puzzle, int depth)
     {
         this.depth = depth;
         colors = puzzle.puzzleColors();
         this.puzzle = puzzle.copy();
-    }
-
-    public bool search()
-    {
 
         for (int limit = 0; limit < depth; limit++)
         {
