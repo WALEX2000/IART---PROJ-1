@@ -25,14 +25,25 @@ public class AStar
     private int finalScore; //Sum of the start score and the distanceToScore
     private int startScore; //Distance from the starting point
     private int destinationScore; //Distance to the destination
-    private List<Puzzle> openList;
-    private List<Puzzle> closedList;
+    private PriorityQueue<Puzzle> openList;
+    private HashSet<Puzzle> closedList;
 
-    public AStar(Puzzle puzzle)
+    private List<TileType> colors;
+
+    private Puzzle puzzle;
+
+
+
+
+    public bool search(Puzzle puzzle)
     {
-        openList = new List<Puzzle>();
-        closedList = new List<Puzzle>();
 
+        openList = new PriorityQueue<Puzzle>();
+        closedList = new HashSet<Puzzle>();
+        colors = puzzle.puzzleColors();
+        this.puzzle = puzzle.copy();
+
+        return aStarSearch();
     }
 
 
@@ -43,34 +54,70 @@ public class AStar
         return finalScore - currentScore;
     }
 
-    public int calculateScoreOfMatrix(List<List<int>> scoreMatrix)
+    private int g(Puzzle puzzle)
     {
         return 0;
     }
 
-    public List<List<int>> calculatePuzzleMatrix(Puzzle puzzle)
+    private int h(Puzzle puzzle)
     {
-        return new List<List<int>>();
-    }
-
-    public int calculatestartScore(Puzzle current)
-    {
-        List<List<int>> initialScore = new List<List<int>>();
-
-
         return 0;
     }
-    public bool search(Puzzle current, List<TileType> colors)
+    private int f(Puzzle puzzle)
     {
-        List<Puzzle> openList = new List<Puzzle>();
-        openList.Add(current);
+        return g(puzzle) + h(puzzle);
+    }
+    private int distance(Puzzle p1, Puzzle p2)
+    {
+        return 0;
+    }
 
-        while (openList.Count > 0)
+
+
+    private bool aStarSearch()
+    {
+
+        while (openList.Count() != 0)
         {
+            Puzzle current = openList.Dequeue();
 
+            if (current.isComplete()) return true;
+
+            if (closedList.Contains(current)) continue;
+
+            closedList.Add(current);
+
+            foreach (TileType tile in colors)
+            {
+                Puzzle puzzleDown = current.copy();
+                if (puzzleDown.moveDown(tile))
+                {
+                    int cost = g(current) + distance(current, puzzleDown);
+
+                    openList.Enqueue(puzzleDown);
+                }
+
+                Puzzle puzzleUp = current.copy();
+                if (puzzleUp.moveUp(tile))
+                {
+                    openList.Enqueue(puzzleUp);
+                }
+
+                Puzzle puzzleLeft = current.copy();
+                if (puzzleLeft.moveLeft(tile))
+                {
+                    openList.Enqueue(puzzleLeft);
+                }
+
+                Puzzle puzzleRight = current.copy();
+                if (puzzleRight.moveRight(tile))
+                {
+                    openList.Enqueue(puzzleRight);
+                }
+            }
         }
 
-        return true;
+        return false;
 
     }
 
