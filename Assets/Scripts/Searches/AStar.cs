@@ -98,20 +98,25 @@ public class AStar
 
         while (openList.Count > 0)
         {
+
             current = empty;
             g[current] = 0;
-            Debug.Log("Cheguei aqui");
 
             foreach (Puzzle p in openList)
             {
-                g[p] = 0;
+
+                if (!g.ContainsKey(p)) g.Add(p, 0);
+                else g[p] = 0;
+
+                if (!g.ContainsKey(current)) g.Add(current, 0);
+                else g[current] = 0;
+
                 if (current == empty || (g[p] + heuristic(p)) < g[current] + heuristic(current))
                 {
                     current = p.copy(); //Is the copy really necessary?
                 }
-            }
-            Debug.Log("Cheguei aqui");
 
+            }
 
             if (current == empty)
             {
@@ -125,8 +130,6 @@ public class AStar
                 Debug.Log("Solved with A*");
                 return true;
             }
-
-            Debug.Log("Cheguei aqui");
 
 
             foreach (TileType tile in colors)
@@ -157,13 +160,9 @@ public class AStar
                     actionsNeighbour(puzzleRight);
                 }
             }
-            Debug.Log("Cheguei aqui");
-
 
             openList.Remove(current);
             closedList.Add(current);
-            Debug.Log("Cheguei aqui");
-
         }
 
         Debug.Log("Could not find solution");

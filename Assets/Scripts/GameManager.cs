@@ -16,21 +16,21 @@ public class GameManager : MonoBehaviour
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
-        currentPuzzle = new Puzzle(Example.puzzleEasy1, tilePrefab);
+        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
-        currentPuzzle.search("AStar");
-        // currentPuzzle.displayPuzzle();
+        Node solution = currentPuzzle.search("DFSUndo");
+        currentPuzzle.displayPuzzle();
 
 
         watch.Stop();
 
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
-        // List<Puzzle> steps = solution.getPath();
-        // Debug.Log("Steps taken: " + steps.Count);
+        List<Puzzle> steps = solution.getPath();
+        Debug.Log("Steps taken: " + steps.Count);
 
-        // StartCoroutine(DisplayPuzzleStates(steps, 2));
+        StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();
