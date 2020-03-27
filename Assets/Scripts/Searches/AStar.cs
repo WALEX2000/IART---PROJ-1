@@ -22,26 +22,28 @@ using UnityEngine;
 public class AStar
 {
 
-    private int finalScore; //Sum of the start score and the distanceToScore
-    private int startScore; //Distance from the starting point
-    private int destinationScore; //Distance to the destination
-    private PriorityQueue<Puzzle> openList;
+    private HashSet<Puzzle> openList;
     private HashSet<Puzzle> closedList;
 
     private List<TileType> colors;
 
-    private Puzzle puzzle;
+    private Puzzle current;
+    private Puzzle empty;
 
-
+    private Dictionary<Puzzle, int> g;
 
 
     public bool search(Puzzle puzzle)
     {
 
-        openList = new PriorityQueue<Puzzle>();
+        openList = new HashSet<Puzzle>();
         closedList = new HashSet<Puzzle>();
+        g = new Dictionary<Puzzle, int>();
         colors = puzzle.puzzleColors();
-        this.puzzle = puzzle.copy();
+        this.current = puzzle.copy();
+        empty = new Puzzle(Example.emptyPuzzle, puzzle.tilePrefab);
+
+        g[puzzle] = 0;
 
         return aStarSearch();
     }
@@ -54,22 +56,35 @@ public class AStar
         return finalScore - currentScore;
     }
 
-    private int g(Puzzle puzzle)
-    {
-        return 0;
-    }
 
-    private int h(Puzzle puzzle)
+
+    private int heuristic(Puzzle puzzle)
     {
         return 0;
     }
-    private int f(Puzzle puzzle)
+    private int calculateWeight(Puzzle puzzle) { return 0; }
+
+    private void actionsNeighbour(Puzzle puzzle)
     {
-        return g(puzzle) + h(puzzle);
-    }
-    private int distance(Puzzle p1, Puzzle p2)
-    {
-        return 0;
+        g[puzzle] = 0;
+        g[current] = 0;
+        int weight = calculateWeight(puzzle);
+
+        if (!openList.Contains(puzzle) && (!openList.Contains(puzzle)))
+        {
+            openList.Add(puzzle);
+            g[puzzle] = g[current] + weight;
+        }
+        else if (g[puzzle] > g[current] + weight)
+        {
+            g[puzzle] = g[current] + weight;
+            if (closedList.Contains(puzzle))
+            {
+                closedList.Remove(puzzle);
+                openList.Add(puzzle);
+            }
+        }
+
     }
 
 
@@ -77,45 +92,81 @@ public class AStar
     private bool aStarSearch()
     {
 
-        while (openList.Count() != 0)
+        openList.Add(current);
+
+
+
+        while (openList.Count > 0)
         {
-            Puzzle current = openList.Dequeue();
+            current = empty;
+            g[current] = 0;
+            Debug.Log("Cheguei aqui");
 
-            if (current.isComplete()) return true;
+            foreach (Puzzle p in openList)
+            {
+                g[p] = 0;
+                if (current == empty || (g[p] + heuristic(p)) < g[current] + heuristic(current))
+                {
+                    current = p.copy(); //Is the copy really necessary?
+                }
+            }
+            Debug.Log("Cheguei aqui");
 
-            if (closedList.Contains(current)) continue;
 
-            closedList.Add(current);
+            if (current == empty)
+            {
+                Debug.Log("Path does not exist");
+                return false;
+            }
+
+            if (current.isComplete())
+            {
+                current.displayPuzzle();
+                Debug.Log("Solved with A*");
+                return true;
+            }
+
+            Debug.Log("Cheguei aqui");
+
 
             foreach (TileType tile in colors)
             {
                 Puzzle puzzleDown = current.copy();
                 if (puzzleDown.moveDown(tile))
                 {
-                    int cost = g(current) + distance(current, puzzleDown);
-
-                    openList.Enqueue(puzzleDown);
+                    actionsNeighbour(puzzleDown);
                 }
 
                 Puzzle puzzleUp = current.copy();
                 if (puzzleUp.moveUp(tile))
                 {
-                    openList.Enqueue(puzzleUp);
+                    actionsNeighbour(puzzleUp);
+
                 }
 
                 Puzzle puzzleLeft = current.copy();
                 if (puzzleLeft.moveLeft(tile))
                 {
-                    openList.Enqueue(puzzleLeft);
+                    actionsNeighbour(puzzleLeft);
+
                 }
 
                 Puzzle puzzleRight = current.copy();
                 if (puzzleRight.moveRight(tile))
                 {
-                    openList.Enqueue(puzzleRight);
+                    actionsNeighbour(puzzleRight);
                 }
             }
+            Debug.Log("Cheguei aqui");
+
+
+            openList.Remove(current);
+            closedList.Add(current);
+            Debug.Log("Cheguei aqui");
+
         }
+
+        Debug.Log("Could not find solution");
 
         return false;
 

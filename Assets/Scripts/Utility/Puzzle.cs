@@ -8,7 +8,7 @@ public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta }
 public class Puzzle : IComparable<Puzzle>
 {
     private List<GameObject> gameObjects = new List<GameObject>();
-    private GameObject tilePrefab;
+    public GameObject tilePrefab;
     private TileType[][] puzzleMatrix;
     public TileType[][] PuzzleMatrix { get { return puzzleMatrix; } set { puzzleMatrix = value; } }
     public Puzzle(TileType[][] matrix, GameObject tilePrefab)
@@ -561,6 +561,13 @@ public class Puzzle : IComparable<Puzzle>
             SimpleGreedy simpleGreedy = new SimpleGreedy();
             simpleGreedy.search(current);
         }
+
+        else if (typeOfSearch == "AStar")
+        {
+            AStar astar = new AStar();
+            astar.search(current);
+        }
+
         else Debug.Log("Algortithm does not exist");
 
         return null;

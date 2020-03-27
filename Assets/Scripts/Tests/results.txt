@@ -1,12 +1,12 @@
-BFS: 0,008
+BFS: 0,0072
 DFSUndo: 0,0002
-IDDFSUndo: 0,0156
-SimpleGreedy: 0,0098
+IDDFSUndo: 0,0154
+SimpleGreedy: 0,0102
 
 
 BFS: 0
 DFSUndo: 0
-IDDFSUndo: 0,0084
-SimpleGreedy: 0,0084
+IDDFSUndo: 0,0092
+SimpleGreedy: 0,0094
 
 
