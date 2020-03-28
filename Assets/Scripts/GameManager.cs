@@ -13,10 +13,8 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        Test test = new Test(tilePrefab);
-        test.runTests(5, "Assets/Scripts/Tests/results.txt");
-
-        // currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+        //Test test = new Test(tilePrefab);
+        //test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
         // var watch = System.Diagnostics.Stopwatch.StartNew();
         // Node solution = currentPuzzle.search("BFS");
@@ -28,6 +26,15 @@ public class GameManager : MonoBehaviour
         // Debug.Log("Steps taken: " + steps.Count);
 
         // StartCoroutine(DisplayPuzzleStates(steps, 2));
+
+        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+
+        currentPuzzle.displayPuzzle();
+
+        UniqueFirstGreedy greedy = new UniqueFirstGreedy();
+        List<Puzzle> solution = greedy.solve(currentPuzzle);
+
+        StartCoroutine(DisplayPuzzleStates(solution, 2));
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();
