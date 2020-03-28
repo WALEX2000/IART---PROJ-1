@@ -115,4 +115,10 @@ public class Example
         new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty, TileType.Yellow, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty,TileType.Empty},
 
     };
+
+    public static TileType[][] emptyPuzzle = new TileType[][]
+    {
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty}
+    };
 }

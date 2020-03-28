@@ -20,10 +20,8 @@ public class GameManager : MonoBehaviour
         // Node solution = currentPuzzle.search("BFS");
         // watch.Stop();
 
-        // Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
-        // List<Puzzle> steps = solution.getPath();
-        // Debug.Log("Steps taken: " + steps.Count);
+        watch.Stop();
 
         // StartCoroutine(DisplayPuzzleStates(steps, 2));
 
