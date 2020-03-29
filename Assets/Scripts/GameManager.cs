@@ -31,6 +31,36 @@ public class GameManager : MonoBehaviour
         // Debug.Log("Steps taken: " + steps.Count);
 
         // StartCoroutine(DisplayPuzzleStates(steps, 2));
+
+        /*
+        currentPuzzle = new Puzzle(Example.puzzleEasy1, tilePrefab);
+
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+
+        Node solution = currentPuzzle.search("UniqueFirstGreedy");
+
+        Debug.Log("UniqueFirstGreedy");
+
+        if(solution == null) {
+            Debug.Log("No solution found!");
+            return;
+        }
+
+        watch.Stop();
+
+        if(solution == null) {
+            Debug.LogError("Algorithm failed to solve puzzle!!");
+            return;
+        }
+
+        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+       
+        List<Puzzle> steps = solution.getPath();
+
+        Debug.Log("Steps taken: " + steps.Count);
+
+        StartCoroutine(DisplayPuzzleStates(steps, 2));
+        */
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
