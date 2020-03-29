@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,21 +16,43 @@ public class GameManager : MonoBehaviour
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
-        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+        // currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
 
+        // var watch = System.Diagnostics.Stopwatch.StartNew();
+        // Node solution = currentPuzzle.search("DFSUndo");
+        // currentPuzzle.displayPuzzle();
+
+
+        // watch.Stop();
+
+        // Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+
+        // List<Puzzle> steps = solution.getPath();
+        // Debug.Log("Steps taken: " + steps.Count);
+
+        // StartCoroutine(DisplayPuzzleStates(steps, 2));
+    }
+
+    public void ManagerStarter(string searchOption)
+    {
+        // Test test = new Test(tilePrefab);
+        // test.runTests(5, "Assets/Scripts/Tests/results.txt");
+
+        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
         var watch = System.Diagnostics.Stopwatch.StartNew();
         Node solution = currentPuzzle.search("DFSUndo");
         currentPuzzle.displayPuzzle();
+        Debug.Log(searchOption);
 
 
-        watch.Stop();
+        // watch.Stop();
 
-        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+        // Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
-        List<Puzzle> steps = solution.getPath();
-        Debug.Log("Steps taken: " + steps.Count);
+        // List<Puzzle> steps = solution.getPath();
+        // Debug.Log("Steps taken: " + steps.Count);
 
-        StartCoroutine(DisplayPuzzleStates(steps, 2));
+        // StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();
