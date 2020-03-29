@@ -14,9 +14,7 @@ public class UniformCost
 {
 
     private List<TileType> colors;
-    private Puzzle current;
-
-    private PriorityQueue<Puzzle> priorityQueue;
+    private PriorityQueue<Node> priorityQueue;
 
 
     //Preenche primeiro os maiores
@@ -34,50 +32,53 @@ public class UniformCost
         return score;
     }
 
-
-    public bool search(Puzzle puzzle)
-    {
+    public Node search(Puzzle puzzle) {
         colors = puzzle.puzzleColors();
-        this.current = puzzle;
-        priorityQueue = new PriorityQueue<Puzzle>();
+        priorityQueue = new PriorityQueue<Node>();
+        priorityQueue.Enqueue(new Node(puzzle, null, 0));
+        return uniformCost();
+    }
 
 
-        priorityQueue.Enqueue(this.current);
-
+    public Node uniformCost()
+    {
         while (priorityQueue.Count() != 0)
         {
+            Node current = priorityQueue.Dequeue();
 
-            if (priorityQueue.Count() == 0) return false;
-            Puzzle p = priorityQueue.Dequeue();
+            if (current.puzzle.isComplete())
+            {
+                return current;
+            }
+
             foreach (TileType tile in colors)
             {
-
-                Puzzle puzzleDown = current.copy();
+                Puzzle puzzleDown = current.puzzle.copy();
                 if (puzzleDown.moveDown(tile))
                 {
-                    priorityQueue.Enqueue(puzzleDown);
+                    priorityQueue.Enqueue(new Node(puzzleDown, current, UniformCost.calculatePuzzleScore(puzzleDown)));
                 }
-                Puzzle puzzleUp = current.copy();
+                Puzzle puzzleUp = current.puzzle.copy();
 
                 if (puzzleUp.moveUp(tile))
                 {
-                    priorityQueue.Enqueue(puzzleUp);
+                    priorityQueue.Enqueue(new Node(puzzleUp, current, UniformCost.calculatePuzzleScore(puzzleUp)));
                 }
-                Puzzle puzzleLeft = current.copy();
+                Puzzle puzzleLeft = current.puzzle.copy();
                 if (puzzleLeft.moveLeft(tile))
                 {
-                    priorityQueue.Enqueue(puzzleLeft);
+                    priorityQueue.Enqueue(new Node(puzzleLeft, current, UniformCost.calculatePuzzleScore(puzzleLeft)));
                 }
-                Puzzle puzzleRight = current.copy();
+                Puzzle puzzleRight = current.puzzle.copy();
                 if (puzzleRight.moveRight(tile))
                 {
-                    priorityQueue.Enqueue(puzzleRight);
+                    priorityQueue.Enqueue(new Node(puzzleRight, current, UniformCost.calculatePuzzleScore(puzzleRight)));
                 }
             }
 
         }
 
-        return true;
+        return null;
     }
 
 }

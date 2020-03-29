@@ -26,7 +26,7 @@ public class PuzzleMenu : MonoBehaviour
     }
     public void choose4()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzleIntermidiate);
+        gameManager.ManagerStarter(this.search, Example.puzzle2275);
     }
     public void choose5()
     {

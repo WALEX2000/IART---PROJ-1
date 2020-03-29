@@ -8,7 +8,6 @@ public class DFSUndo
     private Puzzle current;
     private HashSet<Puzzle> visited;
 
-
     public Node search(Puzzle puzzle)
     {
         visited = new HashSet<Puzzle>();
@@ -33,7 +32,6 @@ public class DFSUndo
         {
             if (current.puzzle.moveDown(tile))
             {
-                // Debug.Log("Moved Down " + tile);
                 if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
                 {
                     current.puzzle.undoMoveDown(tile);
@@ -45,8 +43,6 @@ public class DFSUndo
 
             if (current.puzzle.moveUp(tile))
             {
-                // Debug.Log("Moved Up " + tile);
-
                 if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
                 {
                     current.puzzle.undoMoveUp(tile);
@@ -58,8 +54,6 @@ public class DFSUndo
 
             if (current.puzzle.moveLeft(tile))
             {
-                // Debug.Log("Moved Left " + tile);
-
                 if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
                 {
                     current.puzzle.undoMoveLeft(tile);
@@ -71,8 +65,6 @@ public class DFSUndo
 
             if (current.puzzle.moveRight(tile))
             {
-                // Debug.Log("Moved Right " + tile);
-
                 if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
                 {
                     current.puzzle.undoMoveRight(tile);

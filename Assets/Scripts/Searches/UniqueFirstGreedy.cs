@@ -49,7 +49,6 @@ public class UniqueFirstGreedy
         {
             Debug.Log("Search Completed successfully");
             return true;
-
         }
 
         //initialize stub Matrix with an empty matrix
