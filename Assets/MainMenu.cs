@@ -20,21 +20,21 @@ public class MainMenu : MonoBehaviour
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        gameManager.ManagerStarter("DFSUndo");
+        puzzleMenu.setSearch("DFSUndo");
     }
 
     public void BFS()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        gameManager.ManagerStarter("BFS");
+        puzzleMenu.setSearch("BFS");
     }
     public void IDDFS()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
         // Camera.main = gameCamera;
-        gameManager.ManagerStarter("IDDFSUndo");
+        puzzleMenu.setSearch("IDDFSUndo");
     }
 
     public void SimpleGreedy()
@@ -42,7 +42,7 @@ public class MainMenu : MonoBehaviour
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
         // Camera.main = gameCamera;
-        gameManager.ManagerStarter("SimpleGreedy");
+        puzzleMenu.setSearch("SimpleGreedy");
     }
 
     public void AStar()
@@ -50,7 +50,7 @@ public class MainMenu : MonoBehaviour
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
         // Camera.main = gameCamera;
-        gameManager.ManagerStarter("AStar");
+        puzzleMenu.setSearch("AStar");
     }
 
     public void UniformCost()
@@ -58,6 +58,6 @@ public class MainMenu : MonoBehaviour
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
         // Camera.main = gameCamera;
-        gameManager.ManagerStarter("UniformCost");
+        puzzleMenu.setSearch("UniformCost");
     }
 }

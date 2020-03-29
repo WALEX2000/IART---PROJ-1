@@ -562,11 +562,11 @@ public class Puzzle : IComparable<Puzzle>
             simpleGreedy.search(current);
         }
 
-        else if (typeOfSearch == "AStar")
-        {
-            AStar astar = new AStar();
-            astar.search(current);
-        }
+        // else if (typeOfSearch == "AStar")
+        // {
+        //     AStar astar = new AStar();
+        //     astar.search(current);
+        // }
 
         else Debug.Log("Algortithm does not exist");
 

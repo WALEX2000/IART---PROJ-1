@@ -5,8 +5,6 @@ using UnityEngine;
 public class PuzzleMenu : MonoBehaviour
 {
     public GameManager gameManager;
-    public Camera gameCamera;
-    public Camera menuCamera;
     private string search;
     // Start is called before the first frame update
 
@@ -16,10 +14,31 @@ public class PuzzleMenu : MonoBehaviour
     }
     public void choose1()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        menuCamera.gameObject.SetActive(false);
-        gameCamera.gameObject.SetActive(true);
-        gameManager.ManagerStarter(this.search);
+        gameManager.ManagerStarter(this.search, Example.puzzleEasy1);
+    }
+    public void choose2()
+    {
+        gameManager.ManagerStarter(this.search, Example.puzzleMedium);
+    }
+    public void choose3()
+    {
+        gameManager.ManagerStarter(this.search, Example.puzzle4);
+    }
+    public void choose4()
+    {
+        gameManager.ManagerStarter(this.search, Example.puzzleIntermidiate);
+    }
+    public void choose5()
+    {
+        gameManager.ManagerStarter(this.search, Example.puzzleDifficult);
+    }
+    public void choose6()
+    {
+        gameManager.ManagerStarter(this.search, Example.puzzleHard);
+    }
+    public void choose7()
+    {
+        gameManager.ManagerStarter(this.search, Example.puzzleExpert);
     }
 
 }
