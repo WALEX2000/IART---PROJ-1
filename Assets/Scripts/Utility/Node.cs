@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Node {
+public class Node : IComparable<Node>
+{
     public Puzzle puzzle;
     public Node parent;
     public int value;
@@ -22,5 +23,12 @@ public class Node {
         }
         path.Reverse();
         return path;
+    }
+
+    public int CompareTo(Node other)
+    {
+        if (this.value > other.value) return -1;
+        else if (this.value < other.value) return 1;
+        else return 0;
     }
 }

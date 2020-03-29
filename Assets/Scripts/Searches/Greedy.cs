@@ -26,7 +26,7 @@ public class Greedy
         colors = puzzle.puzzleColors();
         this.current = puzzle;
         priorityQueue = new Queue<Puzzle>();
-        PriorityQueue<Puzzle> pq = new PriorityQueue<Puzzle>();
+        //PriorityQueue<Puzzle> pq = new PriorityQueue<Puzzle>();
         visited = new HashSet<Puzzle>();
 
         priorityQueue.Enqueue(current);

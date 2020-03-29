@@ -14,34 +14,21 @@ public class SimpleGreedy
 {
 
     private List<TileType> colors;
-    private Puzzle current;
-    private HashSet<Puzzle> visited;
-
-    private PriorityQueue<Puzzle> priorityQueue;
+    private PriorityQueue<Node> priorityQueue;
 
 
-    public bool search(Puzzle puzzle)
+    public Node search(Puzzle puzzle)
     {
         colors = puzzle.puzzleColors();
-        this.current = puzzle;
-        priorityQueue = new PriorityQueue<Puzzle>();
-        visited = new HashSet<Puzzle>();
+        priorityQueue = new PriorityQueue<Node>();
 
-        priorityQueue.Enqueue(current);
-        while (priorityQueue.Count() != 0)
-        {
-            if (greedySearch())
-            {
-                return true;
-            }
-        }
-        return false;
+        priorityQueue.Enqueue(new Node(puzzle, null, 0));
+        return greedySearch();
     }
 
     //Preenche primeiro os maiores
     public static int calculatePuzzleScore(Puzzle current)
     {
-
         int score = 0;
         for (int i = 0; i < current.PuzzleMatrix.Length; i++)
         {
@@ -53,56 +40,47 @@ public class SimpleGreedy
         return score;
     }
 
-
-
-
     //Nao esquecer que o BFS funcionava melhor com uma lista do que com uma queue
-    private bool greedySearch()
+    private Node greedySearch()
     {
-        Puzzle current = priorityQueue.Dequeue();
+        while (priorityQueue.Count() != 0) {
+            Node current = priorityQueue.Dequeue();
 
-        if (current.isComplete())
-        {
-            current.displayPuzzle();
-            return true;
+            if (current.puzzle.isComplete())
+            {
+                Debug.Log("Solved");
+                return current;
+            }
+
+            foreach (TileType tile in colors)
+            {
+
+                Puzzle puzzleDown = current.puzzle.copy();
+                if (puzzleDown.moveDown(tile))
+                {
+                    priorityQueue.Enqueue(new Node(puzzleDown, current, SimpleGreedy.calculatePuzzleScore(puzzleDown)));
+                }
+                Puzzle puzzleUp = current.puzzle.copy();
+
+                if (puzzleUp.moveUp(tile))
+                {
+                    priorityQueue.Enqueue(new Node(puzzleUp, current, SimpleGreedy.calculatePuzzleScore(puzzleUp)));
+                }
+                Puzzle puzzleLeft = current.puzzle.copy();
+                if (puzzleLeft.moveLeft(tile))
+                {
+                    priorityQueue.Enqueue(new Node(puzzleLeft, current, SimpleGreedy.calculatePuzzleScore(puzzleLeft)));
+                }
+                Puzzle puzzleRight = current.puzzle.copy();
+                if (puzzleRight.moveRight(tile))
+                {
+                    priorityQueue.Enqueue(new Node(puzzleRight, current, SimpleGreedy.calculatePuzzleScore(puzzleRight)));
+                }
+            }
         }
 
-        if (visited.Contains(current)) return false;
-        visited.Add(current);
-
-        foreach (TileType tile in colors)
-        {
-
-            Puzzle puzzleDown = current.copy();
-            if (puzzleDown.moveDown(tile))
-            {
-                priorityQueue.Enqueue(puzzleDown);
-            }
-            Puzzle puzzleUp = current.copy();
-
-            if (puzzleUp.moveUp(tile))
-            {
-                priorityQueue.Enqueue(puzzleUp);
-            }
-            Puzzle puzzleLeft = current.copy();
-            if (puzzleLeft.moveLeft(tile))
-            {
-                priorityQueue.Enqueue(puzzleLeft);
-            }
-            Puzzle puzzleRight = current.copy();
-            if (puzzleRight.moveRight(tile))
-            {
-                priorityQueue.Enqueue(puzzleRight);
-            }
-        }
-
-        return false;
-
+        return null;
     }
-
-
-
-
 }
 
 

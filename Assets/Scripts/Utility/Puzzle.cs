@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta }
 
-public class Puzzle : IComparable<Puzzle>
+public class Puzzle
 {
     private List<GameObject> gameObjects = new List<GameObject>();
     public GameObject tilePrefab;
@@ -658,20 +659,26 @@ public class Puzzle : IComparable<Puzzle>
 
     public List<TileType> puzzleColors()
     {
-
-        List<TileType> puzzleColors = new List<TileType>();
+        Dictionary<TileType, int> colorCount = new Dictionary<TileType, int>();
 
         for (int i = 0; i < puzzleMatrix.Length; i++)
         {
             for (int j = 0; j < puzzleMatrix[i].Length; j++)
             {
-                if (puzzleMatrix[i][j] != TileType.Empty && puzzleMatrix[i][j] != TileType.Null && !puzzleColors.Contains(puzzleMatrix[i][j]))
+                if (puzzleMatrix[i][j] != TileType.Empty && puzzleMatrix[i][j] != TileType.Null)
                 {
-                    puzzleColors.Add(puzzleMatrix[i][j]);
+                    if(colorCount.ContainsKey(puzzleMatrix[i][j]))
+                        colorCount[puzzleMatrix[i][j]] += 1;
+                    else
+                        colorCount[puzzleMatrix[i][j]] = 1;
                 }
             }
         }
 
+        List<TileType> puzzleColors = new List<TileType>(colorCount.Keys);
+        puzzleColors = puzzleColors.OrderBy(color => colorCount[color]).ToList();
+        puzzleColors.Reverse();
+            
         return puzzleColors;
 
     }
@@ -725,7 +732,7 @@ public class Puzzle : IComparable<Puzzle>
         else if (typeOfSearch == "SimpleGreedy")
         {
             SimpleGreedy simpleGreedy = new SimpleGreedy();
-            simpleGreedy.search(current);
+            return simpleGreedy.search(current);
         }
         else if (typeOfSearch == "UniqueFirstGreedy")
         {
@@ -743,18 +750,4 @@ public class Puzzle : IComparable<Puzzle>
 
         return null;
     }
-    //Using Simple Greedy algorithm
-    public int CompareTo(Puzzle other)
-    {
-        int thisScore = SimpleGreedy.calculatePuzzleScore(this);
-        int otherScore = SimpleGreedy.calculatePuzzleScore(other);
-        if (thisScore > otherScore) return -1;
-        else if (thisScore < otherScore) return 1;
-        else return 0;
-    }
-
-
-
-
-
 }
