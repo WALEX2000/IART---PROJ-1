@@ -27,26 +27,26 @@ public class Move : IComparable<Move>
 
 public class UniqueFirstGreedy
 {
-    private Puzzle currentPuzzle;
-    private Queue<Puzzle> priorityQueue;
-    private HashSet<Puzzle> visited;
-
+    private Node resultNode;
     private List<Move>[][] stubMatrix;
     private List<TileType> colors;
     private List<Puzzle> solution = new List<Puzzle>();
 
-    public List<Puzzle> solve(Puzzle puzzle)
+    public Node solve(Puzzle puzzle)
     {
         colors = puzzle.puzzleColors();
-        findSolution(puzzle);
-        return solution;
+        Node node = new Node(puzzle, null, 0);
+        findSolution(node);
+        return resultNode;
     }
 
-    private bool findSolution(Puzzle puzzle)
+    private bool findSolution(Node puzzleNode)
     {
+        Puzzle puzzle = puzzleNode.puzzle;
         //Check if the puzzle is complete
         if (puzzle.isComplete())
         {
+            resultNode = puzzleNode;
             Debug.Log("Search Completed successfully");
             return true;
         }
@@ -113,21 +113,15 @@ public class UniqueFirstGreedy
         {
             Puzzle newPuzzle = puzzle.copy();
             newPuzzle.executeMove(move.positions, move.tile);
-            if (findSolution(newPuzzle))
-            {
-                solution.Insert(0, newPuzzle);
-                return true;
-            }
+            Node node = new Node(newPuzzle, puzzleNode, 0);
+            if (findSolution(node)) return true;            
         }
         foreach (Move move in lastMoves)
         {
             Puzzle newPuzzle = puzzle.copy();
             newPuzzle.executeMove(move.positions, move.tile);
-            if (findSolution(newPuzzle))
-            {
-                solution.Add(newPuzzle);
-                return true;
-            }
+            Node node = new Node(newPuzzle, puzzleNode, 0);
+            if (findSolution(node)) return true;            
         }
         return false;
     }

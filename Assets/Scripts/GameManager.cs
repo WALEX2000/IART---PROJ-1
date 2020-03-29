@@ -54,8 +54,13 @@ public class GameManager : MonoBehaviour
 
         watch.Stop();
 
-        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+        if(solution == null) {
+            Debug.LogError("Algorithm failed to solve puzzle!!");
+            return;
+        }
 
+        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+       
         List<Puzzle> steps = solution.getPath();
 
         Debug.Log("Steps taken: " + steps.Count);

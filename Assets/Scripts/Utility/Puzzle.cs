@@ -737,7 +737,7 @@ public class Puzzle
         else if (typeOfSearch == "UniqueFirstGreedy")
         {
             UniqueFirstGreedy greedy = new UniqueFirstGreedy();
-            greedy.solve(current);
+            return greedy.solve(current);
         }
 
         else if (typeOfSearch == "AStar")
