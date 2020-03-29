@@ -28,12 +28,9 @@ public class SimpleGreedy
         visited = new HashSet<Puzzle>();
 
         priorityQueue.Enqueue(current);
-        while (priorityQueue.Count() != 0)
+        if (greedySearch())
         {
-            if (greedySearch())
-            {
-                return true;
-            }
+            return true;
         }
         return false;
     }
@@ -54,54 +51,53 @@ public class SimpleGreedy
     }
 
 
-
-
     //Nao esquecer que o BFS funcionava melhor com uma lista do que com uma queue
     private bool greedySearch()
     {
-        Puzzle current = priorityQueue.Dequeue();
 
-        if (current.isComplete())
+        while (priorityQueue.Count() != 0)
         {
-            current.displayPuzzle();
-            return true;
-        }
+            Puzzle current = priorityQueue.Dequeue();
 
-        if (visited.Contains(current)) return false;
-        visited.Add(current);
+            if (current.isComplete())
+            {
+                current.displayPuzzle();
+                return true;
+            }
 
-        foreach (TileType tile in colors)
-        {
+            if (visited.Contains(current)) continue;
+            visited.Add(current);
 
-            Puzzle puzzleDown = current.copy();
-            if (puzzleDown.moveDown(tile))
+            foreach (TileType tile in colors)
             {
-                priorityQueue.Enqueue(puzzleDown);
-            }
-            Puzzle puzzleUp = current.copy();
 
-            if (puzzleUp.moveUp(tile))
-            {
-                priorityQueue.Enqueue(puzzleUp);
+                Puzzle puzzleDown = current.copy();
+                if (puzzleDown.moveDown(tile))
+                {
+                    priorityQueue.Enqueue(puzzleDown);
+                }
+                Puzzle puzzleUp = current.copy();
+
+                if (puzzleUp.moveUp(tile))
+                {
+                    priorityQueue.Enqueue(puzzleUp);
+                }
+                Puzzle puzzleLeft = current.copy();
+                if (puzzleLeft.moveLeft(tile))
+                {
+                    priorityQueue.Enqueue(puzzleLeft);
+                }
+                Puzzle puzzleRight = current.copy();
+                if (puzzleRight.moveRight(tile))
+                {
+                    priorityQueue.Enqueue(puzzleRight);
+                }
             }
-            Puzzle puzzleLeft = current.copy();
-            if (puzzleLeft.moveLeft(tile))
-            {
-                priorityQueue.Enqueue(puzzleLeft);
-            }
-            Puzzle puzzleRight = current.copy();
-            if (puzzleRight.moveRight(tile))
-            {
-                priorityQueue.Enqueue(puzzleRight);
-            }
+
         }
 
         return false;
-
     }
-
-
-
 
 }
 
