@@ -129,7 +129,6 @@ public class Puzzle : IComparable<Puzzle>
 
     public bool moveUp(TileType tile)
     {
-
         int rotationAxis = puzzleMatrix.Length;
         bool foundAxis = false;
 
@@ -178,6 +177,53 @@ public class Puzzle : IComparable<Puzzle>
         return true;
     }
 
+    public void executeMove(List<Tuple<int, int>> positions, TileType tile) {
+        for (int i = 0; i < positions.Count; i++)
+        {
+            puzzleMatrix[positions[i].Item1][positions[i].Item2] = tile;
+        }
+    }
+
+    public List<Tuple<int, int>> getMoveUpList(TileType tile)
+    {
+        int rotationAxis = puzzleMatrix.Length;
+        bool foundAxis = false;
+
+        //Discover the rotation axis
+        for (int i = 0; (i < puzzleMatrix.Length) && (!foundAxis); i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (puzzleMatrix[i][j] == tile)
+                {
+                    rotationAxis = i;
+                    foundAxis = true;
+                    break;
+                }
+            }
+        }
+
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
+        //Discovers if all the elements can rotate
+        //Adds positions of the tiles to a List
+        for (int i = rotationAxis; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (tile == puzzleMatrix[i][j])
+                {
+                    int symetricX = i - 2 * (i - rotationAxis) - 1;
+                    if (canMove(symetricX, j))
+                    {
+                        positions.Add(Tuple.Create(symetricX, j));
+                    }
+                    else return null;
+                }
+            }
+        }
+        return positions;
+    }
+
     public void undoMoveUp(TileType tile)
     {
         int lowerBound = 0;
@@ -214,7 +260,6 @@ public class Puzzle : IComparable<Puzzle>
 
     public bool moveDown(TileType tile)
     {
-
         int rotationAxis = -1;
         bool foundAxis = false;
 
@@ -260,6 +305,48 @@ public class Puzzle : IComparable<Puzzle>
         }
 
         return true;
+    }
+
+    public List<Tuple<int, int>> getMoveDownList(TileType tile)
+    {
+        int rotationAxis = -1;
+        bool foundAxis = false;
+
+        //Discover the rotation axis
+        for (int i = puzzleMatrix.Length - 1; (i >= 0) && (!foundAxis); i--)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (puzzleMatrix[i][j] == tile)
+                {
+                    rotationAxis = i;
+                    foundAxis = true;
+                    break;
+                }
+            }
+        }
+
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
+
+        //Discovers if all the elements can rotate
+        //Adds positions of the tiles to a List
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (tile == puzzleMatrix[i][j])
+                {
+                    int symetricX = i + 2 * (rotationAxis - i) + 1;
+                    if (canMove(symetricX, j))
+                    {
+
+                        positions.Add(Tuple.Create(symetricX, j));
+                    }
+                    else return null;
+                }
+            }
+        }
+        return positions;
     }
 
     public void undoMoveDown(TileType tile)
@@ -342,6 +429,44 @@ public class Puzzle : IComparable<Puzzle>
         return true;
     }
 
+    public List<Tuple<int, int>> getMoveRightList(TileType tile)
+    {
+        int rotationAxis = -1;
+
+        //Discover the rotation axis
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = puzzleMatrix[i].Length - 1; (j >= 0); j--)
+            {
+                if (puzzleMatrix[i][j] == tile && j > rotationAxis)
+                {
+                    rotationAxis = j;
+                }
+            }
+        }
+
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
+
+        //Discovers if all the elements can rotate
+        //Adds positions of the tiles to a List
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (tile == puzzleMatrix[i][j])
+                {
+                    int symetricY = j + 2 * (rotationAxis - j) + 1;
+                    if (canMove(i, symetricY))
+                    {
+                        positions.Add(Tuple.Create(i, symetricY));
+                    }
+                    else return null;
+                }
+            }
+        }
+        return positions;
+    }
+
     public void undoMoveRight(TileType tile)
     {
         int leftBound = puzzleMatrix.Length;
@@ -420,6 +545,45 @@ public class Puzzle : IComparable<Puzzle>
         }
 
         return true;
+    }
+
+    public List<Tuple<int, int>> getMoveLeftList(TileType tile)
+    {
+
+        int rotationAxis = puzzleMatrix.Length;
+
+        //Discover the rotation axis
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (puzzleMatrix[i][j] == tile && j < rotationAxis)
+                {
+                    rotationAxis = j;
+                }
+            }
+        }
+
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
+
+        //Discovers if all the elements can rotate
+        //Adds positions of the tiles to a List
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (tile == puzzleMatrix[i][j])
+                {
+                    int symetricY = j - 2 * (j - rotationAxis) - 1;
+                    if (canMove(i, symetricY))
+                    {
+                        positions.Add(Tuple.Create(i, symetricY));
+                    }
+                    else return null;
+                }
+            }
+        }
+        return positions;
     }
 
     public void undoMoveLeft(TileType tile)
@@ -505,9 +669,6 @@ public class Puzzle : IComparable<Puzzle>
 
     }
 
-
-
-
     public void displayConsole()
     {
 
@@ -523,8 +684,6 @@ public class Puzzle : IComparable<Puzzle>
         }
         Debug.Log(puzzleString);
     }
-
-
 
     public Node search(String typeOfSearch)
     {
@@ -561,6 +720,11 @@ public class Puzzle : IComparable<Puzzle>
             SimpleGreedy simpleGreedy = new SimpleGreedy();
             simpleGreedy.search(current);
         }
+        else if (typeOfSearch == "UniqueFirstGreedy")
+        {
+            UniqueFirstGreedy greedy = new UniqueFirstGreedy();
+            greedy.solve(current);
+        }
 
         // else if (typeOfSearch == "AStar")
         // {
@@ -571,7 +735,6 @@ public class Puzzle : IComparable<Puzzle>
         else Debug.Log("Algortithm does not exist");
 
         return null;
-
     }
     //Using Simple Greedy algorithm
     public int CompareTo(Puzzle other)

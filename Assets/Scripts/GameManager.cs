@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        // Test test = new Test(tilePrefab);
-        // test.runTests(5, "Assets/Scripts/Tests/results.txt");
+        //Test test = new Test(tilePrefab);
+        //test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
         // currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
 
@@ -47,7 +47,11 @@ public class GameManager : MonoBehaviour
 
         watch.Stop();
 
-        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+        // StartCoroutine(DisplayPuzzleStates(steps, 2));
+
+        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+
+        currentPuzzle.displayPuzzle();
 
         // List<Puzzle> steps = solution.getPath();
         // Debug.Log("Steps taken: " + steps.Count);

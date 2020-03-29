@@ -54,6 +54,42 @@ public class PriorityQueue<T> where T : IComparable<T>
         return frontItem;
     }
 
+    public List<T> getAllFrontItems()
+    {
+        List<T> items = new List<T>();
+        if(data.Count == 0) return items;
+        T frontItem = data[0];
+        items.Add(frontItem);
+
+        for(int i = 1; i < data.Count; i++) {
+            if(data[i].CompareTo(data[i-1]) == 0) items.Add(data[i]);
+            else break;
+        }
+
+        return items;
+    }
+
+    public Tuple<List<T>,List<T>> splitFrontItems()
+    {
+        List<T> frontItems = new List<T>();
+        List<T> backItems = new List<T>();
+        if(data.Count == 0) return new Tuple<List<T>, List<T>>(frontItems, backItems);;
+        T frontItem = data[0];
+        frontItems.Add(frontItem);
+
+        for(int i = 1; i < data.Count; i++) {
+            if(data[i].CompareTo(data[i-1]) == 0) frontItems.Add(data[i]);
+            else {
+                List<T> sublist = data.GetRange(i, data.Count - i);
+                backItems.AddRange(sublist);
+                break;
+            }
+        }
+
+        Tuple<List<T>,List<T>> tuple = new Tuple<List<T>, List<T>>(frontItems, backItems);
+        return tuple;
+    }
+
     public int Count()
     {
         return data.Count;
