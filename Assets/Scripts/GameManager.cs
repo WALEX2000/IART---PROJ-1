@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +44,11 @@ public class GameManager : MonoBehaviour
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
         Node solution = currentPuzzle.search(searchOption);
+
+        /*if(solution == null) {
+            Debug.Log("No solution");
+            return;
+        }*/
 
         Debug.Log(searchOption);
 
