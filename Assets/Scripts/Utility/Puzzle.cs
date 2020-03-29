@@ -6,7 +6,7 @@ using System.Linq;
 
 public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta }
 
-public class Puzzle
+public class Puzzle : MonoBehaviour
 {
     private List<GameObject> gameObjects = new List<GameObject>();
     public GameObject tilePrefab;
@@ -52,6 +52,8 @@ public class Puzzle
                     {
                         GameObject instantiatedTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(i, 0.375f, j), Quaternion.identity); //Actual Tiles on top                    
                         gameObjects.Add(instantiatedTile);
+                        instantiatedTile.GetComponent<Human>().puzzle = this;
+                        instantiatedTile.GetComponent<Human>().tile = puzzleMatrix[i][j];
 
                         switch (puzzleMatrix[i][j])
                         {
@@ -667,7 +669,7 @@ public class Puzzle
             {
                 if (puzzleMatrix[i][j] != TileType.Empty && puzzleMatrix[i][j] != TileType.Null)
                 {
-                    if(colorCount.ContainsKey(puzzleMatrix[i][j]))
+                    if (colorCount.ContainsKey(puzzleMatrix[i][j]))
                         colorCount[puzzleMatrix[i][j]] += 1;
                     else
                         colorCount[puzzleMatrix[i][j]] = 1;
@@ -678,7 +680,7 @@ public class Puzzle
         List<TileType> puzzleColors = new List<TileType>(colorCount.Keys);
         puzzleColors = puzzleColors.OrderBy(color => colorCount[color]).ToList();
         puzzleColors.Reverse();
-            
+
         return puzzleColors;
 
     }
