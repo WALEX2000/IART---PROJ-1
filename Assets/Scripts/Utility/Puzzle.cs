@@ -137,14 +137,12 @@ public class Puzzle : IComparable<Puzzle>
         {
             for (int j = 0; j < puzzleMatrix[i].Length; j++)
             {
-
                 if (puzzleMatrix[i][j] == tile)
                 {
                     rotationAxis = i;
                     foundAxis = true;
                     break;
                 }
-
             }
         }
 
@@ -282,7 +280,7 @@ public class Puzzle : IComparable<Puzzle>
 
         //Discovers if all the elements can rotate
         //Adds positions of the tiles to a List
-        for (int i = 0; i < puzzleMatrix.Length; i++)
+        for (int i = 0; i <= rotationAxis; i++)
         {
             for (int j = 0; j < puzzleMatrix[i].Length; j++)
             {
@@ -291,7 +289,6 @@ public class Puzzle : IComparable<Puzzle>
                     int symetricX = i + 2 * (rotationAxis - i) + 1;
                     if (canMove(symetricX, j))
                     {
-
                         positions.Add(Tuple.Create(symetricX, j));
                     }
                     else return false;
@@ -387,16 +384,21 @@ public class Puzzle : IComparable<Puzzle>
     public bool moveRight(TileType tile)
     {
 
+
+
         int rotationAxis = -1;
+        bool foundAxis = false;
 
         //Discover the rotation axis
-        for (int i = 0; i < puzzleMatrix.Length; i++)
+        for (int j = puzzleMatrix[0].Length - 1; (j >= 0) && (!foundAxis); j--)
         {
-            for (int j = puzzleMatrix[i].Length - 1; (j >= 0); j--)
+            for (int i = 0; i < puzzleMatrix.Length; i++)
             {
-                if (puzzleMatrix[i][j] == tile && j > rotationAxis)
+                if (puzzleMatrix[i][j] == tile)
                 {
                     rotationAxis = j;
+                    foundAxis = true;
+                    break;
                 }
             }
         }
@@ -407,7 +409,7 @@ public class Puzzle : IComparable<Puzzle>
         //Adds positions of the tiles to a List
         for (int i = 0; i < puzzleMatrix.Length; i++)
         {
-            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            for (int j = 0; j <= rotationAxis; j++)
             {
                 if (tile == puzzleMatrix[i][j])
                 {
@@ -507,14 +509,18 @@ public class Puzzle : IComparable<Puzzle>
 
         int rotationAxis = puzzleMatrix.Length;
 
+        bool foundAxis = false;
+
         //Discover the rotation axis
-        for (int i = 0; i < puzzleMatrix.Length; i++)
+        for (int j = 0; (j < puzzleMatrix[0].Length) && (!foundAxis); j++)
         {
-            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            for (int i = 0; i < puzzleMatrix.Length; i++)
             {
-                if (puzzleMatrix[i][j] == tile && j < rotationAxis)
+                if (puzzleMatrix[i][j] == tile)
                 {
                     rotationAxis = j;
+                    foundAxis = true;
+                    break;
                 }
             }
         }
@@ -525,7 +531,7 @@ public class Puzzle : IComparable<Puzzle>
         //Adds positions of the tiles to a List
         for (int i = 0; i < puzzleMatrix.Length; i++)
         {
-            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            for (int j = rotationAxis; j < puzzleMatrix[i].Length; j++)
             {
                 if (tile == puzzleMatrix[i][j])
                 {
