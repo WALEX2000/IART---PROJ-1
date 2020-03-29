@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
 
         Node solution = currentPuzzle.search(searchOption);
 
-        currentPuzzle.displayPuzzle();
         Debug.Log(searchOption);
 
         watch.Stop();

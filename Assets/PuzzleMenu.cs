@@ -18,11 +18,11 @@ public class PuzzleMenu : MonoBehaviour
     }
     public void choose2()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzleMedium);
+        gameManager.ManagerStarter(this.search, Example.puzzle4);
     }
     public void choose3()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzle4);
+        gameManager.ManagerStarter(this.search, Example.puzzleMedium);
     }
     public void choose4()
     {
