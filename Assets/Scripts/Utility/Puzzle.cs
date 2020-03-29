@@ -177,7 +177,8 @@ public class Puzzle : IComparable<Puzzle>
         return true;
     }
 
-    public void executeMove(List<Tuple<int, int>> positions, TileType tile) {
+    public void executeMove(List<Tuple<int, int>> positions, TileType tile)
+    {
         for (int i = 0; i < positions.Count; i++)
         {
             puzzleMatrix[positions[i].Item1][positions[i].Item2] = tile;

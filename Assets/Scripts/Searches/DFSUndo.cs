@@ -21,6 +21,7 @@ public class DFSUndo
         if (current.puzzle.isComplete())
         {
             current.puzzle = current.puzzle.copy();
+            Debug.Log("Solved");
             return current;
         }
 
@@ -74,6 +75,8 @@ public class DFSUndo
                 current.puzzle.undoMoveRight(tile);
             }
         }
+
+        Debug.Log("Did not find solution");
 
         return null;
     }

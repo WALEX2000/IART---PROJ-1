@@ -13,10 +13,10 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        //Test test = new Test(tilePrefab);
-        //test.runTests(5, "Assets/Scripts/Tests/results.txt");
+        // Test test = new Test(tilePrefab);
+        // test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
-        // currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+        // currentPuzzle = new Puzzle(Example.puzzleEasy1, tilePrefab);
 
         // var watch = System.Diagnostics.Stopwatch.StartNew();
         // Node solution = currentPuzzle.search("DFSUndo");
@@ -38,25 +38,25 @@ public class GameManager : MonoBehaviour
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
+
         currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+
         var watch = System.Diagnostics.Stopwatch.StartNew();
+
         Node solution = currentPuzzle.search(searchOption);
+
         currentPuzzle.displayPuzzle();
         Debug.Log(searchOption);
 
-
         watch.Stop();
 
-        // StartCoroutine(DisplayPuzzleStates(steps, 2));
+        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
-        currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+        List<Puzzle> steps = solution.getPath();
 
-        currentPuzzle.displayPuzzle();
+        Debug.Log("Steps taken: " + steps.Count);
 
-        // List<Puzzle> steps = solution.getPath();
-        // Debug.Log("Steps taken: " + steps.Count);
-
-        // StartCoroutine(DisplayPuzzleStates(steps, 2));
+        StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();

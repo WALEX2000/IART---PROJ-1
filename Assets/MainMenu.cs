@@ -60,4 +60,12 @@ public class MainMenu : MonoBehaviour
         // Camera.main = gameCamera;
         puzzleMenu.setSearch("UniformCost");
     }
+
+    public void UniqueGreedy()
+    {
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        // Camera.main = gameCamera;
+        puzzleMenu.setSearch("UniqueFirstGreedy");
+    }
 }
