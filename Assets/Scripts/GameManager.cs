@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         // StartCoroutine(DisplayPuzzleStates(steps, 2));
 
         /*
-        currentPuzzle = new Puzzle(Example.puzzleEasy1, tilePrefab);
+        currentPuzzle = new Puzzle(Example.puzzle2275, tilePrefab);
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("UniqueFirstGreedy");
 
         if(solution == null) {
-            Debug.Log("No solution found!");
+            Debug.LogError("No solution found!");
             return;
         }
 
@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(DisplayPuzzleStates(steps, 2));
         */
+        
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
