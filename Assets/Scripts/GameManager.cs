@@ -65,15 +65,9 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DisplayPuzzleStates(steps, 2));
         */
 
-<<<<<<< HEAD
         //Puzzle puzzle = new Puzzle(Example.puzzleHard, tilePrefab);
         //puzzle.displayPuzzle();
 
-=======
-        Puzzle puzzle = new Puzzle(Example.puzzleExpert, tilePrefab);
-        puzzle.displayPuzzle();
-        
->>>>>>> 3b1957e10ff170ee34cf534d6158e8295af01f5d
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)

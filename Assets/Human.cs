@@ -24,6 +24,7 @@ public class Human : MonoBehaviour
 
     void OnMouseDrag()
     {
+        puzzle.displayPuzzle();
         var v3 = Input.mousePosition - v3Pos;
         v3.Normalize();
         var f = Vector3.Dot(v3, Vector3.up);
@@ -37,13 +38,11 @@ public class Human : MonoBehaviour
         {
             Debug.Log("Up");
             puzzle.moveUp(tile);
-            puzzle.displayPuzzle();
         }
         else if (f <= -0.5)
         {
             Debug.Log("Down");
             puzzle.moveDown(tile);
-            puzzle.displayPuzzle();
         }
         else
         {
@@ -52,15 +51,15 @@ public class Human : MonoBehaviour
             {
                 Debug.Log("Right");
                 puzzle.moveRight(tile);
-                puzzle.displayPuzzle();
             }
             else
             {
                 Debug.Log("Left");
                 puzzle.moveLeft(tile);
-                puzzle.displayPuzzle();
             }
         }
+
+        puzzle.displayPuzzle();
 
         v3Pos = Input.mousePosition;
 
@@ -69,8 +68,13 @@ public class Human : MonoBehaviour
             Debug.Log("Puzzle Completed successfuly");
         }
 
+    }
 
-
+    public void getHint()
+    {
+        Node solution = puzzle.search("DFSUndo");
+        List<Puzzle> steps = solution.getPath();
+        steps[1].displayPuzzle();
     }
 
     public void QuitGame()
