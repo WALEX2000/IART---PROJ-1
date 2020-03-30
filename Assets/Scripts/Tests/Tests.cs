@@ -13,31 +13,37 @@ public class Test
     {
         this.tilePrefab = tilePrefab;
         // operators = new List<string>(new string[] { "BFS", "DFSUndo", "IDDFSUndo", "SimpleGreedy" });
-        operators = new List<string>(new string[] { "SimpleGreedy", "DFSUndo", "UniqueFirstGreedy" });
+        operators = new List<string>(new string[] { "AStar" });
     }
 
     public void runTests(int times, string path)
     {
-        // Puzzle puzzleEasy = new Puzzle(Example.puzzleEasy1, tilePrefab);
-        // System.IO.File.WriteAllLines(path, runPuzzleTests(times, puzzleEasy));
+        Puzzle puzzleEasy = new Puzzle(Example.puzzleEasy1, tilePrefab);
+        System.IO.File.WriteAllLines(path, runPuzzleTests(times, puzzleEasy));
 
-        // Puzzle puzzle4 = new Puzzle(Example.puzzle4, tilePrefab);
-        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle4));
+        Puzzle puzzle4 = new Puzzle(Example.puzzle4, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle4));
 
-        // Puzzle puzzleMedium = new Puzzle(Example.puzzleMedium, tilePrefab);
-        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleMedium));
+        Puzzle puzzleMedium = new Puzzle(Example.puzzleMedium, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleMedium));
 
-        // Puzzle puzzle2275 = new Puzzle(Example.puzzle2275, tilePrefab);
-        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2275));
+        Puzzle puzzle2275 = new Puzzle(Example.puzzle2275, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2275));
 
-        // Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
-        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleDifficult));
+        Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleDifficult));
 
-        // Puzzle puzzleHard = new Puzzle(Example.puzzleHard, tilePrefab);
-        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleHard));
+        Puzzle puzzleHard = new Puzzle(Example.puzzleHard, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleHard));
 
         Puzzle puzzle761 = new Puzzle(Example.puzzle761, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle761));
+
+        Puzzle puzzle2251 = new Puzzle(Example.puzzle2251, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2251));
+
+        Puzzle puzzleExpert = new Puzzle(Example.puzzleExpert, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleExpert));
 
         Debug.Log("Finished Tests");
 

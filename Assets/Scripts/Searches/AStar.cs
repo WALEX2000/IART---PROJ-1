@@ -123,14 +123,14 @@ public class AStar
             {
                 Puzzle newPuzzle = current.puzzle.copy();
                 newPuzzle.executeMove(move.positions, move.tile);
-                Node node = new Node(newPuzzle, current, current.value + move.score + 10/move.positions.Count);
+                Node node = new Node(newPuzzle, current, current.value + move.score + move.positions.Count);
                 priorityQueue.Enqueue(node);
             }
             foreach (Move move in lastMoves)
             {
                 Puzzle newPuzzle = current.puzzle.copy();
                 newPuzzle.executeMove(move.positions, move.tile);
-                Node node = new Node(newPuzzle, current, current.value + move.score + 10/move.positions.Count);
+                Node node = new Node(newPuzzle, current, current.value + move.score + move.positions.Count);
                 priorityQueue.Enqueue(node);
             }
         }

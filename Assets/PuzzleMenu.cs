@@ -107,6 +107,22 @@ public class PuzzleMenu : MonoBehaviour
         Debug.Log(this.search);
         if (this.search == "")
         {
+            gameManager.HumanMode(Example.puzzle2251);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzle2251);
+    }
+
+
+
+
+    public void choose9()
+    {
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
             gameManager.HumanMode(Example.puzzleExpert);
         }
         else
