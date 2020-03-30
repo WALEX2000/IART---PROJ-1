@@ -19,98 +19,58 @@ public class PuzzleMenu : MonoBehaviour
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzleEasy1);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzleEasy1);
+        if (this.search == "") gameManager.HumanMode(Example.puzzleEasy1);
+        else gameManager.ManagerStarter(this.search, Example.puzzleEasy1);
     }
     public void choose2()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzle4);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzle4);
+        if (this.search == "") gameManager.HumanMode(Example.puzzle4);
+        else gameManager.ManagerStarter(this.search, Example.puzzle4);
     }
     public void choose3()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzleMedium);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzleMedium);
+        if (this.search == "") gameManager.HumanMode(Example.puzzleMedium);
+        else gameManager.ManagerStarter(this.search, Example.puzzleMedium);
     }
     public void choose4()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzle2275);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzle2275);
+        if (this.search == "") gameManager.HumanMode(Example.puzzle2275);
+        else gameManager.ManagerStarter(this.search, Example.puzzle2275);
     }
     public void choose5()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzleDifficult);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzleDifficult);
+        if (this.search == "") gameManager.HumanMode(Example.puzzleDifficult);
+        else gameManager.ManagerStarter(this.search, Example.puzzleDifficult);
     }
     public void choose6()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzleHard);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzleHard);
+        if (this.search == "") gameManager.HumanMode(Example.puzzleHard);
+        else gameManager.ManagerStarter(this.search, Example.puzzleHard);
     }
     public void choose7()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzle761);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzle761);
+        if (this.search == "") gameManager.HumanMode(Example.puzzle761);
+        else gameManager.ManagerStarter(this.search, Example.puzzle761);
     }
 
     public void choose8()
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzle2251);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzle2251);
+        if (this.search == "") gameManager.HumanMode(Example.puzzle2251);
+        else gameManager.ManagerStarter(this.search, Example.puzzle2251);
     }
 
 
@@ -120,13 +80,8 @@ public class PuzzleMenu : MonoBehaviour
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        Debug.Log(this.search);
-        if (this.search == "")
-        {
-            gameManager.HumanMode(Example.puzzleExpert);
-        }
-        else
-            gameManager.ManagerStarter(this.search, Example.puzzleExpert);
+        if (this.search == "") gameManager.HumanMode(Example.puzzleExpert);
+        else gameManager.ManagerStarter(this.search, Example.puzzleExpert);
     }
 
 }

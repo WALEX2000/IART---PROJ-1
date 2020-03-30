@@ -12,8 +12,7 @@ public class Test
     public Test(GameObject tilePrefab)
     {
         this.tilePrefab = tilePrefab;
-        // operators = new List<string>(new string[] { "BFS", "DFSUndo", "IDDFSUndo", "SimpleGreedy" });
-        operators = new List<string>(new string[] { "AStar" });
+        operators = new List<string>(new string[] { "AStar", "UniformCost", "UniqueFirstGreedy", "SimpleGreedy", "DFSUndo", "IDDFSUndo", "BFS" });
     }
 
     public void runTests(int times, string path)
@@ -42,8 +41,8 @@ public class Test
         Puzzle puzzle2251 = new Puzzle(Example.puzzle2251, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2251));
 
-        Puzzle puzzleExpert = new Puzzle(Example.puzzleExpert, tilePrefab);
-        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleExpert));
+        // Puzzle puzzleExpert = new Puzzle(Example.puzzleExpert, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleExpert));
 
         Debug.Log("Finished Tests");
 

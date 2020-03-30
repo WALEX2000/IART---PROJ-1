@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 enum playerType { Bot, Player };
 
 public class GameManager : MonoBehaviour
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         // Test test = new Test(tilePrefab);
-        // test.runTests(2, "Results/AStarwSize.txt");
+        // test.runTests(5, "Results/All.txt");
 
     }
 
@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
     {
 
 
-        currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
-        firstPuzzle = currentPuzzle.copy();
+        currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
+        firstPuzzle = new Puzzle(puzzleLevel, tilePrefab);
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     public void HumanMode(TileType[][] puzzleLevel)
     {
-        currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+        currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
         firstPuzzle = currentPuzzle.copy();
         currentPuzzle.displayPuzzle();
         hintButton.GetComponent<GetHint>().puzzle = currentPuzzle;
@@ -84,5 +84,16 @@ public class GameManager : MonoBehaviour
             puzzle.displayPuzzle();
             yield return new WaitForSeconds(time);
         }
+    }
+
+    public TileType[][] copyMatrix(TileType[][] matrix)
+    {
+        TileType[][] copy = new TileType[matrix.Length][];
+        for (int i = 0; i < matrix.Length; i++)
+        {
+            copy[i] = new TileType[matrix[i].Length];
+            Array.Copy(matrix[i], copy[i], matrix[i].Length);
+        }
+        return copy;
     }
 }
