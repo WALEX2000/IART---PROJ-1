@@ -32,11 +32,12 @@ public class BFS
 
             if (current.puzzle.isComplete())
             {
+                Debug.Log("Completed puzzle");
                 return current;
             }
 
-            // if (visited.Contains(current.puzzle)) return null;
-            // visited.Add(current.puzzle);
+            if (visited.Contains(current.puzzle)) continue;
+            visited.Add(current.puzzle);
 
             foreach (TileType tile in colors)
             {

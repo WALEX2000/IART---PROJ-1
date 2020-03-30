@@ -1,0 +1,7 @@
+Puzzle 1
+BFS: 0,0055
+
+Puzzle 2
+BFS: 7,4598
+
+

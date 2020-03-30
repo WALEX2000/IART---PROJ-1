@@ -13,7 +13,7 @@ public class Test
     {
         this.tilePrefab = tilePrefab;
         // operators = new List<string>(new string[] { "BFS", "DFSUndo", "IDDFSUndo", "SimpleGreedy" });
-        operators = new List<string>(new string[] { "BFS" });
+        operators = new List<string>(new string[] { "SimpleGreedy" });
     }
 
     public void runTests(int times, string path)
@@ -27,14 +27,14 @@ public class Test
         Puzzle puzzleMedium = new Puzzle(Example.puzzleMedium, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleMedium));
 
-        // Puzzle puzzle2275 = new Puzzle(Example.puzzle2275, tilePrefab);
-        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2275));
+        Puzzle puzzle2275 = new Puzzle(Example.puzzle2275, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2275));
 
         // Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
         // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleDifficult));
 
-        // Puzzle puzzleHard = new Puzzle(Example.puzzleHard, tilePrefab);
-        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleHard));
+        Puzzle puzzleHard = new Puzzle(Example.puzzleHard, tilePrefab);
+        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleHard));
 
         // Puzzle puzzleExpert = new Puzzle(Example.puzzleExpert, tilePrefab);
         // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleExpert));

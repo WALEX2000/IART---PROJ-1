@@ -15,16 +15,13 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        // Test test = new Test(tilePrefab);
-        // test.runTests(1, "Assets/Scripts/Tests/BFSResults1.txt");
+        Test test = new Test(tilePrefab);
+        // test.runTests(5, "Assets/Scripts/Tests/Greedy10Results.txt");
 
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
     {
-        // Test test = new Test(tilePrefab);
-        // test.runTests(5, "Assets/Scripts/Tests/results.txt");
-
 
         currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
         currentPuzzle.displayPuzzle();
@@ -33,22 +30,15 @@ public class GameManager : MonoBehaviour
 
         Node solution = currentPuzzle.search(searchOption);
 
-        /*if(solution == null) {
-            Debug.Log("No solution");
-            return;
-        }*/
-
-        Debug.Log(searchOption);
-
         watch.Stop();
-
+        Debug.Log(searchOption);
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
+
         if (solution == null)
         {
             Debug.LogError("Algorithm failed to solve puzzle!!");
             return;
         }
-
 
         List<Puzzle> steps = solution.getPath();
 

@@ -101,8 +101,9 @@ public class UniqueFirstGreedy
         }
         //order moves in a priorityqueue
         PriorityQueue<Move> priorityQueue = new PriorityQueue<Move>();
-        foreach (Move move in allMoves) {
-            if(this.size) move.score = move.score/move.positions.Count;
+        foreach (Move move in allMoves)
+        {
+            if (this.size) move.score = move.score / move.positions.Count;
             priorityQueue.Enqueue(move);
         }
 
@@ -111,7 +112,7 @@ public class UniqueFirstGreedy
         List<Move> bestMoves = tuple.Item1;
         List<Move> lastMoves = tuple.Item2;
 
-        if(bestMoves.Count > 1) bestMoves = resolveTies(bestMoves, puzzle);
+        if (bestMoves.Count > 1) bestMoves = resolveTies(bestMoves, puzzle);
 
         //Now that we have the list ordered without ties go through it and recall findSolution with the resultant board
         foreach (Move move in bestMoves)
@@ -119,14 +120,14 @@ public class UniqueFirstGreedy
             Puzzle newPuzzle = puzzle.copy();
             newPuzzle.executeMove(move.positions, move.tile);
             Node node = new Node(newPuzzle, puzzleNode, 0);
-            if (findSolution(node)) return true;            
+            if (findSolution(node)) return true;
         }
         foreach (Move move in lastMoves)
         {
             Puzzle newPuzzle = puzzle.copy();
             newPuzzle.executeMove(move.positions, move.tile);
             Node node = new Node(newPuzzle, puzzleNode, 0);
-            if (findSolution(node)) return true;            
+            if (findSolution(node)) return true;
         }
         return false;
     }
@@ -138,7 +139,7 @@ public class UniqueFirstGreedy
         {
             Puzzle copyPuzzle = puzzle.copy();
             copyPuzzle.executeMove(move.positions, move.tile);
-            
+
             List<Tuple<int, int>> moveDownList = copyPuzzle.getMoveDownList(move.tile);
             if (moveDownList != null)
             {
@@ -176,24 +177,27 @@ public class UniqueFirstGreedy
             }
         }
         PriorityQueue<Move> priorityQueue = new PriorityQueue<Move>();
-        foreach (Move newMove in newMoves) {
-            if(this.size) newMove.score = newMove.score/newMove.positions.Count;
+        foreach (Move newMove in newMoves)
+        {
+            if (this.size) newMove.score = newMove.score / newMove.positions.Count;
             priorityQueue.Enqueue(newMove);
         }
-        Tuple<List<Move>,List<Move>> tuple = priorityQueue.splitFrontItems();
+        Tuple<List<Move>, List<Move>> tuple = priorityQueue.splitFrontItems();
         List<Move> newBestMoves = tuple.Item1;
-        List<Move> lastMoves = tuple.Item2;        
-        if (newBestMoves.Count > 1) {
-            List<Move> newM = resolveTies(newBestMoves, puzzle);            
+        List<Move> lastMoves = tuple.Item2;
+        if (newBestMoves.Count > 1)
+        {
+            List<Move> newM = resolveTies(newBestMoves, puzzle);
             newM.AddRange(newBestMoves);
             newM.AddRange(lastMoves);
             return newM;
-        }            
-        else {
-            if(newMoves.Count == 0) newBestMoves = bestMoves;
+        }
+        else
+        {
+            if (newMoves.Count == 0) newBestMoves = bestMoves;
             newBestMoves.AddRange(lastMoves);
             return newBestMoves;
-        }            
+        }
     }
 
     private void checkMoveOnStub(Move move)

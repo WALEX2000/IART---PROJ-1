@@ -6,7 +6,7 @@ using System.Linq;
 
 public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta }
 
-public class Puzzle : MonoBehaviour
+public class Puzzle
 {
     private List<GameObject> gameObjects = new List<GameObject>();
     public GameObject tilePrefab;
