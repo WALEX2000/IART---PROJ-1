@@ -23,7 +23,7 @@ public class AStar
     private int numNodes = 0;
 
 
-    public Node search(Puzzle puzzle)
+    public Node search(Puzzle puzzle, Boolean size)
     {
         this.size = size;
         colors = puzzle.puzzleColors();
@@ -58,7 +58,6 @@ public class AStar
             if (current.puzzle.isComplete())
             {
                 Debug.Log("Solved");
-                Debug.Log(numNodes);
                 return current;
             }
 
@@ -111,7 +110,7 @@ public class AStar
             PriorityQueue<Move> movePriorityQueue = new PriorityQueue<Move>();
             foreach (Move move in allMoves)
             {
-                // if (this.size) move.score = move.score / move.positions.Count;
+                if (this.size) move.score = move.score / move.positions.Count;
                 movePriorityQueue.Enqueue(move);
             }
 
@@ -187,7 +186,7 @@ public class AStar
         PriorityQueue<Move> movePriorityQueue = new PriorityQueue<Move>();
         foreach (Move newMove in newMoves)
         {
-            // if (this.size) newMove.score = newMove.score / newMove.positions.Count;
+            if (this.size) newMove.score = newMove.score / newMove.positions.Count;
             movePriorityQueue.Enqueue(newMove);
         }
         Tuple<List<Move>, List<Move>> tuple = movePriorityQueue.splitFrontItems();
