@@ -7,7 +7,7 @@ public class Human : MonoBehaviour
 
     private Vector3 mouseDownPos;
     private Vector3 lastMouseCoordinate = Vector3.zero;
-
+    bool moving = false;
 
     public Puzzle puzzle;
     public TileType tile;
@@ -19,12 +19,14 @@ public class Human : MonoBehaviour
 
     void OnMouseDown()
     {
+        moving = true;
         v3Pos = Input.mousePosition;
     }
 
-
     void OnMouseDrag()
     {
+        if(!moving) return;
+
         puzzle.displayPuzzle();
         var v3 = Input.mousePosition - v3Pos;
         v3.Normalize();
@@ -69,6 +71,12 @@ public class Human : MonoBehaviour
             Debug.Log("Puzzle Completed successfuly");
         }
 
+        moving = false;
+
+    }
+
+    void onMouseUp() {
+        moving = false;
     }
 
 
