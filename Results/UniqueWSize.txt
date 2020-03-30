@@ -1,0 +1,24 @@
+UniqueFirstGreedy: 0,006
+
+
+UniqueFirstGreedy: 0,0005
+
+
+UniqueFirstGreedy: 0
+
+
+UniqueFirstGreedy: 0,0595
+
+
+UniqueFirstGreedy: 0,2135
+
+
+UniqueFirstGreedy: 0,002
+
+
+UniqueFirstGreedy: 0,0145
+
+
+UniqueFirstGreedy: 0,001
+
+

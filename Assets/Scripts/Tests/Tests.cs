@@ -13,7 +13,7 @@ public class Test
     {
         this.tilePrefab = tilePrefab;
         // operators = new List<string>(new string[] { "BFS", "DFSUndo", "IDDFSUndo", "SimpleGreedy" });
-        operators = new List<string>(new string[] { "AStar" });
+        operators = new List<string>(new string[] { "UniqueFirstGreedy" });
     }
 
     public void runTests(int times, string path)

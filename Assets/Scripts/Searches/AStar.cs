@@ -17,12 +17,15 @@ public class AStar
     private List<TileType> colors;
     private PriorityQueue<Node> priorityQueue;
     private HashSet<TileType[][]> visited;
+    private Boolean size;
+
     private List<Move>[][] stubMatrix;
     private int numNodes = 0;
 
 
     public Node search(Puzzle puzzle)
     {
+        this.size = size;
         colors = puzzle.puzzleColors();
         priorityQueue = new PriorityQueue<Node>();
         visited = new HashSet<TileType[][]>();
@@ -108,6 +111,7 @@ public class AStar
             PriorityQueue<Move> movePriorityQueue = new PriorityQueue<Move>();
             foreach (Move move in allMoves)
             {
+                // if (this.size) move.score = move.score / move.positions.Count;
                 movePriorityQueue.Enqueue(move);
             }
 
@@ -183,6 +187,7 @@ public class AStar
         PriorityQueue<Move> movePriorityQueue = new PriorityQueue<Move>();
         foreach (Move newMove in newMoves)
         {
+            // if (this.size) newMove.score = newMove.score / newMove.positions.Count;
             movePriorityQueue.Enqueue(newMove);
         }
         Tuple<List<Move>, List<Move>> tuple = movePriorityQueue.splitFrontItems();

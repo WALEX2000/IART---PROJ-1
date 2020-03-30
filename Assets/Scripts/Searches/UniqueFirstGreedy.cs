@@ -81,7 +81,7 @@ public class UniqueFirstGreedy
         PriorityQueue<Move> priorityQueue = new PriorityQueue<Move>();
         foreach (Move move in allMoves)
         {
-            // if (this.size) move.score = move.score / move.positions.Count;
+            if (this.size) move.score = move.score / move.positions.Count;
             priorityQueue.Enqueue(move);
         }
 
@@ -157,7 +157,7 @@ public class UniqueFirstGreedy
         PriorityQueue<Move> priorityQueue = new PriorityQueue<Move>();
         foreach (Move newMove in newMoves)
         {
-            // if (this.size) newMove.score = newMove.score / newMove.positions.Count;
+            if (this.size) newMove.score = newMove.score / newMove.positions.Count;
             priorityQueue.Enqueue(newMove);
         }
         Tuple<List<Move>, List<Move>> tuple = priorityQueue.splitFrontItems();
