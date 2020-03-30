@@ -86,7 +86,7 @@ public class Example
         new TileType[] {TileType.Magenta,TileType.Magenta, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
         new TileType[] {TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
         new TileType[] {TileType.Empty,TileType.Null, TileType.Empty, TileType.Gray, TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
-        new TileType[] {TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null, TileType.Null, TileType.Null}
+        new TileType[] {TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null, TileType.Null}
 
     };
     public static TileType[][] puzzleHard = new TileType[][]
