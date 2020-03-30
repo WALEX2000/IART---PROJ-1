@@ -1906,7 +1906,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzle: {fileID: 0}
   tile: 0
-  mainMenu: {fileID: 1237308714}
+  hintButton: {fileID: 0}
 --- !u!1 &459254104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzle: {fileID: 0}
   tile: 0
-  mainMenu: {fileID: 0}
+  hintButton: {fileID: 0}
 --- !u!1 &491540155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2532,6 +2532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 4600706758828329129, guid: 17ab1bfd908eb4481a4d34327a9ebf1a,
     type: 3}
+  hintButton: {fileID: 1261120749}
 --- !u!4 &551643976
 Transform:
   m_ObjectHideFlags: 0
@@ -3616,7 +3617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.22, y: 12.2, z: 4.49}
+  m_LocalPosition: {x: 3, y: 12.2, z: 4.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3995,6 +3996,8 @@ GameObject:
   - component: {fileID: 1261120753}
   - component: {fileID: 1261120752}
   - component: {fileID: 1261120751}
+  - component: {fileID: 1261120754}
+  - component: {fileID: 1261120755}
   m_Layer: 5
   m_Name: Get Hint
   m_TagString: Untagged
@@ -4019,7 +4022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 244, y: 133}
+  m_AnchoredPosition: {x: 267, y: 159}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1261120751
@@ -4065,12 +4068,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: b8e6357d30d35544994c0cec918d7b42, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 1261120754}
+        m_MethodName: getHint
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -4112,6 +4115,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261120749}
   m_CullTransparentMesh: 0
+--- !u!114 &1261120754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261120749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed11f76b6722794da34cbfcc915acba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzle: {fileID: 0}
+--- !u!114 &1261120755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261120749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e6357d30d35544994c0cec918d7b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzle: {fileID: 0}
+  tile: 0
+  hintButton: {fileID: 1261120749}
 --- !u!1 &1265148068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4676,6 +4707,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1261120749}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1358675545
 MonoBehaviour:

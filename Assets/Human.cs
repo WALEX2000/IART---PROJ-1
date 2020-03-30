@@ -14,7 +14,8 @@ public class Human : MonoBehaviour
 
     private Vector3 v3Pos;
     private int threshold = 9;
-    public MainMenu mainMenu;
+    public GameObject hintButton;
+
 
 
     void OnMouseDown()
@@ -25,7 +26,9 @@ public class Human : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if(!moving) return;
+        // hintButton.GetComponent<GetHint>().puzzle = puzzle;
+
+        if (!moving) return;
 
         puzzle.displayPuzzle();
         var v3 = Input.mousePosition - v3Pos;
@@ -75,7 +78,8 @@ public class Human : MonoBehaviour
 
     }
 
-    void onMouseUp() {
+    void onMouseUp()
+    {
         moving = false;
     }
 

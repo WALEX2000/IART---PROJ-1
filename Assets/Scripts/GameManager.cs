@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
 
     public void Start()
-    {        
+    {
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
@@ -108,10 +108,9 @@ public class GameManager : MonoBehaviour
 
     public void HumanMode(TileType[][] puzzleLevel)
     {
-        Debug.Log("Entered Human mode");
         currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
-        hintButton.GetComponent<GetHint>().puzzle = currentPuzzle;
         currentPuzzle.displayPuzzle();
+        hintButton.GetComponent<GetHint>().puzzle = currentPuzzle;
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();
