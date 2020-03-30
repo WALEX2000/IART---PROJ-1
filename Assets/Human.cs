@@ -68,6 +68,9 @@ public class Human : MonoBehaviour
         {
             Debug.Log("Puzzle Completed successfuly");
         }
+
+
+
     }
 
     public void QuitGame()

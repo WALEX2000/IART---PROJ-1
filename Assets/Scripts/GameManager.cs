@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
 
-        // currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+        // currentPuzzle = new Puzzle(Example.puzzleExpert, tilePrefab);
         // currentPuzzle.displayPuzzle();
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/results.txt");
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
         //Puzzle puzzle = new Puzzle(Example.puzzleHard, tilePrefab);
         //puzzle.displayPuzzle();
-        
+
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
