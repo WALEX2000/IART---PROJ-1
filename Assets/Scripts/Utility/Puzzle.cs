@@ -18,8 +18,6 @@ public class Puzzle
         this.tilePrefab = tilePrefab;
     }
 
-
-
     public Puzzle copy()
     {
 
