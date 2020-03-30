@@ -559,17 +559,20 @@ public class Puzzle : MonoBehaviour
 
     public List<Tuple<int, int>> getMoveLeftList(TileType tile)
     {
-
         int rotationAxis = puzzleMatrix.Length;
 
+        bool foundAxis = false;
+
         //Discover the rotation axis
-        for (int i = 0; i < puzzleMatrix.Length; i++)
+        for (int j = 0; (j < puzzleMatrix[0].Length) && (!foundAxis); j++)
         {
-            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            for (int i = 0; i < puzzleMatrix.Length; i++)
             {
-                if (puzzleMatrix[i][j] == tile && j < rotationAxis)
+                if (puzzleMatrix[i][j] == tile)
                 {
                     rotationAxis = j;
+                    foundAxis = true;
+                    break;
                 }
             }
         }
@@ -580,7 +583,7 @@ public class Puzzle : MonoBehaviour
         //Adds positions of the tiles to a List
         for (int i = 0; i < puzzleMatrix.Length; i++)
         {
-            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            for (int j = rotationAxis; j < puzzleMatrix[i].Length; j++)
             {
                 if (tile == puzzleMatrix[i][j])
                 {
@@ -739,7 +742,7 @@ public class Puzzle : MonoBehaviour
         else if (typeOfSearch == "UniqueFirstGreedy")
         {
             UniqueFirstGreedy greedy = new UniqueFirstGreedy();
-            return greedy.solve(current);
+            return greedy.solve(current, true);
         }
 
         else if (typeOfSearch == "AStar")

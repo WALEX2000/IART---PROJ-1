@@ -32,8 +32,10 @@ public class UniqueFirstGreedy
     private List<TileType> colors;
     private List<Puzzle> solution = new List<Puzzle>();
 
-    public Node solve(Puzzle puzzle)
+    private Boolean size;
+    public Node solve(Puzzle puzzle, Boolean size)
     {
+        this.size = size;
         colors = puzzle.puzzleColors();
         Node node = new Node(puzzle, null, 0);
         findSolution(node);
@@ -99,14 +101,17 @@ public class UniqueFirstGreedy
         }
         //order moves in a priorityqueue
         PriorityQueue<Move> priorityQueue = new PriorityQueue<Move>();
-        foreach (Move move in allMoves) priorityQueue.Enqueue(move);
+        foreach (Move move in allMoves) {
+            if(this.size) move.score = move.score/move.positions.Count;
+            priorityQueue.Enqueue(move);
+        }
 
         //get all the ones that are tied at the top and resolve the ties
         Tuple<List<Move>, List<Move>> tuple = priorityQueue.splitFrontItems();
         List<Move> bestMoves = tuple.Item1;
         List<Move> lastMoves = tuple.Item2;
 
-        if (bestMoves.Count > 1) bestMoves = resolveTies(bestMoves, puzzle);
+        if(bestMoves.Count > 1) bestMoves = resolveTies(bestMoves, puzzle);
 
         //Now that we have the list ordered without ties go through it and recall findSolution with the resultant board
         foreach (Move move in bestMoves)
@@ -171,12 +176,16 @@ public class UniqueFirstGreedy
             }
         }
         PriorityQueue<Move> priorityQueue = new PriorityQueue<Move>();
-        foreach (Move newMove in newMoves) priorityQueue.Enqueue(newMove);
+        foreach (Move newMove in newMoves) {
+            if(this.size) newMove.score = newMove.score/newMove.positions.Count;
+            priorityQueue.Enqueue(newMove);
+        }
         Tuple<List<Move>,List<Move>> tuple = priorityQueue.splitFrontItems();
         List<Move> newBestMoves = tuple.Item1;
         List<Move> lastMoves = tuple.Item2;        
         if (newBestMoves.Count > 1) {
-            List<Move> newM = resolveTies(newBestMoves, puzzle);
+            List<Move> newM = resolveTies(newBestMoves, puzzle);            
+            newM.AddRange(newBestMoves);
             newM.AddRange(lastMoves);
             return newM;
         }            

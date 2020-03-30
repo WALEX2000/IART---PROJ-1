@@ -98,7 +98,7 @@ public class Example
         new TileType[] {TileType.Red,TileType.Red, TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
         new TileType[] {TileType.Empty,TileType.Empty, TileType.Null, TileType.Green, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
         new TileType[] {TileType.Null,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
-        new TileType[] {TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
+        new TileType[] {TileType.Null,TileType.Null, TileType.Null, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
         new TileType[] {TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Yellow},
         new TileType[] {TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty}
 
