@@ -748,7 +748,11 @@ public class Puzzle
             AStar astar = new AStar();
             astar.search(current);
         }
-
+        else if (typeOfSearch == "UniformCost")
+        {
+            UniformCost uCost = new UniformCost();
+            return uCost.search(current);
+        }
         else Debug.Log("Algortithm does not exist");
 
         return null;

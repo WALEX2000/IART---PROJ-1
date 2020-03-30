@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Steps taken: " + steps.Count);
 
-        StartCoroutine(DisplayPuzzleStates(steps, 2));
+        StartCoroutine(DisplayPuzzleStates(steps, 1));
     }
 
     public void hidePuzzle()
