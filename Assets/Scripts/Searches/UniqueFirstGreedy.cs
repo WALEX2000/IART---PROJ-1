@@ -184,8 +184,8 @@ public class UniqueFirstGreedy
         List<Move> newBestMoves = tuple.Item1;
         List<Move> lastMoves = tuple.Item2;        
         if (newBestMoves.Count > 1) {
-            List<Move> newM = resolveTies(newBestMoves, puzzle);
-            if(newM[0] != newBestMoves[0]) newM.AddRange(newBestMoves);
+            List<Move> newM = resolveTies(newBestMoves, puzzle);            
+            newM.AddRange(newBestMoves);
             newM.AddRange(lastMoves);
             return newM;
         }            
