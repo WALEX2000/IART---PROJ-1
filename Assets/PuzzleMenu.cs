@@ -107,10 +107,10 @@ public class PuzzleMenu : MonoBehaviour
         Debug.Log(this.search);
         if (this.search == "")
         {
-            gameManager.HumanMode(Example.puzzle2251);
+            gameManager.HumanMode(Example.puzzleExpert);
         }
         else
-            gameManager.ManagerStarter(this.search, Example.puzzle2251);
+            gameManager.ManagerStarter(this.search, Example.puzzleExpert);
     }
 
 }
