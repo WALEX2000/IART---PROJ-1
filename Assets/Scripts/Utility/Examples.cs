@@ -116,6 +116,36 @@ public class Example
 
     };
 
+    public static TileType[][] puzzle2251 = new TileType[][]
+    {
+        new TileType[] {TileType.Null,TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null,TileType.Null, TileType.Null , TileType.Null , TileType.Null , TileType.Null , TileType.Empty , TileType.Empty , TileType.Null },
+        new TileType[] {TileType.Null,TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null,TileType.Null, TileType.Null , TileType.Null , TileType.Null , TileType.Null , TileType.Empty , TileType.Empty , TileType.Null },
+        new TileType[] {TileType.Null,TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null,TileType.Null, TileType.Null , TileType.Null , TileType.Null , TileType.Null , TileType.Empty , TileType.Null , TileType.Null },
+        new TileType[] {TileType.Null,TileType.Null,TileType.Empty, TileType.Empty, TileType.Null, TileType.Null, TileType.Null, TileType.Null,TileType.Empty, TileType.Red , TileType.Null , TileType.Null , TileType.Null , TileType.Yellow , TileType.Magenta , TileType.Magenta },
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty, TileType.Red , TileType.Red , TileType.Red , TileType.Null , TileType.Yellow , TileType.Yellow , TileType.Magenta },
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null, TileType.Empty,TileType.Empty, TileType.Red , TileType.Red , TileType.Empty , TileType.Green , TileType.Yellow , TileType.Yellow , TileType.Empty },
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null, TileType.Empty,TileType.Empty, TileType.Empty , TileType.Empty , TileType.Empty , TileType.Empty , TileType.Null , TileType.Empty , TileType.Empty },
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty, TileType.Empty , TileType.Empty , TileType.Empty , TileType.Blue , TileType.Blue , TileType.Blue , TileType.Blue },
+        new TileType[] {TileType.Null,TileType.Null,TileType.Empty, TileType.Empty, TileType.Null, TileType.Null, TileType.Null, TileType.Null,TileType.Empty, TileType.Empty , TileType.Empty , TileType.Empty , TileType.Empty , TileType.Gray , TileType.Blue , TileType.Null },
+        new TileType[] {TileType.Null,TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null,TileType.Null, TileType.Null , TileType.Empty , TileType.Empty , TileType.Empty , TileType.Empty , TileType.Empty , TileType.Null },
+        new TileType[] {TileType.Null,TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null,TileType.Null, TileType.Null , TileType.Null , TileType.Null , TileType.Empty , TileType.Empty , TileType.Empty , TileType.Empty },
+
+
+    };
+    public static TileType[][] puzzle761 = new TileType[][]
+    {
+        new TileType[] {TileType.Null,TileType.Null,TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Empty,TileType.Null},
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Null, TileType.Red, TileType.Empty, TileType.Null, TileType.Empty, TileType.Blue,TileType.Blue},
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Blue,TileType.Null},
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Green, TileType.Yellow, TileType.Yellow, TileType.Empty,TileType.Null},
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Null, TileType.Empty, TileType.Empty, TileType.Null, TileType.Yellow, TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Null,TileType.Empty,TileType.Empty, TileType.Empty, TileType.Yellow, TileType.Yellow, TileType.Yellow, TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Null,TileType.Null,TileType.Gray, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null, TileType.Empty,TileType.Null},
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Magenta, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Null}
+
+    };
+
     public static TileType[][] puzzle2275 = new TileType[][]
     {
         new TileType[] {TileType.Null, TileType.Null, TileType.Null, TileType.Null, TileType.Empty, TileType.Null, TileType.Null, TileType.Magenta, TileType.Empty, TileType.Null, TileType.Null, TileType.Empty},

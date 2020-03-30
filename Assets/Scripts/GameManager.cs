@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        Test test = new Test(tilePrefab);
-        // test.runTests(5, "Assets/Scripts/Tests/Greedy10Results.txt");
+        // Test test = new Test(tilePrefab);
+        // test.runTests(5, "Assets/Scripts/Tests/Puzzle761.txt");
+
 
     }
 
