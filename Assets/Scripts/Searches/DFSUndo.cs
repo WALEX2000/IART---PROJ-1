@@ -24,8 +24,6 @@ public class DFSUndo
             return current;
         }
 
-        // if (visited.Contains(current.puzzle)) return null;
-        // visited.Add(current.puzzle);
 
         Node finalNode;
         foreach (TileType tile in colors)

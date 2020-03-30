@@ -15,12 +15,14 @@ public class SimpleGreedy
 
     private List<TileType> colors;
     private PriorityQueue<Node> priorityQueue;
+    private HashSet<TileType[][]> visited;
 
 
     public Node search(Puzzle puzzle)
     {
         colors = puzzle.puzzleColors();
         priorityQueue = new PriorityQueue<Node>();
+        visited = new HashSet<TileType[][]>();
 
         priorityQueue.Enqueue(new Node(puzzle, null, 0));
         return greedySearch();
@@ -43,7 +45,8 @@ public class SimpleGreedy
     //Nao esquecer que o BFS funcionava melhor com uma lista do que com uma queue
     private Node greedySearch()
     {
-        while (priorityQueue.Count() != 0) {
+        while (priorityQueue.Count() != 0)
+        {
             Node current = priorityQueue.Dequeue();
 
             if (current.puzzle.isComplete())
@@ -51,6 +54,10 @@ public class SimpleGreedy
                 Debug.Log("Solved");
                 return current;
             }
+
+            if (visited.Contains(current.puzzle.PuzzleMatrix)) continue;
+            visited.Add(current.puzzle.PuzzleMatrix);
+
 
             foreach (TileType tile in colors)
             {
@@ -77,6 +84,7 @@ public class SimpleGreedy
                     priorityQueue.Enqueue(new Node(puzzleRight, current, SimpleGreedy.calculatePuzzleScore(puzzleRight)));
                 }
             }
+
         }
 
         return null;

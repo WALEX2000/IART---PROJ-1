@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+
+        // currentPuzzle = new Puzzle(Example.puzzleMedium, tilePrefab);
+        // currentPuzzle.displayPuzzle();
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
 
 
         currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+        currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
@@ -88,18 +92,26 @@ public class GameManager : MonoBehaviour
 
         watch.Stop();
 
-        if(solution == null) {
+        if (solution == null)
+        {
             Debug.LogError("Algorithm failed to solve puzzle!!");
             return;
         }
 
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
-       
+
         List<Puzzle> steps = solution.getPath();
 
         Debug.Log("Steps taken: " + steps.Count);
 
         StartCoroutine(DisplayPuzzleStates(steps, 2));
+    }
+
+    public void HumanMode(TileType[][] puzzleLevel)
+    {
+        Debug.Log("Entered Human mode");
+        currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+        currentPuzzle.displayPuzzle();
     }
 
     private List<Puzzle> puzzleStates = new List<Puzzle>();
