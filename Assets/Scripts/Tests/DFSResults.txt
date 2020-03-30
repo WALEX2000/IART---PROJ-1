@@ -1,0 +1,17 @@
+Puzzle1
+DFSUndo: 0,0036
+
+Puzzle2
+DFSUndo: 0,0072
+
+Puzzle3
+DFSUndo: 0,0032
+
+Puzzle4
+DFSUndo: 0,0046
+
+Puzzle5
+DFSUndo: Nao conseguiu resolver em tempo util
+
+Puzzle6
+DFSUndo: 0,8286

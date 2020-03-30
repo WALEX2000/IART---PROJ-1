@@ -16,56 +16,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         // Test test = new Test(tilePrefab);
-        // test.runTests(5, "Assets/Scripts/Tests/results.txt");
-
-        // currentPuzzle = new Puzzle(Example.puzzleEasy1, tilePrefab);
-
-        // var watch = System.Diagnostics.Stopwatch.StartNew();
-        // Node solution = currentPuzzle.search("DFSUndo");
-        // currentPuzzle.displayPuzzle();
-
-
-        // watch.Stop();
-
-        // Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
-
-        // List<Puzzle> steps = solution.getPath();
-        // Debug.Log("Steps taken: " + steps.Count);
-
-        // StartCoroutine(DisplayPuzzleStates(steps, 2));
-
-        /*
-        currentPuzzle = new Puzzle(Example.puzzleHard, tilePrefab);
-
-        var watch = System.Diagnostics.Stopwatch.StartNew();
-
-        Node solution = currentPuzzle.search("UniqueFirstGreedy");
-
-        Debug.Log("UniqueFirstGreedy");
-
-        if(solution == null) {
-            Debug.LogError("No solution found!");
-            return;
-        }
-
-        watch.Stop();
-
-        if(solution == null) {
-            Debug.LogError("Algorithm failed to solve puzzle!!");
-            return;
-        }
-
-        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
-       
-        List<Puzzle> steps = solution.getPath();
-
-        Debug.Log("Steps taken: " + steps.Count);
-
-        StartCoroutine(DisplayPuzzleStates(steps, 2));
-        */
-
-        //Puzzle puzzle = new Puzzle(Example.puzzleHard, tilePrefab);
-        //puzzle.displayPuzzle();
+        // test.runTests(1, "Assets/Scripts/Tests/BFSResults1.txt");
 
     }
 
@@ -91,13 +42,13 @@ public class GameManager : MonoBehaviour
 
         watch.Stop();
 
+        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
         if (solution == null)
         {
             Debug.LogError("Algorithm failed to solve puzzle!!");
             return;
         }
 
-        Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
         List<Puzzle> steps = solution.getPath();
 

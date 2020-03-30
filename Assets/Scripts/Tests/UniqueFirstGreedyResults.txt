@@ -1,0 +1,19 @@
+Puzzle1
+UniqueFirstGreedy: 0,0098
+
+Puzzle2
+UniqueFirstGreedy: 0,0162
+
+Puzzle3
+UniqueFirstGreedy: 0,0056
+
+Puzzle4
+UniqueFirstGreedy: 1,2858
+
+Puzzle5
+UniqueFirstGreedy: 4,1536
+
+Puzzle6
+UniqueFirstGreedy: 0,0748
+
+

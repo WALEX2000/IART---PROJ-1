@@ -35,8 +35,8 @@ public class BFS
                 return current;
             }
 
-            if (visited.Contains(current.puzzle)) return null;
-            visited.Add(current.puzzle);
+            // if (visited.Contains(current.puzzle)) return null;
+            // visited.Add(current.puzzle);
 
             foreach (TileType tile in colors)
             {

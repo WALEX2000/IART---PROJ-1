@@ -55,8 +55,8 @@ public class SimpleGreedy
                 return current;
             }
 
-            if (visited.Contains(current.puzzle.PuzzleMatrix)) continue;
-            visited.Add(current.puzzle.PuzzleMatrix);
+            // if (visited.Contains(current.puzzle.PuzzleMatrix)) continue;
+            // visited.Add(current.puzzle.PuzzleMatrix);
 
 
             foreach (TileType tile in colors)
