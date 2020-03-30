@@ -7,6 +7,7 @@ enum playerType { Bot, Player };
 public class GameManager : MonoBehaviour
 {
     private Puzzle currentPuzzle;
+    private Puzzle firstPuzzle;
     private playerType currentPlayer;
     public GameObject tilePrefab;
 
@@ -18,13 +19,14 @@ public class GameManager : MonoBehaviour
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/Puzzle761.txt");
 
-
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
     {
 
+
         currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+        firstPuzzle = currentPuzzle.copy();
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -48,9 +50,19 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DisplayPuzzleStates(steps, 2));
     }
 
+    public void hidePuzzle()
+    {
+        currentPuzzle.hidePuzzle();
+    }
+    public void backToOriginal()
+    {
+        currentPuzzle = firstPuzzle;
+    }
+
     public void HumanMode(TileType[][] puzzleLevel)
     {
         currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+        firstPuzzle = currentPuzzle.copy();
         currentPuzzle.displayPuzzle();
         hintButton.GetComponent<GetHint>().puzzle = currentPuzzle;
     }

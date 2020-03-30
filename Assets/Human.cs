@@ -85,6 +85,8 @@ public class Human : MonoBehaviour
 
 
 
+
+
     public void QuitGame()
     {
         Application.Quit();
