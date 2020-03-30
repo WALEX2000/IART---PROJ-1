@@ -22,6 +22,11 @@ public class GetHint : MonoBehaviour
     public void getHint()
     {
         Node solution = puzzle.search("AStar");
+        if (solution == null)
+        {
+            Debug.Log("Impossible to solve!");
+            return;
+        }
         List<Puzzle> steps = solution.getPath();
         steps[1].displayPuzzle();
         Wait(1, () =>

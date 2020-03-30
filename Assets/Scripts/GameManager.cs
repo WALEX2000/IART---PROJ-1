@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        Test test = new Test(tilePrefab);
-        test.runTests(2, "Results/AStarwSize.txt");
+        // Test test = new Test(tilePrefab);
+        // test.runTests(2, "Results/AStarwSize.txt");
 
     }
 
