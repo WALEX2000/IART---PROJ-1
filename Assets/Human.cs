@@ -14,6 +14,7 @@ public class Human : MonoBehaviour
 
     private Vector3 v3Pos;
     private int threshold = 9;
+    public MainMenu mainMenu;
 
     void OnMouseDown()
     {
@@ -60,7 +61,18 @@ public class Human : MonoBehaviour
                 puzzle.displayPuzzle();
             }
         }
+
         v3Pos = Input.mousePosition;
+
+        if (puzzle.isComplete())
+        {
+            Debug.Log("Puzzle Completed successfuly");
+        }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 }

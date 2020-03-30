@@ -5,7 +5,10 @@ using UnityEngine;
 public class PuzzleMenu : MonoBehaviour
 {
     public GameManager gameManager;
-    private string search;
+    private string search = "";
+
+    public Camera gameCamera;
+    public Camera menuCamera;
     // Start is called before the first frame update
 
     public void setSearch(string searchMethod)
@@ -14,31 +17,87 @@ public class PuzzleMenu : MonoBehaviour
     }
     public void choose1()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzleEasy1);
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
+            gameManager.HumanMode(Example.puzzleEasy1);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzleEasy1);
     }
     public void choose2()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzle4);
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
+            gameManager.HumanMode(Example.puzzle4);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzle4);
     }
     public void choose3()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzleMedium);
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
+            gameManager.HumanMode(Example.puzzleMedium);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzleMedium);
     }
     public void choose4()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzle2275);
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
+            gameManager.HumanMode(Example.puzzle2275);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzle2275);
     }
     public void choose5()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzleDifficult);
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
+            gameManager.HumanMode(Example.puzzleDifficult);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzleDifficult);
     }
     public void choose6()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzleHard);
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
+            gameManager.HumanMode(Example.puzzleHard);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzleHard);
     }
     public void choose7()
     {
-        gameManager.ManagerStarter(this.search, Example.puzzleExpert);
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        Debug.Log(this.search);
+        if (this.search == "")
+        {
+            gameManager.HumanMode(Example.puzzleExpert);
+        }
+        else
+            gameManager.ManagerStarter(this.search, Example.puzzleExpert);
     }
 
 }
