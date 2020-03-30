@@ -10,12 +10,11 @@ public class GameManager : MonoBehaviour
     private playerType currentPlayer;
     public GameObject tilePrefab;
 
+    public GameObject hintButton;
+
 
     public void Start()
-    {
-
-        currentPuzzle = new Puzzle(Example.puzzleExpert, tilePrefab);
-        currentPuzzle.displayPuzzle();
+    {        
         // Test test = new Test(tilePrefab);
         // test.runTests(5, "Assets/Scripts/Tests/results.txt");
 
@@ -111,6 +110,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Entered Human mode");
         currentPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+        hintButton.GetComponent<GetHint>().puzzle = currentPuzzle;
         currentPuzzle.displayPuzzle();
     }
 
