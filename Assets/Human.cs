@@ -16,6 +16,7 @@ public class Human : MonoBehaviour
     private int threshold = 9;
     public MainMenu mainMenu;
 
+
     void OnMouseDown()
     {
         v3Pos = Input.mousePosition;
@@ -70,12 +71,7 @@ public class Human : MonoBehaviour
 
     }
 
-    public void getHint()
-    {
-        Node solution = puzzle.search("DFSUndo");
-        List<Puzzle> steps = solution.getPath();
-        steps[1].displayPuzzle();
-    }
+
 
     public void QuitGame()
     {
