@@ -1,0 +1,27 @@
+AStar: 0,0065
+
+
+AStar: 0,0005
+
+
+AStar: 0
+
+
+AStar: 0,032
+
+
+AStar: 0,0005
+
+
+AStar: 0,001
+
+
+AStar: 0,002
+
+
+AStar: 0,0005
+
+
+AStar: 0,001
+
+

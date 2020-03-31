@@ -1,6 +1,0 @@
-UniformCost: 0,0044
-DFSUndo: 0,002
-UniqueFirstGreedy: 0,0004
-SimpleGreedy: 0,0016
-
-

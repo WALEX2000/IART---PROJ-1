@@ -1,0 +1,5 @@
+SimpleGreedy: 9,1458
+DFSUndo: 2,6392
+UniqueFirstGreedy: 0,0118
+
+

@@ -1,0 +1,20 @@
+Puzzle 1
+SimpleGreedy: 0,002
+
+Puzzle 2
+SimpleGreedy: 0,0862
+
+Puzzle 3
+SimpleGreedy: 0
+
+Puzzle 4
+SimpleGreedy: 0
+
+Puzzle 5
+SimpleGreedy: NC
+
+
+Puzzle 6
+SimpleGreedy: 4,2606
+
+
