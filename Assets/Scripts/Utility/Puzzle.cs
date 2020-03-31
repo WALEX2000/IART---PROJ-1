@@ -746,7 +746,7 @@ public class Puzzle
         else if (typeOfSearch == "AStar")
         {
             AStar astar = new AStar();
-            astar.search(current);
+            return astar.search(current, true);
         }
         else if (typeOfSearch == "UniformCost")
         {

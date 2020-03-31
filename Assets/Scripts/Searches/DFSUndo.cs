@@ -7,6 +7,7 @@ public class DFSUndo
     private List<TileType> colors;
     private Puzzle current;
     private HashSet<Puzzle> visited;
+    private int numNodes = 0;
 
     public Node search(Puzzle puzzle)
     {
@@ -17,10 +18,12 @@ public class DFSUndo
     }
     public Node depthFirstSearchUndo(Node current)
     {
+        numNodes++;
         if (current.puzzle.isComplete())
         {
             current.puzzle = current.puzzle.copy();
             Debug.Log("Solved");
+            Debug.Log(numNodes);
             return current;
         }
 

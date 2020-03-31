@@ -1,176 +1,236 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
 
 
-
-//  {TileType.Null, TileType.Green, TileType.Null, TileType.Null, TileType.Null, TileType.Null},
-//  {TileType.Green, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty, TileType.Null},
-//  {TileType.Empty, TileType.Empty, TileType.Yellow, TileType.Empty, TileType.Empty, TileType.Null},
-//  {TileType.Blue, TileType.Empty, TileType.Empty, TileType.Empty,TileType.Magenta, TileType.Null},
-//  {TileType.Empty, TileType.Empty, TileType.Gray, TileType.Empty, TileType.Magenta, TileType.Magenta},
-//  {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Magenta, TileType.Magenta, TileType.Magenta},
-//  {TileType.Empty, TileType.Red, TileType.Empty, TileType.Empty, TileType.Null, TileType.Null}
-
-//Matriz em que os Empty sao inicializados a 9
-//Cada elemento da matriz diz quantas cores sobrepuseram o elemento
-//Começar com as mais unicas
-//Que estados expandimos inicialmente?
-//
-
+//Objective: Do the more unique solutions first
+//How
+//For a puzzle, expand all colors in four directions
+//See what are the moves that result in more unique solutions
+//Do those first
 public class AStar
 {
 
-    private HashSet<Puzzle> openList;
-    private HashSet<Puzzle> closedList;
-
     private List<TileType> colors;
+    private PriorityQueue<Node> priorityQueue;
+    private HashSet<TileType[][]> visited;
+    private Boolean size;
 
-    private Puzzle current;
-    private Puzzle empty;
-
-    private Dictionary<Puzzle, int> g;
+    private List<Move>[][] stubMatrix;
+    private int numNodes = 0;
 
 
-    public bool search(Puzzle puzzle)
+    public Node search(Puzzle puzzle, Boolean size)
     {
-
-        openList = new HashSet<Puzzle>();
-        closedList = new HashSet<Puzzle>();
-        g = new Dictionary<Puzzle, int>();
+        this.size = size;
         colors = puzzle.puzzleColors();
-        this.current = puzzle.copy();
-        empty = new Puzzle(Example.emptyPuzzle, puzzle.tilePrefab);
+        priorityQueue = new PriorityQueue<Node>();
+        visited = new HashSet<TileType[][]>();
 
-        g[puzzle] = 0;
-
-        return aStarSearch();
+        priorityQueue.Enqueue(new Node(puzzle, null, 0));
+        return aStar();
     }
 
-
-    //Deve levar os puzzles como argumentos ou a matriz de scores?
-    public int calculateDestinationScore(List<List<int>> currentScoreMatrix, List<List<int>> finalScoreMatrix)
+    //Preenche primeiro os maiores
+    public static int calculatePuzzleScore(Puzzle current)
     {
-        int finalScore = 0, currentScore = 0;
-        return finalScore - currentScore;
-    }
-
-
-
-    private int heuristic(Puzzle puzzle)
-    {
-        return 0;
-    }
-    private int calculateWeight(Puzzle puzzle) { return 0; }
-
-    private void actionsNeighbour(Puzzle puzzle)
-    {
-        g[puzzle] = 0;
-        g[current] = 0;
-        int weight = calculateWeight(puzzle);
-
-        if (!openList.Contains(puzzle) && (!openList.Contains(puzzle)))
+        int score = 0;
+        for (int i = 0; i < current.PuzzleMatrix.Length; i++)
         {
-            openList.Add(puzzle);
-            g[puzzle] = g[current] + weight;
-        }
-        else if (g[puzzle] > g[current] + weight)
-        {
-            g[puzzle] = g[current] + weight;
-            if (closedList.Contains(puzzle))
+            for (int j = 0; j < current.PuzzleMatrix[0].Length; j++)
             {
-                closedList.Remove(puzzle);
-                openList.Add(puzzle);
+                if (current.PuzzleMatrix[i][j] != TileType.Null && current.PuzzleMatrix[i][j] != TileType.Empty) score += 1;
             }
         }
-
+        return score;
     }
 
-
-
-    private bool aStarSearch()
+    private Node aStar()
     {
-
-        openList.Add(current);
-
-
-
-        while (openList.Count > 0)
+        while (priorityQueue.Count() != 0)
         {
+            numNodes++;
+            Node current = priorityQueue.Dequeue();
 
-            current = empty;
-            g[current] = 0;
-
-            foreach (Puzzle p in openList)
+            if (current.puzzle.isComplete())
             {
+                Debug.Log("Solved");
+                return current;
+            }
 
-                if (!g.ContainsKey(p)) g.Add(p, 0);
-                else g[p] = 0;
-
-                if (!g.ContainsKey(current)) g.Add(current, 0);
-                else g[current] = 0;
-
-                if (current == empty || (g[p] + heuristic(p)) < g[current] + heuristic(current))
+            stubMatrix = new List<Move>[current.puzzle.PuzzleMatrix.Length][];
+            for (int i = 0; i < stubMatrix.Length; i++)
+            {
+                stubMatrix[i] = new List<Move>[current.puzzle.PuzzleMatrix[i].Length];
+                for (int j = 0; j < stubMatrix[i].Length; j++)
                 {
-                    current = p.copy(); //Is the copy really necessary?
+                    stubMatrix[i][j] = new List<Move>();
                 }
-
             }
 
-            if (current == empty)
-            {
-                Debug.Log("Path does not exist");
-                return false;
-            }
-
-            if (current.isComplete())
-            {
-                current.displayPuzzle();
-                Debug.Log("Solved with A*");
-                return true;
-            }
-
-
+            List<Move> allMoves = new List<Move>();
             foreach (TileType tile in colors)
             {
-                Puzzle puzzleDown = current.copy();
-                if (puzzleDown.moveDown(tile))
+                List<Tuple<int, int>> moveDownList = current.puzzle.getMoveDownList(tile);
+                if (moveDownList != null)
                 {
-                    actionsNeighbour(puzzleDown);
+                    Move move = new Move(moveDownList, tile);
+                    addMoveToStub(move);
+                    allMoves.Add(move);
                 }
 
-                Puzzle puzzleUp = current.copy();
-                if (puzzleUp.moveUp(tile))
+                List<Tuple<int, int>> moveUpList = current.puzzle.getMoveUpList(tile);
+                if (moveUpList != null)
                 {
-                    actionsNeighbour(puzzleUp);
-
+                    Move move = new Move(moveUpList, tile);
+                    addMoveToStub(move);
+                    allMoves.Add(move);
                 }
 
-                Puzzle puzzleLeft = current.copy();
-                if (puzzleLeft.moveLeft(tile))
+                List<Tuple<int, int>> moveLeftList = current.puzzle.getMoveLeftList(tile);
+                if (moveLeftList != null)
                 {
-                    actionsNeighbour(puzzleLeft);
-
+                    Move move = new Move(moveLeftList, tile);
+                    addMoveToStub(move);
+                    allMoves.Add(move);
                 }
 
-                Puzzle puzzleRight = current.copy();
-                if (puzzleRight.moveRight(tile))
+                List<Tuple<int, int>> moveRightList = current.puzzle.getMoveRightList(tile);
+                if (moveRightList != null)
                 {
-                    actionsNeighbour(puzzleRight);
+                    Move move = new Move(moveRightList, tile);
+                    addMoveToStub(move);
+                    allMoves.Add(move);
                 }
             }
+            //order moves in a priorityqueue
+            PriorityQueue<Move> movePriorityQueue = new PriorityQueue<Move>();
+            foreach (Move move in allMoves)
+            {
+                if (this.size) move.score = move.score / move.positions.Count;
+                movePriorityQueue.Enqueue(move);
+            }
 
-            openList.Remove(current);
-            closedList.Add(current);
+            //get all the ones that are tied at the top and resolve the ties
+            Tuple<List<Move>, List<Move>> tuple = movePriorityQueue.splitFrontItems();
+            List<Move> bestMoves = tuple.Item1;
+            List<Move> lastMoves = tuple.Item2;
+
+            if (bestMoves.Count > 1) bestMoves = resolveTies(bestMoves, current.puzzle);
+
+            //Now that we have the list ordered without ties go through it and recall findSolution with the resultant board
+            foreach (Move move in bestMoves)
+            {
+                Puzzle newPuzzle = current.puzzle.copy();
+                newPuzzle.executeMove(move.positions, move.tile);
+                Node node = new Node(newPuzzle, current, current.value + move.score + move.positions.Count);
+                priorityQueue.Enqueue(node);
+            }
+            foreach (Move move in lastMoves)
+            {
+                Puzzle newPuzzle = current.puzzle.copy();
+                newPuzzle.executeMove(move.positions, move.tile);
+                Node node = new Node(newPuzzle, current, current.value + move.score + move.positions.Count);
+                priorityQueue.Enqueue(node);
+            }
         }
+        return null;
+    }
+    private List<Move> resolveTies(List<Move> bestMoves, Puzzle puzzle)
+    {
+        List<Move> newMoves = new List<Move>();
+        foreach (Move move in bestMoves)
+        {
+            Puzzle copyPuzzle = puzzle.copy();
+            copyPuzzle.executeMove(move.positions, move.tile);
 
-        Debug.Log("Could not find solution");
+            List<Tuple<int, int>> moveDownList = copyPuzzle.getMoveDownList(move.tile);
+            if (moveDownList != null)
+            {
+                Move newMove = new Move(moveDownList, move.tile);
+                checkMoveOnStub(newMove);
+                newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMoves.Add(newMove);
+            }
 
-        return false;
+            List<Tuple<int, int>> moveUpList = copyPuzzle.getMoveUpList(move.tile);
+            if (moveUpList != null)
+            {
+                Move newMove = new Move(moveUpList, move.tile);
+                checkMoveOnStub(newMove);
+                newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMoves.Add(newMove);
+            }
 
+            List<Tuple<int, int>> moveLeftList = copyPuzzle.getMoveLeftList(move.tile);
+            if (moveLeftList != null)
+            {
+                Move newMove = new Move(moveLeftList, move.tile);
+                checkMoveOnStub(newMove);
+                newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMoves.Add(newMove);
+            }
+
+            List<Tuple<int, int>> moveRightList = copyPuzzle.getMoveRightList(move.tile);
+            if (moveRightList != null)
+            {
+                Move newMove = new Move(moveRightList, move.tile);
+                checkMoveOnStub(newMove);
+                newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMoves.Add(newMove);
+            }
+        }
+        PriorityQueue<Move> movePriorityQueue = new PriorityQueue<Move>();
+        foreach (Move newMove in newMoves)
+        {
+            if (this.size) newMove.score = newMove.score / newMove.positions.Count;
+            movePriorityQueue.Enqueue(newMove);
+        }
+        Tuple<List<Move>, List<Move>> tuple = movePriorityQueue.splitFrontItems();
+        List<Move> newBestMoves = tuple.Item1;
+        List<Move> lastMoves = tuple.Item2;
+        if (newBestMoves.Count > 1)
+        {
+            List<Move> newM = resolveTies(newBestMoves, puzzle);
+            newM.AddRange(newBestMoves);
+            newM.AddRange(lastMoves);
+            return newM;
+        }
+        else
+        {
+            if (newMoves.Count == 0) newBestMoves = bestMoves;
+            newBestMoves.AddRange(lastMoves);
+            return newBestMoves;
+        }
     }
 
+    private void checkMoveOnStub(Move move)
+    {
+        foreach (Tuple<int, int> coords in move.positions)
+        {
+            List<Move> overlappingMoves = stubMatrix[coords.Item1][coords.Item2];
+            move.score += overlappingMoves.Count;
+        }
+    }
+
+    private void addMoveToStub(Move move)
+    {
+        foreach (Tuple<int, int> coords in move.positions)
+        {
+            List<Move> overlappingMoves = stubMatrix[coords.Item1][coords.Item2];
+
+            for (int i = 0; i < overlappingMoves.Count; i++)
+            {
+                Move moveFound = overlappingMoves[i];
+                moveFound.addOne();
+                move.addOne();
+            }
+            overlappingMoves.Add(move);
+        }
+    }
 }
 
 

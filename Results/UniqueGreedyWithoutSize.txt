@@ -1,0 +1,27 @@
+UniformCost: 0,0028
+
+
+UniformCost: 0,0002
+
+
+UniformCost: 0
+
+
+UniformCost: 0,0872
+
+
+UniformCost: 0,0016
+
+
+UniformCost: 0,0016
+
+
+UniformCost: 0,0024
+
+
+UniformCost: 0,0016
+
+
+UniformCost: 0,0804
+
+
