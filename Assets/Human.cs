@@ -24,7 +24,7 @@ public class Human : MonoBehaviour
     {
         if(gameManager == null)
             return;
-        // hintButton.GetComponent<GetHint>().puzzle = puzzle;
+        
         if (!moving || gameManager.humanBusy) return;
         
         Puzzle newPuzzle = puzzle.copy();
@@ -60,7 +60,7 @@ public class Human : MonoBehaviour
         if (puzzle.isComplete())
         {
             Debug.Log("Puzzle Completed successfuly");
-        }
+        }        
 
         moving = false;                
     }
@@ -80,7 +80,8 @@ public class Human : MonoBehaviour
         newPuzzle.displayPuzzle(); 
         puzzle.hidePuzzle();
         puzzle = newPuzzle;        
-        gameManager.currentPuzzle = puzzle;     
+        gameManager.currentPuzzle = puzzle;
+        gameManager.hintButton.GetComponent<GetHint>().puzzle = puzzle; 
         Destroy(tileGroup);
         gameManager.humanBusy = false;
     }
