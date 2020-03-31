@@ -33,9 +33,5 @@ public class GetHint : MonoBehaviour
         {
             steps[1].puzzle.hidePuzzle();
         });
-
-
     }
-
-
 }

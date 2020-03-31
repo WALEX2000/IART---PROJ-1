@@ -8,6 +8,7 @@ public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta } //
 
 public class Puzzle
 {
+    public GameManager gameManager;
     private List<GameObject> gameObjects = new List<GameObject>();
     public GameObject tilePrefab;
     private TileType[][] puzzleMatrix; //Tile Matrix used by the puzzle
@@ -32,6 +33,7 @@ public class Puzzle
 
         }
         Puzzle puzzle = new Puzzle(copy, tilePrefab);
+        puzzle.gameManager = gameManager;
         return puzzle;
     }
 
@@ -51,8 +53,9 @@ public class Puzzle
                     if ((int)puzzleMatrix[i][j] > 1)
                     {
                         GameObject instantiatedTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(i, 0.375f, j), Quaternion.identity); //Actual Tiles on top                    
-                        gameObjects.Add(instantiatedTile);
+                        gameObjects.Add(instantiatedTile);                        
                         instantiatedTile.GetComponent<Human>().puzzle = this;
+                        instantiatedTile.GetComponent<Human>().gameManager = gameManager;
                         instantiatedTile.GetComponent<Human>().tile = puzzleMatrix[i][j];
 
                         switch (puzzleMatrix[i][j])

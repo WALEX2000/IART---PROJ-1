@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum MoveType { Up, Down, Left, Right }
+public enum MoveType { NULL, Up, Down, Left, Right }
 
 //Created so that all the search methods return the same thing
 //Only the Greedy algorithms use the "value"
