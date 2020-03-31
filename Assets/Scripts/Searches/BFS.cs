@@ -10,6 +10,7 @@ public class BFS
     private List<TileType> colors;
     private Puzzle puzzle;
     private HashSet<Puzzle> visited;
+    private int numNodes = 0;
 
 
 
@@ -25,14 +26,14 @@ public class BFS
 
     private Node breadthFirstSearch()
     {
-
         while (searchQueue.Count != 0)
         {
+            numNodes++;
             Node current = searchQueue.Dequeue();
 
             if (current.puzzle.isComplete())
             {
-                Debug.Log("Completed puzzle");
+                Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 

@@ -57,7 +57,7 @@ public class AStar
 
             if (current.puzzle.isComplete())
             {
-                Debug.Log("Solved");
+                Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 

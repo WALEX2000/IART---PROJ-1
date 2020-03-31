@@ -16,25 +16,23 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        // Test test = new Test(tilePrefab);
-        // test.runTests(5, "Results/All.txt");
+        Test test = new Test(tilePrefab);
+        test.runTests(5, "Results/All.txt");
 
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
     {
-
-
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
         firstPuzzle = new Puzzle(puzzleLevel, tilePrefab);
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
+        Debug.Log(searchOption);
         Node solution = currentPuzzle.search(searchOption);
 
         watch.Stop();
-        Debug.Log(searchOption);
         Debug.Log("Time taken: " + watch.ElapsedMilliseconds / 1000.0);
 
         if (solution == null)

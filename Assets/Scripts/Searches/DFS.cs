@@ -8,6 +8,7 @@ public class DFS
     List<TileType> colors;
     Puzzle current;
     HashSet<Puzzle> visited;
+    private int numNodes = 0;
 
     public Node search(Puzzle puzzle)
     {
@@ -19,7 +20,12 @@ public class DFS
 
     private Node depthFirstSearch(Node current)
     {
-        if (current.puzzle.isComplete()) return current;
+        numNodes++;
+        
+        if (current.puzzle.isComplete()) {
+            Debug.Log("Solved in " + numNodes + " nodes");
+            return current;
+        }
 
         if (visited.Contains(current.puzzle)) return null;
         visited.Add(current.puzzle);

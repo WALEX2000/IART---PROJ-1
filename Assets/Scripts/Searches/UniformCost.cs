@@ -54,8 +54,7 @@ public class UniformCost
 
             if (current.puzzle.isComplete())
             {
-                Debug.Log("Solved");
-                Debug.Log(numNodes);
+                Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 

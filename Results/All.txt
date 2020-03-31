@@ -1,18 +1,37 @@
-AStar: 0,0022
-UniformCost: 0,0004
-UniqueFirstGreedy: 0,0002
-SimpleGreedy: 0,0002
+BFS: 0,005
+IDDFSUndo: 0,0002
+DFS: 0
 DFSUndo: 0,0002
-IDDFSUndo: 0,0116
-BFS: 0,0032
+SimpleGreedy: 0,0002
+UniqueFirstGreedy: 0,0006
+UniformCost: 0,0002
+AStar: 0,0004
 
 
-AStar: 0
+BFS: 7,8122
+IDDFSUndo: 0,9964
+DFS: 0,013
+DFSUndo: 0,003
+SimpleGreedy: 0,0612
+UniqueFirstGreedy: 0,0002
 UniformCost: 0
-UniqueFirstGreedy: 0
-SimpleGreedy: 0,0598
-DFSUndo: 0,005
-IDDFSUndo: 1,5196
-BFS: 7,2266
+AStar: 0,0032
+
+
+IDDFSUndo: 35,26
+DFS: 0,0002
+DFSUndo: 0
+SimpleGreedy: 0,0004
+UniqueFirstGreedy: 0,0008
+UniformCost: 0,0004
+AStar: 0,0004
+
+
+DFS: 0,0012
+DFSUndo: 0,0002
+SimpleGreedy: 0,0004
+UniqueFirstGreedy: 0,0484
+UniformCost: 0,068
+AStar: 0,0242
 
 

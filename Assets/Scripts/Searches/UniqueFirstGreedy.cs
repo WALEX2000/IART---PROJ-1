@@ -9,6 +9,7 @@ public class UniqueFirstGreedy
     private List<Move>[][] stubMatrix;
     private List<TileType> colors;
     private List<Puzzle> solution = new List<Puzzle>();
+    private int numNodes = 0;
 
     private Boolean size;
     public Node solve(Puzzle puzzle, Boolean size)
@@ -22,12 +23,13 @@ public class UniqueFirstGreedy
 
     private bool findSolution(Node puzzleNode)
     {
+        numNodes++;
         Puzzle puzzle = puzzleNode.puzzle;
         //Check if the puzzle is complete
         if (puzzle.isComplete())
         {
             resultNode = puzzleNode;
-            Debug.Log("Search Completed successfully");
+            Debug.Log("Solved in " + numNodes + " nodes");
             return true;
         }
 

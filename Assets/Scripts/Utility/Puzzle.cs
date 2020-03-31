@@ -683,7 +683,6 @@ public class Puzzle
         puzzleColors.Reverse();
 
         return puzzleColors;
-
     }
 
     public void displayConsole()
@@ -722,15 +721,10 @@ public class Puzzle
             DFSUndo dfsU = new DFSUndo();
             return dfsU.search(current);
         }
-        else if (typeOfSearch == "IDDFS")
-        {
-            IDDFS iDDFS = new IDDFS();
-            iDDFS.search(current, 20);
-        }
         else if (typeOfSearch == "IDDFSUndo")
         {
             IDDFSUndo iDDFSUndo = new IDDFSUndo();
-            iDDFSUndo.search(current, 20);
+            return iDDFSUndo.search(current, 20);
         }
         else if (typeOfSearch == "SimpleGreedy")
         {

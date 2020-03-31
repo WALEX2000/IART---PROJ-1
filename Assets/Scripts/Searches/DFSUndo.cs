@@ -22,8 +22,7 @@ public class DFSUndo
         if (current.puzzle.isComplete())
         {
             current.puzzle = current.puzzle.copy();
-            Debug.Log("Solved");
-            Debug.Log(numNodes);
+            Debug.Log("Solved in " + numNodes + " nodes");
             return current;
         }
 

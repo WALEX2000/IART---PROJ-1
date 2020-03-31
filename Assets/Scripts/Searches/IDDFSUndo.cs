@@ -9,63 +9,80 @@ public class IDDFSUndo
     private int depth;
     private List<TileType> colors;
     private Puzzle puzzle;
+    private int numNodes = 0;
 
 
-    public bool search(Puzzle puzzle, int depth)
+    public Node search(Puzzle puzzle, int depth)
     {
         this.depth = depth;
         colors = puzzle.puzzleColors();
         this.puzzle = puzzle.copy();
 
-        for (int limit = 0; limit < depth; limit++)
+        Node finalNode;
+        for (int limit = 4; limit < depth; limit+=2)
         {
-            if (dls(puzzle, limit))
-                return true;
+            if ((finalNode = dls(new Node(puzzle, null, 0), limit)) != null)
+                return finalNode;
         }
-        return false;
+        return null;
     }
 
-    public bool dls(Puzzle current, int limit)
+    public Node dls(Node current, int limit)
     {
+        numNodes++;
 
-        if (current.isComplete())
+        if (current.puzzle.isComplete())
         {
-            current.displayPuzzle();
-            return true;
+            Debug.Log("Solved in " + numNodes + " nodes");
+            current.puzzle = current.puzzle.copy();
+            return current;
         }
 
-        if (limit <= 0) return false;
+        if (limit <= 0) return null;
 
+        Node finalNode;
         foreach (TileType tile in colors)
         {
 
-            if (current.moveDown(tile))
+            if (current.puzzle.moveDown(tile))
             {
-                if (dls(current, limit - 1))
-                    return true;
-                current.undoMoveDown(tile);
+                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                    current.puzzle.undoMoveDown(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
+                }
+                current.puzzle.undoMoveDown(tile);
             }
-            if (current.moveUp(tile))
+            if (current.puzzle.moveUp(tile))
             {
-                if (dls(current, limit - 1))
-                    return true;
-                current.undoMoveUp(tile);
+                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                    current.puzzle.undoMoveUp(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
+                }
+                current.puzzle.undoMoveUp(tile);
             }
-            if (current.moveLeft(tile))
+            if (current.puzzle.moveLeft(tile))
             {
-                if (dls(current, limit - 1))
-                    return true;
-                current.undoMoveLeft(tile);
+                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                    current.puzzle.undoMoveLeft(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
+                }
+                current.puzzle.undoMoveLeft(tile);
             }
-            if (current.moveRight(tile))
+            if (current.puzzle.moveRight(tile))
             {
-                if (dls(current, limit - 1))
-                    return true;
-                current.undoMoveRight(tile);
+                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                    current.puzzle.undoMoveRight(tile);
+                    current.puzzle = current.puzzle.copy();
+                    return finalNode;
+                }
+                current.puzzle.undoMoveRight(tile);
             }
         }
 
-        return false;
+        return null;
 
     }
 

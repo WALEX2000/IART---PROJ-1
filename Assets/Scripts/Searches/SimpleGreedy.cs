@@ -16,6 +16,7 @@ public class SimpleGreedy
     private List<TileType> colors;
     private PriorityQueue<Node> priorityQueue;
     private HashSet<TileType[][]> visited;
+    private int numNodes = 0;
 
 
     public Node search(Puzzle puzzle)
@@ -47,11 +48,12 @@ public class SimpleGreedy
     {
         while (priorityQueue.Count() != 0)
         {
+            numNodes++;
             Node current = priorityQueue.Dequeue();
 
             if (current.puzzle.isComplete())
             {
-                Debug.Log("Solved");
+                Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 
