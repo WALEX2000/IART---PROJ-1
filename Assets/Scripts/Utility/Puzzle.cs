@@ -83,6 +83,47 @@ public class Puzzle
         }
     }
 
+    public GameObject displayTilesOfType(TileType tile) {
+        GameObject parent = new GameObject("TileGroup");
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {                
+                if ((int)puzzleMatrix[i][j] > 1)
+                {
+                    if(puzzleMatrix[i][j] != tile) continue; //skip the tiles that aren't the ones we need;
+                    GameObject instantiatedTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(i, 0.375f, j), Quaternion.identity); //Actual Tiles on top                                        
+                    instantiatedTile.transform.parent = parent.transform;                
+                    switch (puzzleMatrix[i][j])
+                    {
+                        case TileType.Blue:
+                            instantiatedTile.GetComponent<Renderer>().material.color = Color.blue;
+                            break;
+                        case TileType.Red:
+                            instantiatedTile.GetComponent<Renderer>().material.color = Color.red;
+                            break;
+                        case TileType.Yellow:
+                            instantiatedTile.GetComponent<Renderer>().material.color = Color.yellow;
+                            break;
+                        case TileType.Green:
+                            instantiatedTile.GetComponent<Renderer>().material.color = Color.green;
+                            break;
+                        case TileType.Magenta:
+                            instantiatedTile.GetComponent<Renderer>().material.color = Color.magenta;
+                            break;
+                        case TileType.Gray:
+                            instantiatedTile.GetComponent<Renderer>().material.color = Color.gray;
+                            break;
+                        default:
+                            Debug.LogError("Unknown Material for tile: " + puzzleMatrix[i][j]);
+                            break;
+                    }
+                }                
+            }
+        }
+        return parent;
+    }
+
     public void hidePuzzle()
     {
         for (int i = 0; i < gameObjects.Count; i++)
@@ -683,7 +724,6 @@ public class Puzzle
         puzzleColors.Reverse();
 
         return puzzleColors;
-
     }
 
     public void displayConsole()
@@ -722,15 +762,10 @@ public class Puzzle
             DFSUndo dfsU = new DFSUndo();
             return dfsU.search(current);
         }
-        else if (typeOfSearch == "IDDFS")
-        {
-            IDDFS iDDFS = new IDDFS();
-            iDDFS.search(current, 20);
-        }
         else if (typeOfSearch == "IDDFSUndo")
         {
             IDDFSUndo iDDFSUndo = new IDDFSUndo();
-            iDDFSUndo.search(current, 20);
+            return iDDFSUndo.search(current, 20);
         }
         else if (typeOfSearch == "SimpleGreedy")
         {

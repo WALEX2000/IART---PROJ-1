@@ -10,8 +10,7 @@ public class BFS
     private List<TileType> colors;
     private Puzzle puzzle;
     private HashSet<Puzzle> visited;
-
-
+    private int numNodes = 0;
 
     public Node search(Puzzle puzzle)
     {
@@ -25,14 +24,14 @@ public class BFS
 
     private Node breadthFirstSearch()
     {
-
         while (searchQueue.Count != 0)
         {
+            numNodes++;
             Node current = searchQueue.Dequeue();
 
             if (current.puzzle.isComplete())
             {
-                Debug.Log("Completed puzzle");
+                Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 
@@ -44,25 +43,37 @@ public class BFS
                 Puzzle puzzleDown = current.puzzle.copy();
                 if (puzzleDown.moveDown(tile))
                 {
-                    searchQueue.Enqueue(new Node(puzzleDown, current, 0));
+                    Node node = new Node(puzzleDown, current, 0);
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Down;
+                    searchQueue.Enqueue(node);
                 }
 
                 Puzzle puzzleUp = current.puzzle.copy();
                 if (puzzleUp.moveUp(tile))
                 {
-                    searchQueue.Enqueue(new Node(puzzleUp, current, 0));
+                    Node node = new Node(puzzleUp, current, 0);
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Up;
+                    searchQueue.Enqueue(node);
                 }
 
                 Puzzle puzzleLeft = current.puzzle.copy();
                 if (puzzleLeft.moveLeft(tile))
                 {
-                    searchQueue.Enqueue(new Node(puzzleLeft, current, 0));
+                    Node node = new Node(puzzleLeft, current, 0);
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Left;
+                    searchQueue.Enqueue(node);
                 }
 
                 Puzzle puzzleRight = current.puzzle.copy();
                 if (puzzleRight.moveRight(tile))
                 {
-                    searchQueue.Enqueue(new Node(puzzleRight, current, 0));
+                    Node node = new Node(puzzleRight, current, 0);
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Right;
+                    searchQueue.Enqueue(node);
                 }
             }
         }

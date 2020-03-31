@@ -9,11 +9,13 @@ public class Move : IComparable<Move>
     public int score;
     public List<Tuple<int, int>> positions;
     public TileType tile;
+    public List<MoveType> moveType;
     public Move(List<Tuple<int, int>> positions, TileType tile)
     {
         this.positions = positions;
         this.score = 0;
         this.tile = tile;
+        this.moveType = new List<MoveType>();
         steps = new List<List<Tuple<int, int>>>();
         steps.Add(positions);
     }

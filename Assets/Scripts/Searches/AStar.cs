@@ -57,7 +57,7 @@ public class AStar
 
             if (current.puzzle.isComplete())
             {
-                Debug.Log("Solved");
+                Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 
@@ -78,14 +78,16 @@ public class AStar
                 if (moveDownList != null)
                 {
                     Move move = new Move(moveDownList, tile);
+                    move.moveType.Add(MoveType.Down);
                     addMoveToStub(move);
-                    allMoves.Add(move);
+                    allMoves.Add(move);                                
                 }
 
                 List<Tuple<int, int>> moveUpList = current.puzzle.getMoveUpList(tile);
                 if (moveUpList != null)
                 {
                     Move move = new Move(moveUpList, tile);
+                    move.moveType.Add(MoveType.Up);
                     addMoveToStub(move);
                     allMoves.Add(move);
                 }
@@ -94,6 +96,7 @@ public class AStar
                 if (moveLeftList != null)
                 {
                     Move move = new Move(moveLeftList, tile);
+                    move.moveType.Add(MoveType.Left);
                     addMoveToStub(move);
                     allMoves.Add(move);
                 }
@@ -102,6 +105,7 @@ public class AStar
                 if (moveRightList != null)
                 {
                     Move move = new Move(moveRightList, tile);
+                    move.moveType.Add(MoveType.Right);
                     addMoveToStub(move);
                     allMoves.Add(move);
                 }
@@ -124,17 +128,33 @@ public class AStar
             //Now that we have the list ordered without ties go through it and recall findSolution with the resultant board
             foreach (Move move in bestMoves)
             {
-                Puzzle newPuzzle = current.puzzle.copy();
-                newPuzzle.executeMove(move.positions, move.tile);
-                Node node = new Node(newPuzzle, current, current.value + move.score + move.positions.Count);
-                priorityQueue.Enqueue(node);
+                Node father = current;
+                Node last = null;
+                for(int i = move.steps.Count - 1; i >= 0; i--) {
+                    Puzzle newPuzzle = father.puzzle.copy();
+                    newPuzzle.executeMove(move.steps[i], move.tile);  
+                    Node next = new Node(newPuzzle, father, current.value + move.score + move.positions.Count);
+                    next.movedTile = move.tile;
+                    next.moveType = move.moveType[i];
+                    father = next;
+                    last = next;           
+                }
+                priorityQueue.Enqueue(last);
             }
             foreach (Move move in lastMoves)
             {
-                Puzzle newPuzzle = current.puzzle.copy();
-                newPuzzle.executeMove(move.positions, move.tile);
-                Node node = new Node(newPuzzle, current, current.value + move.score + move.positions.Count);
-                priorityQueue.Enqueue(node);
+                Node father = current;
+                Node last = null;
+                for(int i = move.steps.Count - 1; i >= 0; i--) {
+                    Puzzle newPuzzle = father.puzzle.copy();
+                    newPuzzle.executeMove(move.steps[i], move.tile);  
+                    Node next = new Node(newPuzzle, father, current.value + move.score + move.positions.Count);
+                    next.movedTile = move.tile;
+                    next.moveType = move.moveType[i];
+                    father = next;
+                    last = next;           
+                }
+                priorityQueue.Enqueue(last);
             }
         }
         return null;
@@ -151,8 +171,11 @@ public class AStar
             if (moveDownList != null)
             {
                 Move newMove = new Move(moveDownList, move.tile);
-                checkMoveOnStub(newMove);
+                checkMoveOnStub(newMove);                
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Down);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
 
@@ -162,6 +185,9 @@ public class AStar
                 Move newMove = new Move(moveUpList, move.tile);
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Up);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
 
@@ -171,6 +197,9 @@ public class AStar
                 Move newMove = new Move(moveLeftList, move.tile);
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Left);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
 
@@ -180,6 +209,9 @@ public class AStar
                 Move newMove = new Move(moveRightList, move.tile);
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Right);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
         }

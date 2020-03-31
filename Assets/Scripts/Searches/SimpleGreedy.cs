@@ -16,6 +16,7 @@ public class SimpleGreedy
     private List<TileType> colors;
     private PriorityQueue<Node> priorityQueue;
     private HashSet<TileType[][]> visited;
+    private int numNodes = 0;
 
 
     public Node search(Puzzle puzzle)
@@ -47,11 +48,12 @@ public class SimpleGreedy
     {
         while (priorityQueue.Count() != 0)
         {
+            numNodes++;
             Node current = priorityQueue.Dequeue();
 
             if (current.puzzle.isComplete())
             {
-                Debug.Log("Solved");
+                Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 
@@ -61,27 +63,38 @@ public class SimpleGreedy
 
             foreach (TileType tile in colors)
             {
-
                 Puzzle puzzleDown = current.puzzle.copy();
                 if (puzzleDown.moveDown(tile))
                 {
-                    priorityQueue.Enqueue(new Node(puzzleDown, current, SimpleGreedy.calculatePuzzleScore(puzzleDown)));
+                    Node node = new Node(puzzleDown, current, SimpleGreedy.calculatePuzzleScore(puzzleDown));
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Down;
+                    priorityQueue.Enqueue(node);
                 }
-                Puzzle puzzleUp = current.puzzle.copy();
 
+                Puzzle puzzleUp = current.puzzle.copy();
                 if (puzzleUp.moveUp(tile))
                 {
-                    priorityQueue.Enqueue(new Node(puzzleUp, current, SimpleGreedy.calculatePuzzleScore(puzzleUp)));
+                    Node node = new Node(puzzleUp, current, SimpleGreedy.calculatePuzzleScore(puzzleUp));
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Up;
+                    priorityQueue.Enqueue(node);
                 }
                 Puzzle puzzleLeft = current.puzzle.copy();
                 if (puzzleLeft.moveLeft(tile))
                 {
-                    priorityQueue.Enqueue(new Node(puzzleLeft, current, SimpleGreedy.calculatePuzzleScore(puzzleLeft)));
+                    Node node = new Node(puzzleLeft, current, SimpleGreedy.calculatePuzzleScore(puzzleLeft));
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Left;
+                    priorityQueue.Enqueue(node);
                 }
                 Puzzle puzzleRight = current.puzzle.copy();
                 if (puzzleRight.moveRight(tile))
                 {
-                    priorityQueue.Enqueue(new Node(puzzleRight, current, SimpleGreedy.calculatePuzzleScore(puzzleRight)));
+                    Node node = new Node(puzzleRight, current, SimpleGreedy.calculatePuzzleScore(puzzleRight));
+                    node.movedTile = tile;
+                    node.moveType = MoveType.Right;
+                    priorityQueue.Enqueue(node);
                 }
             }
 
