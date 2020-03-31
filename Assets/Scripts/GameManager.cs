@@ -13,11 +13,15 @@ public class GameManager : MonoBehaviour
     public GameObject hintButton;
     public GameObject cursorTrail;
 
-    public GameObject canvas;
+    public GameObject canvas;    
 
     public Camera gameCamera;
 
     private Boolean trail = false;
+
+    private Boolean AIrunning = false;
+
+    private List<GameObject> tileGroups = new List<GameObject>();
 
     void Update() {        
         Vector3 pos = gameCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.2f));
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
     //Used to run all the tests when needed
     public void Start()
     {
+        cursorTrail.SetActive(false);
         canvas.SetActive(false);
         //Test test = new Test(tilePrefab);
         //test.runTests(5, "Results/All.txt");
@@ -35,6 +40,9 @@ public class GameManager : MonoBehaviour
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
     {
+        AIrunning = true;
+        canvas.SetActive(true);
+        hintButton.SetActive(false);
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
 
         firstPuzzle = new Puzzle(puzzleLevel, tilePrefab);
@@ -72,11 +80,14 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         trail = false;
         cursorTrail.SetActive(false);
+        AIrunning = false;
+        DeleteTileGroups(tileGroups);
     }
 
     //Given the puzzle displays it so the player can solve the puzzle
     public void HumanMode(TileType[][] puzzleLevel)
     {
+        hintButton.SetActive(true);
         trail = true;
         cursorTrail.SetActive(true);
         canvas.SetActive(true);
@@ -96,12 +107,13 @@ public class GameManager : MonoBehaviour
 
     //Displays the steps taken to reach the solution
     private IEnumerator DisplayPuzzleStates(List<Node> steps, float time)
-    {
+    {        
         //Debug.Log(puzzleStates.Count);
         for (int i = 0; i < steps.Count; i++)
         {
             if (i != 0)
             {
+                if(AIrunning == false) break;
                 GameObject tileGroup = steps[i - 1].puzzle.displayTilesOfType(steps[i].movedTile); //Display the tiles that moved from the last puzzle to the current                
                 Vector3 target = getTarget(tileGroup, steps[i].moveType);
                 Vector3 axis = Vector3.forward;  //Forwards for down or up, Right for left or right   
@@ -110,11 +122,20 @@ public class GameManager : MonoBehaviour
                 if (steps[i].moveType == MoveType.Down || steps[i].moveType == MoveType.Left) direction = -1;
                 for (int j = 0; j < 180 / 5; j++)
                 {
+                    if(AIrunning == false) break;                    
                     tileGroup.transform.RotateAround(target, axis, 5 * direction);
                     yield return new WaitForSeconds(0.0001f);
                 }
+                tileGroups.Add(tileGroup);
             }
+            if(AIrunning == false) break;          
             yield return new WaitForSeconds(time);
+        }
+    }
+
+    private void DeleteTileGroups(List<GameObject> tileGroups) {
+        foreach(GameObject tileGroup in tileGroups) {
+            Destroy(tileGroup);
         }
     }
 

@@ -22,6 +22,8 @@ public class Human : MonoBehaviour
     //Detects mouse moves and moves the clicked tile in the given direction of the mouse
     void OnMouseDrag()
     {
+        if(gameManager == null)
+            return;
         // hintButton.GetComponent<GetHint>().puzzle = puzzle;
         if (!moving || gameManager.humanBusy) return;
         
