@@ -78,14 +78,16 @@ public class AStar
                 if (moveDownList != null)
                 {
                     Move move = new Move(moveDownList, tile);
+                    move.moveType.Add(MoveType.Down);
                     addMoveToStub(move);
-                    allMoves.Add(move);
+                    allMoves.Add(move);                                
                 }
 
                 List<Tuple<int, int>> moveUpList = current.puzzle.getMoveUpList(tile);
                 if (moveUpList != null)
                 {
                     Move move = new Move(moveUpList, tile);
+                    move.moveType.Add(MoveType.Up);
                     addMoveToStub(move);
                     allMoves.Add(move);
                 }
@@ -94,6 +96,7 @@ public class AStar
                 if (moveLeftList != null)
                 {
                     Move move = new Move(moveLeftList, tile);
+                    move.moveType.Add(MoveType.Left);
                     addMoveToStub(move);
                     allMoves.Add(move);
                 }
@@ -102,6 +105,7 @@ public class AStar
                 if (moveRightList != null)
                 {
                     Move move = new Move(moveRightList, tile);
+                    move.moveType.Add(MoveType.Right);
                     addMoveToStub(move);
                     allMoves.Add(move);
                 }
@@ -130,6 +134,8 @@ public class AStar
                     Puzzle newPuzzle = father.puzzle.copy();
                     newPuzzle.executeMove(move.steps[i], move.tile);  
                     Node next = new Node(newPuzzle, father, current.value + move.score + move.positions.Count);
+                    next.movedTile = move.tile;
+                    next.moveType = move.moveType[i];
                     father = next;
                     last = next;           
                 }
@@ -143,6 +149,8 @@ public class AStar
                     Puzzle newPuzzle = father.puzzle.copy();
                     newPuzzle.executeMove(move.steps[i], move.tile);  
                     Node next = new Node(newPuzzle, father, current.value + move.score + move.positions.Count);
+                    next.movedTile = move.tile;
+                    next.moveType = move.moveType[i];
                     father = next;
                     last = next;           
                 }
@@ -163,9 +171,11 @@ public class AStar
             if (moveDownList != null)
             {
                 Move newMove = new Move(moveDownList, move.tile);
-                checkMoveOnStub(newMove);
+                checkMoveOnStub(newMove);                
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
                 newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Down);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
 
@@ -176,6 +186,8 @@ public class AStar
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
                 newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Up);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
 
@@ -186,6 +198,8 @@ public class AStar
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
                 newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Left);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
 
@@ -196,6 +210,8 @@ public class AStar
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
                 newMove.steps.AddRange(move.steps);
+                newMove.moveType.Add(MoveType.Right);
+                newMove.moveType.AddRange(move.moveType);
                 newMoves.Add(newMove);
             }
         }

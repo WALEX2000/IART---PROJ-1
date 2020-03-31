@@ -2,23 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum MoveType { Up, Down, Left, Right }
 public class Node : IComparable<Node>
 {
     public Puzzle puzzle;
     public Node parent;
     public int value;
-
+    public TileType movedTile;
+    public MoveType moveType;
     public Node(Puzzle puzzle, Node parent, int value) {
         this.puzzle = puzzle;
         this.parent = parent;
         this.value = value;
     }
 
-    public List<Puzzle> getPath() {
+    public List<Node> getPath() {
         Node current = this;
-        List<Puzzle> path = new List<Puzzle>();
+        List<Node> path = new List<Node>();
         while(current != null) {
-            path.Add(current.puzzle);
+            path.Add(current);
             current = current.parent;
         }
         path.Reverse();

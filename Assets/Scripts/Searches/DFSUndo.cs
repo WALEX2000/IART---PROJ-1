@@ -33,7 +33,10 @@ public class DFSUndo
         {
             if (current.puzzle.moveDown(tile))
             {
-                if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
+                Node node = new Node(current.puzzle, current, 0);                
+                node.movedTile = tile;
+                node.moveType = MoveType.Down;                
+                if ((finalNode = depthFirstSearchUndo(node)) != null)
                 {
                     current.puzzle.undoMoveDown(tile);
                     current.puzzle = current.puzzle.copy();
@@ -44,7 +47,10 @@ public class DFSUndo
 
             if (current.puzzle.moveUp(tile))
             {
-                if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
+                Node node = new Node(current.puzzle, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Up;
+                if ((finalNode = depthFirstSearchUndo(node)) != null)
                 {
                     current.puzzle.undoMoveUp(tile);
                     current.puzzle = current.puzzle.copy();
@@ -55,7 +61,10 @@ public class DFSUndo
 
             if (current.puzzle.moveLeft(tile))
             {
-                if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
+                Node node = new Node(current.puzzle, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Left;
+                if ((finalNode = depthFirstSearchUndo(node)) != null)
                 {
                     current.puzzle.undoMoveLeft(tile);
                     current.puzzle = current.puzzle.copy();
@@ -66,7 +75,10 @@ public class DFSUndo
 
             if (current.puzzle.moveRight(tile))
             {
-                if ((finalNode = depthFirstSearchUndo(new Node(current.puzzle, current, 0))) != null)
+                Node node = new Node(current.puzzle, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Right;
+                if ((finalNode = depthFirstSearchUndo(node)) != null)
                 {
                     current.puzzle.undoMoveRight(tile);
                     current.puzzle = current.puzzle.copy();

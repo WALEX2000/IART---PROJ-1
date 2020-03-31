@@ -27,11 +27,11 @@ public class GetHint : MonoBehaviour
             Debug.Log("Impossible to solve!");
             return;
         }
-        List<Puzzle> steps = solution.getPath();
-        steps[1].displayPuzzle();
+        List<Node> steps = solution.getPath();
+        steps[1].puzzle.displayPuzzle();
         Wait(1, () =>
         {
-            steps[1].hidePuzzle();
+            steps[1].puzzle.hidePuzzle();
         });
 
 

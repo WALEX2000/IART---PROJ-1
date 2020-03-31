@@ -30,7 +30,10 @@ public class DFS
             Puzzle puzzleDown = current.puzzle.copy();
             if (puzzleDown.moveDown(tile))
             {
-                if ((finalNode = depthFirstSearch(new Node(puzzleDown, current, 0))) != null)
+                Node node = new Node(puzzleDown, current, 0);                
+                node.movedTile = tile;
+                node.moveType = MoveType.Down;                
+                if ((finalNode = depthFirstSearch(node)) != null)
                 {
                     return finalNode;
                 }
@@ -39,7 +42,10 @@ public class DFS
             Puzzle puzzleUp = current.puzzle.copy();
             if (puzzleUp.moveUp(tile))
             {
-                if ((finalNode = depthFirstSearch(new Node(puzzleUp, current, 0))) != null)
+                Node node = new Node(puzzleUp, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Up;
+                if ((finalNode = depthFirstSearch(node)) != null)
                 {
                     return finalNode;
                 }
@@ -48,7 +54,10 @@ public class DFS
             Puzzle puzzleLeft = current.puzzle.copy();
             if (puzzleLeft.moveLeft(tile))
             {
-                if ((finalNode = depthFirstSearch(new Node(puzzleLeft, current, 0))) != null)
+                Node node = new Node(puzzleLeft, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Left;
+                if ((finalNode = depthFirstSearch(node)) != null)
                 {
                     return finalNode;
                 }
@@ -57,7 +66,10 @@ public class DFS
             Puzzle puzzleRight = current.puzzle.copy();
             if (puzzleRight.moveRight(tile))
             {
-                if ((finalNode = depthFirstSearch(new Node(puzzleRight, current, 0))) != null)
+                Node node = new Node(puzzleRight, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Right;
+                if ((finalNode = depthFirstSearch(node)) != null)
                 {
                     return finalNode;
                 }
