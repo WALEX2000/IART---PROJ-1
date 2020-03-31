@@ -98,7 +98,7 @@ public class UniqueFirstGreedy
             Node father = puzzleNode;
             Node last = null;
             for(int i = move.steps.Count - 1; i >= 0; i--) {
-                Puzzle newPuzzle = puzzle.copy();
+                Puzzle newPuzzle = father.puzzle.copy();
                 newPuzzle.executeMove(move.steps[i], move.tile);  
                 Node next = new Node(newPuzzle, father, 0);
                 father = next;
@@ -111,7 +111,7 @@ public class UniqueFirstGreedy
             Node father = puzzleNode;
             Node last = null;
             for(int i = move.steps.Count - 1; i >= 0; i--) {
-                Puzzle newPuzzle = puzzle.copy();
+                Puzzle newPuzzle = father.puzzle.copy();
                 newPuzzle.executeMove(move.steps[i], move.tile);  
                 Node next = new Node(newPuzzle, father, 0);
                 father = next;
