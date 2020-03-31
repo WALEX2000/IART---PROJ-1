@@ -31,31 +31,37 @@ public class Human : MonoBehaviour
 
         if (!moving) return;
 
-        puzzle.displayPuzzle();
-        var v3 = Input.mousePosition - v3Pos;
-        v3.Normalize();
-        var f = Vector3.Dot(v3, Vector3.up);
-        if (Vector3.Distance(v3Pos, Input.mousePosition) < threshold) return;
-
-        if (f >= 0.5) puzzle.moveUp(tile);
-        else if (f <= -0.5) puzzle.moveDown(tile);
-        else
+        if (puzzle != null)
         {
-            f = Vector3.Dot(v3, Vector3.right);
-            if (f >= 0.5) puzzle.moveRight(tile);
-            else puzzle.moveLeft(tile);
+            puzzle.displayPuzzle();
+            var v3 = Input.mousePosition - v3Pos;
+            v3.Normalize();
+            var f = Vector3.Dot(v3, Vector3.up);
+            if (Vector3.Distance(v3Pos, Input.mousePosition) < threshold) return;
+
+            if (f >= 0.5) puzzle.moveUp(tile);
+            else if (f <= -0.5) puzzle.moveDown(tile);
+            else
+            {
+                f = Vector3.Dot(v3, Vector3.right);
+                if (f >= 0.5) puzzle.moveRight(tile);
+                else puzzle.moveLeft(tile);
+            }
+
+            puzzle.displayPuzzle();
+
+            v3Pos = Input.mousePosition;
+
+            if (puzzle.isComplete())
+            {
+                Debug.Log("Puzzle Completed successfuly");
+            }
+
+            moving = false;
+
         }
 
-        puzzle.displayPuzzle();
 
-        v3Pos = Input.mousePosition;
-
-        if (puzzle.isComplete())
-        {
-            Debug.Log("Puzzle Completed successfuly");
-        }
-
-        moving = false;
 
     }
 
