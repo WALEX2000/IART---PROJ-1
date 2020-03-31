@@ -18,7 +18,6 @@ public class GetHint : MonoBehaviour
         callback();
     }
 
-
     public void getHint()
     {
         Node solution = puzzle.search("AStar");
@@ -33,9 +32,5 @@ public class GetHint : MonoBehaviour
         {
             steps[1].puzzle.hidePuzzle();
         });
-
-
     }
-
-
 }

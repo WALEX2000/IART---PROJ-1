@@ -6,39 +6,17 @@ enum playerType { Bot, Player };
 
 public class GameManager : MonoBehaviour
 {
-    private Puzzle currentPuzzle;
+    public Puzzle currentPuzzle;
     private Puzzle firstPuzzle;
     private playerType currentPlayer;
     public GameObject tilePrefab;
-
     public GameObject hintButton;
 
 
     public void Start()
     {
-        Test test = new Test(tilePrefab);
-        test.runTests(5, "Results/All.txt");
-
-        /*
-        Puzzle puzzle = new Puzzle(Example.puzzleHard, tilePrefab);
-        puzzle.displayPuzzle();
-        Node solution = puzzle.search("AStar");
-        List<Node> steps = solution.getPath();        
-        StartCoroutine(DisplayPuzzleStates(steps, 0.5f));
-        */
-    }
-
-    private IEnumerator testAnimation()
-    {
-        Puzzle puzzle = new Puzzle(Example.puzzleHard, tilePrefab);
-        puzzle.displayPuzzle();
-        GameObject tileGroup = puzzle.displayTilesOfType(TileType.Red);
-        Vector3 target = new Vector3(4.5f, 0.375f, 1.0f); //(TargetJoint2D.y = 0.375 always), the x an z will be equal to the tile's x and z, and depending on the type of move  +0.5 or -0.5 will be added to the x or z        
-        yield return new WaitForSeconds(1f);
-        for(int i = 0; i < 180/5; i++) {            
-            tileGroup.transform.RotateAround(target,Vector3.forward, -5); //Forwards for down or up, Right for left or right            
-            yield return new WaitForSeconds(0.0001f);
-        }
+        //Test test = new Test(tilePrefab);
+        //test.runTests(5, "Results/All.txt");
     }
 
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
@@ -81,6 +59,7 @@ public class GameManager : MonoBehaviour
     {
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
         firstPuzzle = currentPuzzle.copy();
+        currentPuzzle.gameManager = this;
         currentPuzzle.displayPuzzle();
         hintButton.GetComponent<GetHint>().puzzle = currentPuzzle;
     }
@@ -143,7 +122,7 @@ public class GameManager : MonoBehaviour
                     }
                     break;
             }
-        }        
+        }
         return target;
     }
 

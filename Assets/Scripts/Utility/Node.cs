@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum MoveType { Up, Down, Left, Right }
+public enum MoveType { NULL, Up, Down, Left, Right }
 public class Node : IComparable<Node>
 {
     public Puzzle puzzle;

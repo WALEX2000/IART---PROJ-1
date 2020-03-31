@@ -83,3 +83,411 @@ UniformCost: 0.0946
 AStar: 0.035
 
 
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0652
+UniformCost: 0.0868
+AStar: 0.0344
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0662
+UniformCost: 0.0874
+AStar: 0.0346
+
+
+DFS: 0.0024
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0664
+UniformCost: 0.0906
+AStar: 0.035
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0674
+UniformCost: 0.0882
+AStar: 0.035
+
+
+DFS: 0.0024
+DFSUndo: 0.0002
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0674
+UniformCost: 0.0892
+AStar: 0.0344
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0674
+UniformCost: 0.0894
+AStar: 0.0346
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0678
+UniformCost: 0.09
+AStar: 0.0348
+
+
+DFS: 0.0024
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0656
+UniformCost: 0.089
+AStar: 0.0344
+
+
+DFS: 0.002
+DFSUndo: 0.0002
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0662
+UniformCost: 0.0882
+AStar: 0.0346
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.066
+UniformCost: 0.0898
+AStar: 0.0346
+
+
+DFS: 0.002
+DFSUndo: 0.0002
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0658
+UniformCost: 0.0888
+AStar: 0.035
+
+
+DFS: 0.0024
+DFSUndo: 0.0008
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0666
+UniformCost: 0.0896
+AStar: 0.0346
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0684
+UniformCost: 0.0894
+AStar: 0.0348
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0666
+UniformCost: 0.0882
+AStar: 0.0348
+
+
+DFS: 0.0024
+DFSUndo: 0.0004
+SimpleGreedy: 0.001
+UniqueFirstGreedy: 0.067
+UniformCost: 0.0892
+AStar: 0.0352
+
+
+DFS: 0.0024
+DFSUndo: 0.0002
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0684
+UniformCost: 0.0888
+AStar: 0.0336
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0668
+UniformCost: 0.0892
+AStar: 0.0358
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0664
+UniformCost: 0.0886
+AStar: 0.0342
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.001
+UniqueFirstGreedy: 0.0674
+UniformCost: 0.0892
+AStar: 0.0344
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.067
+UniformCost: 0.0886
+AStar: 0.0352
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.001
+UniqueFirstGreedy: 0.0686
+UniformCost: 0.0886
+AStar: 0.034
+
+
+DFS: 0.0028
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0682
+UniformCost: 0.0894
+AStar: 0.0348
+
+
+DFS: 0.002
+DFSUndo: 0.0002
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0658
+UniformCost: 0.0886
+AStar: 0.0348
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.067
+UniformCost: 0.088
+AStar: 0.035
+
+
+DFS: 0.0024
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.069
+UniformCost: 0.0888
+AStar: 0.035
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0668
+UniformCost: 0.0884
+AStar: 0.0338
+
+
+DFS: 0.0026
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0674
+UniformCost: 0.089
+AStar: 0.0348
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.067
+UniformCost: 0.0892
+AStar: 0.0348
+
+
+DFS: 0.0024
+DFSUndo: 0.0002
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0692
+UniformCost: 0.0898
+AStar: 0.0356
+
+
+DFS: 0.0028
+DFSUndo: 0.0006
+SimpleGreedy: 0.0026
+UniqueFirstGreedy: 0.088
+UniformCost: 0.1018
+AStar: 0.0354
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0682
+UniformCost: 0.0912
+AStar: 0.0348
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0662
+UniformCost: 0.0894
+AStar: 0.0344
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0672
+UniformCost: 0.0876
+AStar: 0.0344
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0786
+UniformCost: 0.0966
+AStar: 0.0366
+
+
+DFS: 0.0028
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.068
+UniformCost: 0.0902
+AStar: 0.0354
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0676
+UniformCost: 0.0874
+AStar: 0.0354
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.001
+UniqueFirstGreedy: 0.0666
+UniformCost: 0.0878
+AStar: 0.0348
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0674
+UniformCost: 0.0896
+AStar: 0.0346
+
+
+DFS: 0.0022
+DFSUndo: 0.0002
+SimpleGreedy: 0.0012
+UniqueFirstGreedy: 0.068
+UniformCost: 0.0904
+AStar: 0.0336
+
+
+DFS: 0.0022
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0672
+UniformCost: 0.0904
+AStar: 0.0354
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0012
+UniqueFirstGreedy: 0.0674
+UniformCost: 0.0892
+AStar: 0.034
+
+
+DFS: 0.0024
+DFSUndo: 0.0008
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0684
+UniformCost: 0.0934
+AStar: 0.0346
+
+
+DFS: 0.0024
+DFSUndo: 0.002
+SimpleGreedy: 0.0014
+UniqueFirstGreedy: 0.0684
+UniformCost: 0.0932
+AStar: 0.0358
+
+
+DFS: 0.0034
+DFSUndo: 0.0004
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.068
+UniformCost: 0.09
+AStar: 0.0342
+
+
+DFS: 0.0022
+DFSUndo: 0.0002
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0658
+UniformCost: 0.0894
+AStar: 0.0338
+
+
+DFS: 0.002
+DFSUndo: 0.0002
+SimpleGreedy: 0.0006
+UniqueFirstGreedy: 0.0654
+UniformCost: 0.0874
+AStar: 0.034
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0668
+UniformCost: 0.0886
+AStar: 0.0344
+
+
+DFS: 0.002
+DFSUndo: 0.0004
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0684
+UniformCost: 0.0888
+AStar: 0.0354
+
+
+DFS: 0.0022
+DFSUndo: 0.0002
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.065
+UniformCost: 0.0848
+AStar: 0.0356
+
+
+DFS: 0.0024
+DFSUndo: 0.0002
+SimpleGreedy: 0.0008
+UniqueFirstGreedy: 0.0664
+UniformCost: 0.0884
+AStar: 0.0342
+
+
+DFS: 0.002
+DFSUndo: 0.0002
+SimpleGreedy: 0.001
+UniqueFirstGreedy: 0.0652
+UniformCost: 0.0866
+AStar: 0.034
+
+
