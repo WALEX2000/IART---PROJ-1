@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 
-public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta }
+public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta } //Colors in all the puzzles
 
 public class Puzzle
 {
     public GameManager gameManager;
     private List<GameObject> gameObjects = new List<GameObject>();
     public GameObject tilePrefab;
-    private TileType[][] puzzleMatrix;
+    private TileType[][] puzzleMatrix; //Tile Matrix used by the puzzle
     public TileType[][] PuzzleMatrix { get { return puzzleMatrix; } set { puzzleMatrix = value; } }
     public Puzzle(TileType[][] matrix, GameObject tilePrefab)
     {
@@ -19,9 +19,10 @@ public class Puzzle
         this.tilePrefab = tilePrefab;
     }
 
+
+    //Returns a copy of the current puzzle
     public Puzzle copy()
     {
-
         TileType[][] copy = new TileType[puzzleMatrix.Length][];
 
 
@@ -36,6 +37,7 @@ public class Puzzle
         return puzzle;
     }
 
+    //Displays the current puzzle in the Unity platform
     public void displayPuzzle()
     {
         for (int i = 0; i < puzzleMatrix.Length; i++)
@@ -86,17 +88,18 @@ public class Puzzle
         }
     }
 
-    public GameObject displayTilesOfType(TileType tile) {
+    public GameObject displayTilesOfType(TileType tile)
+    {
         GameObject parent = new GameObject("TileGroup");
         for (int i = 0; i < puzzleMatrix.Length; i++)
         {
             for (int j = 0; j < puzzleMatrix[i].Length; j++)
-            {                
+            {
                 if ((int)puzzleMatrix[i][j] > 1)
                 {
-                    if(puzzleMatrix[i][j] != tile) continue; //skip the tiles that aren't the ones we need;
+                    if (puzzleMatrix[i][j] != tile) continue; //skip the tiles that aren't the ones we need;
                     GameObject instantiatedTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(i, 0.375f, j), Quaternion.identity); //Actual Tiles on top                                        
-                    instantiatedTile.transform.parent = parent.transform;                
+                    instantiatedTile.transform.parent = parent.transform;
                     switch (puzzleMatrix[i][j])
                     {
                         case TileType.Blue:
@@ -121,12 +124,13 @@ public class Puzzle
                             Debug.LogError("Unknown Material for tile: " + puzzleMatrix[i][j]);
                             break;
                     }
-                }                
+                }
             }
         }
         return parent;
     }
 
+    //Destroys the puzzle by destroying all its tiles
     public void hidePuzzle()
     {
         for (int i = 0; i < gameObjects.Count; i++)
@@ -134,44 +138,8 @@ public class Puzzle
             UnityEngine.Object.Destroy(gameObjects[i]);
         }
     }
-    public int[] findRotationAxis(TileType tile)
-    {
 
-        int[] rotationAxis = new int[4];
-        rotationAxis[0] = puzzleMatrix.Length;
-        rotationAxis[2] = puzzleMatrix[0].Length;
-        rotationAxis[3] = -1;
-
-        //Discover the rotation axis
-        for (int i = 0; i < puzzleMatrix.Length; i++)
-        {
-            for (int j = 0; j < puzzleMatrix[0].Length; j++)
-            {
-                if (puzzleMatrix[i][j] == tile)
-                {
-
-                    if (i < rotationAxis[0])
-                    {
-                        rotationAxis[0] = i;
-                    }
-                    rotationAxis[1] = i; //Calculates the DownRotationAxis
-
-                    if (j < rotationAxis[2])
-                    {
-                        rotationAxis[2] = j;
-                    }
-
-                    if (j > rotationAxis[3])
-                    {
-                        rotationAxis[3] = j;
-                    }
-                }
-            }
-        }
-        return rotationAxis;
-
-    }
-
+    //Operator to move all the tiles from the given tile color up
     public bool moveUp(TileType tile)
     {
         int rotationAxis = puzzleMatrix.Length;
@@ -219,7 +187,7 @@ public class Puzzle
 
         return true;
     }
-
+    //Given a position list fills the given positions with the tile color
     public void executeMove(List<Tuple<int, int>> positions, TileType tile)
     {
         for (int i = 0; i < positions.Count; i++)
@@ -228,6 +196,7 @@ public class Puzzle
         }
     }
 
+    //Gets the positions list for the up operator
     public List<Tuple<int, int>> getMoveUpList(TileType tile)
     {
         int rotationAxis = puzzleMatrix.Length;
@@ -268,6 +237,7 @@ public class Puzzle
         return positions;
     }
 
+    //Reverts the puzzle back to before moving up
     public void undoMoveUp(TileType tile)
     {
         int lowerBound = 0;
@@ -301,7 +271,7 @@ public class Puzzle
             }
         }
     }
-
+    //Operator to move all the tiles from the given tile color down
     public bool moveDown(TileType tile)
     {
         int rotationAxis = -1;
@@ -350,6 +320,7 @@ public class Puzzle
         return true;
     }
 
+    //Gets the positions list for the down operator
     public List<Tuple<int, int>> getMoveDownList(TileType tile)
     {
         int rotationAxis = -1;
@@ -392,6 +363,7 @@ public class Puzzle
         return positions;
     }
 
+    //Reverts the puzzle back to before moving down
     public void undoMoveDown(TileType tile)
     {
         int lowerBound = 0;
@@ -426,6 +398,7 @@ public class Puzzle
         }
     }
 
+    //Operator to move all the tiles from the given tile color right
     public bool moveRight(TileType tile)
     {
         int rotationAxis = -1;
@@ -474,6 +447,7 @@ public class Puzzle
         return true;
     }
 
+    //Gets the positions list for the right operator
     public List<Tuple<int, int>> getMoveRightList(TileType tile)
     {
         int rotationAxis = -1;
@@ -512,6 +486,7 @@ public class Puzzle
         return positions;
     }
 
+    //Reverts the puzzle back to before moving right
     public void undoMoveRight(TileType tile)
     {
         int leftBound = puzzleMatrix.Length;
@@ -545,7 +520,7 @@ public class Puzzle
             }
         }
     }
-
+    //Operator to move all the tiles from the given tile color left
     public bool moveLeft(TileType tile)
     {
 
@@ -596,6 +571,7 @@ public class Puzzle
         return true;
     }
 
+    //Gets the positions list for the left operator
     public List<Tuple<int, int>> getMoveLeftList(TileType tile)
     {
         int rotationAxis = puzzleMatrix.Length;
@@ -638,6 +614,7 @@ public class Puzzle
         return positions;
     }
 
+    //Reverts the puzzle back to before moving left
     public void undoMoveLeft(TileType tile)
     {
         int leftBound = puzzleMatrix.Length;
@@ -684,7 +661,7 @@ public class Puzzle
         }
         return false;
     }
-
+    //Retuns True if the puzzle is completely filled
     public bool isComplete()
     {
 
@@ -701,6 +678,7 @@ public class Puzzle
         return true;
     }
 
+    //Returns a list of all the color of the puzzle
     public List<TileType> puzzleColors()
     {
         Dictionary<TileType, int> colorCount = new Dictionary<TileType, int>();
@@ -725,7 +703,7 @@ public class Puzzle
 
         return puzzleColors;
     }
-
+    //Displays the current puzzle in the Unity console
     public void displayConsole()
     {
 
@@ -741,7 +719,7 @@ public class Puzzle
         }
         Debug.Log(puzzleString);
     }
-
+    //Given a string decides which algorithm to run
     public Node search(String typeOfSearch)
     {
         Puzzle current = copy();

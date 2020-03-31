@@ -13,10 +13,9 @@ using UnityEngine;
 //Do those first
 public class AStar
 {
-
+    //Colors of the puzzle
     private List<TileType> colors;
     private PriorityQueue<Node> priorityQueue;
-    private HashSet<TileType[][]> visited;
     private Boolean size;
 
     private List<Move>[][] stubMatrix;
@@ -28,7 +27,6 @@ public class AStar
         this.size = size;
         colors = puzzle.puzzleColors();
         priorityQueue = new PriorityQueue<Node>();
-        visited = new HashSet<TileType[][]>();
 
         priorityQueue.Enqueue(new Node(puzzle, null, 0));
         return aStar();
@@ -80,7 +78,7 @@ public class AStar
                     Move move = new Move(moveDownList, tile);
                     move.moveType.Add(MoveType.Down);
                     addMoveToStub(move);
-                    allMoves.Add(move);                                
+                    allMoves.Add(move);
                 }
 
                 List<Tuple<int, int>> moveUpList = current.puzzle.getMoveUpList(tile);
@@ -130,14 +128,15 @@ public class AStar
             {
                 Node father = current;
                 Node last = null;
-                for(int i = move.steps.Count - 1; i >= 0; i--) {
+                for (int i = move.steps.Count - 1; i >= 0; i--)
+                {
                     Puzzle newPuzzle = father.puzzle.copy();
-                    newPuzzle.executeMove(move.steps[i], move.tile);  
+                    newPuzzle.executeMove(move.steps[i], move.tile);
                     Node next = new Node(newPuzzle, father, current.value + move.score + move.positions.Count);
                     next.movedTile = move.tile;
                     next.moveType = move.moveType[i];
                     father = next;
-                    last = next;           
+                    last = next;
                 }
                 priorityQueue.Enqueue(last);
             }
@@ -145,14 +144,15 @@ public class AStar
             {
                 Node father = current;
                 Node last = null;
-                for(int i = move.steps.Count - 1; i >= 0; i--) {
+                for (int i = move.steps.Count - 1; i >= 0; i--)
+                {
                     Puzzle newPuzzle = father.puzzle.copy();
-                    newPuzzle.executeMove(move.steps[i], move.tile);  
+                    newPuzzle.executeMove(move.steps[i], move.tile);
                     Node next = new Node(newPuzzle, father, current.value + move.score + move.positions.Count);
                     next.movedTile = move.tile;
                     next.moveType = move.moveType[i];
                     father = next;
-                    last = next;           
+                    last = next;
                 }
                 priorityQueue.Enqueue(last);
             }
@@ -171,7 +171,7 @@ public class AStar
             if (moveDownList != null)
             {
                 Move newMove = new Move(moveDownList, move.tile);
-                checkMoveOnStub(newMove);                
+                checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
                 newMove.steps.AddRange(move.steps);
                 newMove.moveType.Add(MoveType.Down);

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject hintButton;
 
-
+    //Used to run all the tests when needed
     public void Start()
     {
         //Test test = new Test(tilePrefab);
@@ -22,7 +22,9 @@ public class GameManager : MonoBehaviour
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
     {
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
+
         firstPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
         currentPuzzle = firstPuzzle;
     }
 
+    //Given the puzzle displays it so the player can solve the puzzle
     public void HumanMode(TileType[][] puzzleLevel)
     {
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
@@ -70,53 +73,63 @@ public class GameManager : MonoBehaviour
         puzzleStates.Add(puzzle);
     }
 
+    //Displays the steps taken to reach the solution
     private IEnumerator DisplayPuzzleStates(List<Node> steps, float time)
-    {        
+    {
         //Debug.Log(puzzleStates.Count);
         for (int i = 0; i < steps.Count; i++)
         {
-            if (i != 0) {
-                GameObject tileGroup = steps[i-1].puzzle.displayTilesOfType(steps[i].movedTile); //Display the tiles that moved from the last puzzle to the current                
-                Vector3 target = getTarget(tileGroup, steps[i].moveType);                
+            if (i != 0)
+            {
+                GameObject tileGroup = steps[i - 1].puzzle.displayTilesOfType(steps[i].movedTile); //Display the tiles that moved from the last puzzle to the current                
+                Vector3 target = getTarget(tileGroup, steps[i].moveType);
                 Vector3 axis = Vector3.forward;  //Forwards for down or up, Right for left or right   
                 int direction = 1; //positive for right and up  
-                if(steps[i].moveType == MoveType.Right || steps[i].moveType == MoveType.Left) axis = Vector3.right;
-                if(steps[i].moveType == MoveType.Down || steps[i].moveType == MoveType.Left) direction = -1;
-                for(int j = 0; j < 180/5; j++) {            
-                    tileGroup.transform.RotateAround(target,axis, 5*direction);       
+                if (steps[i].moveType == MoveType.Right || steps[i].moveType == MoveType.Left) axis = Vector3.right;
+                if (steps[i].moveType == MoveType.Down || steps[i].moveType == MoveType.Left) direction = -1;
+                for (int j = 0; j < 180 / 5; j++)
+                {
+                    tileGroup.transform.RotateAround(target, axis, 5 * direction);
                     yield return new WaitForSeconds(0.0001f);
-                }                            
-            }                        
+                }
+            }
             yield return new WaitForSeconds(time);
         }
     }
 
-    private Vector3 getTarget(GameObject tileGroup, MoveType move) {
+    private Vector3 getTarget(GameObject tileGroup, MoveType move)
+    {
         //For down we need highest X / For up lowest X
         //For Left we need lowest Z / For right highest Z
         Vector3 target = new Vector3(0.0f, -1.1f, 0.0f); //hopefully this is ok
-        foreach(Transform tile in tileGroup.transform) {
-            switch(move) {
+        foreach (Transform tile in tileGroup.transform)
+        {
+            switch (move)
+            {
                 case MoveType.Down:
-                    if(tile.position.x > target.x || target.y == -1.1f) {
+                    if (tile.position.x > target.x || target.y == -1.1f)
+                    {
                         target = tile.position;
                         target.x += 0.5f;
                     }
                     break;
                 case MoveType.Up:
-                    if(tile.position.x < target.x || target.y == -1.1f) {
+                    if (tile.position.x < target.x || target.y == -1.1f)
+                    {
                         target = tile.position;
                         target.x -= 0.5f;
                     }
                     break;
                 case MoveType.Left:
-                    if(tile.position.z < target.z || target.y == -1.1f) {
+                    if (tile.position.z < target.z || target.y == -1.1f)
+                    {
                         target = tile.position;
                         target.z -= 0.5f;
                     }
                     break;
                 case MoveType.Right:
-                    if(tile.position.z > target.z || target.y == -1.1f) {
+                    if (tile.position.z > target.z || target.y == -1.1f)
+                    {
                         target = tile.position;
                         target.z += 0.5f;
                     }
@@ -125,7 +138,7 @@ public class GameManager : MonoBehaviour
         }
         return target;
     }
-
+    //Returns a copy of the given matrix
     public TileType[][] copyMatrix(TileType[][] matrix)
     {
         TileType[][] copy = new TileType[matrix.Length][];
