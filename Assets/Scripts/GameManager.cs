@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject hintButton;
 
-
+    //Used to run all the tests when needed
     public void Start()
     {
         // Test test = new Test(tilePrefab);
@@ -41,11 +41,13 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.0001f);
         }
     }
-
+    //Solves the given puzzle with the given algorithm
     public void ManagerStarter(string searchOption, TileType[][] puzzleLevel)
     {
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
+
         firstPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+
         currentPuzzle.displayPuzzle();
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
@@ -78,6 +80,7 @@ public class GameManager : MonoBehaviour
         currentPuzzle = firstPuzzle;
     }
 
+    //Given the puzzle displays it so the player can solve the puzzle
     public void HumanMode(TileType[][] puzzleLevel)
     {
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
@@ -92,6 +95,7 @@ public class GameManager : MonoBehaviour
         puzzleStates.Add(puzzle);
     }
 
+    //Displays the steps taken to reach the solution
     private IEnumerator DisplayPuzzleStates(List<Node> steps, float time)
     {
         //Debug.Log(puzzleStates.Count);
@@ -156,7 +160,7 @@ public class GameManager : MonoBehaviour
         }
         return target;
     }
-
+    //Returns a copy of the given matrix
     public TileType[][] copyMatrix(TileType[][] matrix)
     {
         TileType[][] copy = new TileType[matrix.Length][];

@@ -18,7 +18,7 @@ public class GetHint : MonoBehaviour
         callback();
     }
 
-
+    //Displays the recomended next step for one second
     public void getHint()
     {
         Node solution = puzzle.search("AStar");

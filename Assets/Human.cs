@@ -24,6 +24,7 @@ public class Human : MonoBehaviour
         v3Pos = Input.mousePosition;
     }
 
+    //Detects mouse moves and moves the clicked tile in the given direction of the mouse
     void OnMouseDrag()
     {
         // hintButton.GetComponent<GetHint>().puzzle = puzzle;
@@ -62,9 +63,6 @@ public class Human : MonoBehaviour
     {
         moving = false;
     }
-
-
-
 
 
     public void QuitGame()

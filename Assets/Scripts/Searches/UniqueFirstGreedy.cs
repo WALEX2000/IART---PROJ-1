@@ -7,11 +7,13 @@ public class UniqueFirstGreedy
 {
     private Node resultNode;
     private List<Move>[][] stubMatrix;
-    private List<TileType> colors;
+    private List<TileType> colors; //Colors in the puzzle
     private List<Puzzle> solution = new List<Puzzle>();
-    private int numNodes = 0;
+    private int numNodes = 0; //Number of visited Nodes
 
     private Boolean size;
+
+    //Main funciton of the class, initializes variables and calls the Greedy algorithm
     public Node solve(Puzzle puzzle, Boolean size)
     {
         this.size = size;
@@ -45,6 +47,8 @@ public class UniqueFirstGreedy
         }
 
         List<Move> allMoves = new List<Move>();
+
+        //Get all the puzzle neighbors by applying all the operators to all the colors
         foreach (TileType tile in colors)
         {
             List<Tuple<int, int>> moveDownList = puzzle.getMoveDownList(tile);
@@ -53,7 +57,7 @@ public class UniqueFirstGreedy
                 Move move = new Move(moveDownList, tile);
                 move.moveType.Add(MoveType.Down);
                 addMoveToStub(move);
-                allMoves.Add(move);                                
+                allMoves.Add(move);
             }
 
             List<Tuple<int, int>> moveUpList = puzzle.getMoveUpList(tile);
@@ -103,30 +107,32 @@ public class UniqueFirstGreedy
         {
             Node father = puzzleNode;
             Node last = null;
-            for(int i = move.steps.Count - 1; i >= 0; i--) {
+            for (int i = move.steps.Count - 1; i >= 0; i--)
+            {
                 Puzzle newPuzzle = father.puzzle.copy();
-                newPuzzle.executeMove(move.steps[i], move.tile);  
+                newPuzzle.executeMove(move.steps[i], move.tile);
                 Node next = new Node(newPuzzle, father, 0);
                 next.movedTile = move.tile;
                 next.moveType = move.moveType[i];
                 father = next;
-                last = next;           
-            }        
+                last = next;
+            }
             if (findSolution(last)) return true;
         }
         foreach (Move move in lastMoves)
         {
             Node father = puzzleNode;
             Node last = null;
-            for(int i = move.steps.Count - 1; i >= 0; i--) {
+            for (int i = move.steps.Count - 1; i >= 0; i--)
+            {
                 Puzzle newPuzzle = father.puzzle.copy();
-                newPuzzle.executeMove(move.steps[i], move.tile);  
+                newPuzzle.executeMove(move.steps[i], move.tile);
                 Node next = new Node(newPuzzle, father, 0);
                 next.movedTile = move.tile;
                 next.moveType = move.moveType[i];
                 father = next;
-                last = next;           
-            }        
+                last = next;
+            }
             if (findSolution(last)) return true;
         }
         return false;
@@ -144,7 +150,7 @@ public class UniqueFirstGreedy
             if (moveDownList != null)
             {
                 Move newMove = new Move(moveDownList, move.tile);
-                checkMoveOnStub(newMove);                
+                checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
                 newMove.steps.AddRange(move.steps);
                 newMove.moveType.Add(MoveType.Down);

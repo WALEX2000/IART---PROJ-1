@@ -13,12 +13,14 @@ using UnityEngine;
 public class SimpleGreedy
 {
 
+    //Colors in the puzzle
     private List<TileType> colors;
     private PriorityQueue<Node> priorityQueue;
-    private HashSet<TileType[][]> visited;
-    private int numNodes = 0;
+    private HashSet<TileType[][]> visited; //List of visited Nodes
+    private int numNodes = 0; //Number of visited Nodes
 
 
+    //Main funciton of the class, initializes variables and calls the Greedy algorithm
     public Node search(Puzzle puzzle)
     {
         colors = puzzle.puzzleColors();
@@ -29,7 +31,7 @@ public class SimpleGreedy
         return greedySearch();
     }
 
-    //Preenche primeiro os maiores
+    //Given a puzzle returns the score correspondent to the number of the filled positions of the puzzle
     public static int calculatePuzzleScore(Puzzle current)
     {
         int score = 0;
@@ -43,26 +45,30 @@ public class SimpleGreedy
         return score;
     }
 
-    //Nao esquecer que o BFS funcionava melhor com uma lista do que com uma queue
+    //Greedy algoritm function
+    //Returns node with solved puzzle if successfull and null if it does not
     private Node greedySearch()
     {
         while (priorityQueue.Count() != 0)
         {
+            //Increases the number of visited nodes
             numNodes++;
+
+            //Gets the first element of the priority queue
             Node current = priorityQueue.Dequeue();
 
+            //If it finds the solution returns true
             if (current.puzzle.isComplete())
             {
                 Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
 
-            // if (visited.Contains(current.puzzle.PuzzleMatrix)) continue;
-            // visited.Add(current.puzzle.PuzzleMatrix);
-
-
+            //Get all the puzzle neighbors by applying all the operators to all the colors
             foreach (TileType tile in colors)
             {
+
+                //Try to move down and if successfull add to queue
                 Puzzle puzzleDown = current.puzzle.copy();
                 if (puzzleDown.moveDown(tile))
                 {
@@ -72,6 +78,7 @@ public class SimpleGreedy
                     priorityQueue.Enqueue(node);
                 }
 
+                //Try to move up and if successfull add to queue
                 Puzzle puzzleUp = current.puzzle.copy();
                 if (puzzleUp.moveUp(tile))
                 {
@@ -80,6 +87,8 @@ public class SimpleGreedy
                     node.moveType = MoveType.Up;
                     priorityQueue.Enqueue(node);
                 }
+
+                //Try to move left and if successfull add to queue
                 Puzzle puzzleLeft = current.puzzle.copy();
                 if (puzzleLeft.moveLeft(tile))
                 {
@@ -88,6 +97,8 @@ public class SimpleGreedy
                     node.moveType = MoveType.Left;
                     priorityQueue.Enqueue(node);
                 }
+
+                //Try to move right and if successfull add to queue
                 Puzzle puzzleRight = current.puzzle.copy();
                 if (puzzleRight.moveRight(tile))
                 {

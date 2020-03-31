@@ -14,24 +14,25 @@ using UnityEngine;
 public class UniformCost
 {
 
-    private List<TileType> colors;
+    private List<TileType> colors; //Colors in the puzzle
     private PriorityQueue<Node> priorityQueue;
-    private HashSet<TileType[][]> visited;
+    private HashSet<TileType[][]> visited; //List of visited Nodes
     private List<Move>[][] stubMatrix;
-    private int numNodes = 0;
+    private int numNodes = 0; //Number of visited Nodes
 
 
+
+    //Main funciton of the class, initializes variables and calls main cycle
     public Node search(Puzzle puzzle)
     {
         colors = puzzle.puzzleColors();
         priorityQueue = new PriorityQueue<Node>();
         visited = new HashSet<TileType[][]>();
-
         priorityQueue.Enqueue(new Node(puzzle, null, 0));
         return uniformCost();
     }
 
-    //Preenche primeiro os maiores
+    //Given a puzzle returns the score correspondent to the number of the filled positions of the puzzle
     public static int calculatePuzzleScore(Puzzle current)
     {
         int score = 0;
@@ -45,19 +46,25 @@ public class UniformCost
         return score;
     }
 
+    //Unfirm cost search cycle
+    //Returns node with solved puzzle if successfull and null if it does not
     private Node uniformCost()
     {
         while (priorityQueue.Count() != 0)
         {
+            //Increases the number of visited nodes
             numNodes++;
+
+            //Gets the first element of the priority queue
             Node current = priorityQueue.Dequeue();
 
+            //If it finds the solution returns true
             if (current.puzzle.isComplete())
             {
                 Debug.Log("Solved in " + numNodes + " nodes");
                 return current;
             }
-
+            //Initializes the stub matrix a list of moves
             stubMatrix = new List<Move>[current.puzzle.PuzzleMatrix.Length][];
             for (int i = 0; i < stubMatrix.Length; i++)
             {
@@ -69,6 +76,8 @@ public class UniformCost
             }
 
             List<Move> allMoves = new List<Move>();
+
+            //Get all the puzzle neighbors by applying all the operators to all the colors
             foreach (TileType tile in colors)
             {
                 List<Tuple<int, int>> moveDownList = current.puzzle.getMoveDownList(tile);
@@ -77,7 +86,7 @@ public class UniformCost
                     Move move = new Move(moveDownList, tile);
                     move.moveType.Add(MoveType.Down);
                     addMoveToStub(move);
-                    allMoves.Add(move);                                
+                    allMoves.Add(move);
                 }
 
                 List<Tuple<int, int>> moveUpList = current.puzzle.getMoveUpList(tile);
@@ -107,14 +116,14 @@ public class UniformCost
                     allMoves.Add(move);
                 }
             }
-            //order moves in a priorityqueue
+            //Order moves in a priorityqueue
             PriorityQueue<Move> movePriorityQueue = new PriorityQueue<Move>();
             foreach (Move move in allMoves)
             {
                 movePriorityQueue.Enqueue(move);
             }
 
-            //get all the ones that are tied at the top and resolve the ties
+            //Get all the ones that are tied at the top and resolve the ties
             Tuple<List<Move>, List<Move>> tuple = movePriorityQueue.splitFrontItems();
             List<Move> bestMoves = tuple.Item1;
             List<Move> lastMoves = tuple.Item2;
@@ -126,14 +135,15 @@ public class UniformCost
             {
                 Node father = current;
                 Node last = null;
-                for(int i = move.steps.Count - 1; i >= 0; i--) {
+                for (int i = move.steps.Count - 1; i >= 0; i--)
+                {
                     Puzzle newPuzzle = father.puzzle.copy();
-                    newPuzzle.executeMove(move.steps[i], move.tile);  
+                    newPuzzle.executeMove(move.steps[i], move.tile);
                     Node next = new Node(newPuzzle, father, current.value + move.score);
                     next.movedTile = move.tile;
                     next.moveType = move.moveType[i];
                     father = next;
-                    last = next;           
+                    last = next;
                 }
                 priorityQueue.Enqueue(last);
             }
@@ -141,14 +151,15 @@ public class UniformCost
             {
                 Node father = current;
                 Node last = null;
-                for(int i = move.steps.Count - 1; i >= 0; i--) {
+                for (int i = move.steps.Count - 1; i >= 0; i--)
+                {
                     Puzzle newPuzzle = father.puzzle.copy();
-                    newPuzzle.executeMove(move.steps[i], move.tile);  
+                    newPuzzle.executeMove(move.steps[i], move.tile);
                     Node next = new Node(newPuzzle, father, current.value + move.score);
                     next.movedTile = move.tile;
                     next.moveType = move.moveType[i];
                     father = next;
-                    last = next;           
+                    last = next;
                 }
                 priorityQueue.Enqueue(last);
             }
@@ -167,7 +178,7 @@ public class UniformCost
             if (moveDownList != null)
             {
                 Move newMove = new Move(moveDownList, move.tile);
-                checkMoveOnStub(newMove);                
+                checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
                 newMove.steps.AddRange(move.steps);
                 newMove.moveType.Add(MoveType.Down);

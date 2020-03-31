@@ -8,20 +8,17 @@ using UnityEngine;
 public class Test
 {
     private GameObject tilePrefab;
-    private List<string> operators;
+    private List<string> operators; //List of search algorithms we want to test
     public Test(GameObject tilePrefab)
     {
         this.tilePrefab = tilePrefab;
-        //operators = new List<string>(new string[] { "BFS", "IDDFSUndo", "DFS", "DFSUndo", "SimpleGreedy", "UniqueFirstGreedy", "UniformCost", "AStar" });
-        //operators = new List<string>(new string[] { "IDDFSUndo", "DFS", "DFSUndo", "SimpleGreedy", "UniqueFirstGreedy", "UniformCost", "AStar" });
-        operators = new List<string>(new string[] { "DFS", "DFSUndo", "SimpleGreedy", "UniqueFirstGreedy", "UniformCost", "AStar" });
-        //operators = new List<string>(new string[] { "UniqueFirstGreedy", "UniformCost", "AStar" });
-        //operators = new List<string>(new string[] { "UniformCost", "AStar" });
+        operators = new List<string>(new string[] { "BFS", "IDDFSUndo", "DFS", "DFSUndo", "SimpleGreedy", "UniqueFirstGreedy", "UniformCost", "AStar" });
     }
 
+    //For each puzzle calls all the algorithms in the operator
     public void runTests(int times, string path)
     {
-        /*
+
         Debug.Log("Level 1");
         Puzzle puzzleEasy = new Puzzle(Example.puzzleEasy1, tilePrefab);
         System.IO.File.WriteAllLines(path, runPuzzleTests(times, puzzleEasy));
@@ -33,13 +30,11 @@ public class Test
         Debug.Log("Level 3");
         Puzzle puzzleMedium = new Puzzle(Example.puzzleMedium, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleMedium));
-        */
 
         Debug.Log("Level 4");
         Puzzle puzzle2275 = new Puzzle(Example.puzzle2275, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2275));
 
-        /*
         Debug.Log("Level 5");
         Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleDifficult));
@@ -59,14 +54,16 @@ public class Test
         Debug.Log("Level 9");
         Puzzle puzzleExpert = new Puzzle(Example.puzzleExpert, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleExpert));
-        */
 
         Debug.Log("Finished Tests");
 
     }
+
+    //For the puzzle given tests all the operators 
     public List<string> runPuzzleTests(int numberOfTimes, Puzzle puzzle)
     {
         List<string> final = new List<string>();
+
         foreach (string op in operators)
         {
             Debug.Log(op);

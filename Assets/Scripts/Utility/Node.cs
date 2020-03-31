@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public enum MoveType { Up, Down, Left, Right }
+
+//Created so that all the search methods return the same thing
+//Only the Greedy algorithms use the "value"
 public class Node : IComparable<Node>
 {
     public Puzzle puzzle;
@@ -10,16 +13,19 @@ public class Node : IComparable<Node>
     public int value;
     public TileType movedTile;
     public MoveType moveType;
-    public Node(Puzzle puzzle, Node parent, int value) {
+    public Node(Puzzle puzzle, Node parent, int value)
+    {
         this.puzzle = puzzle;
         this.parent = parent;
         this.value = value;
     }
 
-    public List<Node> getPath() {
+    public List<Node> getPath()
+    {
         Node current = this;
         List<Node> path = new List<Node>();
-        while(current != null) {
+        while (current != null)
+        {
             path.Add(current);
             current = current.parent;
         }
