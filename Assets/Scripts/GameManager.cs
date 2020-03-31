@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject hintButton;
 
+    public bool humanBusy = false;
     //Used to run all the tests when needed
     public void Start()
     {

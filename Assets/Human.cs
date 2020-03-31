@@ -12,8 +12,7 @@ public class Human : MonoBehaviour
     private Vector3 v3Pos;
     private int threshold = 9;
     public GameObject hintButton;
-    public GameManager gameManager;
-
+    public GameManager gameManager;    
     void OnMouseDown()
     {
         moving = true;
@@ -24,7 +23,7 @@ public class Human : MonoBehaviour
     void OnMouseDrag()
     {
         // hintButton.GetComponent<GetHint>().puzzle = puzzle;
-        if (!moving) return;
+        if (!moving || gameManager.humanBusy) return;
         
         Puzzle newPuzzle = puzzle.copy();
         Puzzle oldPuzzle = puzzle.copy();
@@ -54,21 +53,18 @@ public class Human : MonoBehaviour
 
         v3Pos = Input.mousePosition;
 
-            v3Pos = Input.mousePosition;
+        v3Pos = Input.mousePosition;
 
-            if (puzzle.isComplete())
-            {
-                Debug.Log("Puzzle Completed successfuly");
-            }
-
-            moving = false;
-
+        if (puzzle.isComplete())
+        {
+            Debug.Log("Puzzle Completed successfuly");
         }
 
-        moving = false;
+        moving = false;                
     }
 
     private IEnumerator animateMove(Puzzle oldPuzzle, MoveType moveType, TileType movedTile, Puzzle newPuzzle) {
+        gameManager.humanBusy = true;
         GameObject tileGroup = oldPuzzle.displayTilesOfType(movedTile); //Display the tiles that moved from the last puzzle to the current                
         Vector3 target = getTarget(tileGroup, moveType, movedTile);                
         Vector3 axis = Vector3.forward;  //Forwards for down or up, Right for left or right   
@@ -85,6 +81,7 @@ public class Human : MonoBehaviour
         if(gameManager == null) Debug.LogError("WHAAT?");
         gameManager.currentPuzzle = puzzle;     
         Destroy(tileGroup);
+        gameManager.humanBusy = false;
     }
 
     private Vector3 getTarget(GameObject tileGroup, MoveType move, TileType movedTile) {
