@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
                 {
                     if(AIrunning == false) break;                                 
                     tileGroup.transform.RotateAround(target, axis, 5 * direction);
-                    yield return new WaitForSeconds(0.01f);
+                    yield return new WaitForSeconds(0.001f);
                 }                
             }
             if(AIrunning == false) break;          
