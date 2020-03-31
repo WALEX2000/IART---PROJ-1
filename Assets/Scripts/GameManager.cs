@@ -191,4 +191,8 @@ public class GameManager : MonoBehaviour
         }
         return copy;
     }
+
+    public void Quit() {
+        Application.Quit();
+    }
 }
