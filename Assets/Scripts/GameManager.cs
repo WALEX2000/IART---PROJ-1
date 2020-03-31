@@ -11,11 +11,24 @@ public class GameManager : MonoBehaviour
     private playerType currentPlayer;
     public GameObject tilePrefab;
     public GameObject hintButton;
+    public GameObject cursorTrail;
+
+    public GameObject canvas;
+
+    public Camera gameCamera;
+
+    private Boolean trail = false;
+
+    void Update() {        
+        Vector3 pos = gameCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10.2f));
+        if(trail) cursorTrail.transform.position = new Vector3(pos.x, 2f, pos.z);     
+    }
 
     public bool humanBusy = false;
     //Used to run all the tests when needed
     public void Start()
     {
+        canvas.SetActive(false);
         //Test test = new Test(tilePrefab);
         //test.runTests(5, "Results/All.txt");
     }
@@ -56,11 +69,18 @@ public class GameManager : MonoBehaviour
     public void backToOriginal()
     {
         currentPuzzle = firstPuzzle;
+        Cursor.visible = true;
+        trail = false;
+        cursorTrail.SetActive(false);
     }
 
     //Given the puzzle displays it so the player can solve the puzzle
     public void HumanMode(TileType[][] puzzleLevel)
     {
+        trail = true;
+        cursorTrail.SetActive(true);
+        canvas.SetActive(true);
+        Cursor.visible = false;
         currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
         firstPuzzle = currentPuzzle.copy();
         currentPuzzle.gameManager = this;

@@ -17,7 +17,7 @@ public class Human : MonoBehaviour
     {
         moving = true;
         v3Pos = Input.mousePosition;
-    }
+    }    
 
     //Detects mouse moves and moves the clicked tile in the given direction of the mouse
     void OnMouseDrag()
