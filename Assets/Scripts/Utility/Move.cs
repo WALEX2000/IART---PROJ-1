@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Move : IComparable<Move>
 {
+    public List<List<Tuple<int, int>>> steps;
     public int score;
     public List<Tuple<int, int>> positions;
     public TileType tile;
@@ -13,6 +14,8 @@ public class Move : IComparable<Move>
         this.positions = positions;
         this.score = 0;
         this.tile = tile;
+        steps = new List<List<Tuple<int, int>>>();
+        steps.Add(positions);
     }
     public void setScore(int newScore) { this.score = newScore; }
     public void addOne() { score++; }

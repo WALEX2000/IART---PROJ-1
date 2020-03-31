@@ -52,3 +52,5 @@ Assets/Plugins/
 Assets/Plugins.meta
 
 .vscode/
+
+Assets/Scripts/Tests/1Tests/BFSResults1.txt.meta

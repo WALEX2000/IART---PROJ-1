@@ -95,17 +95,29 @@ public class UniqueFirstGreedy
         //Now that we have the list ordered without ties go through it and recall findSolution with the resultant board
         foreach (Move move in bestMoves)
         {
-            Puzzle newPuzzle = puzzle.copy();
-            newPuzzle.executeMove(move.positions, move.tile);
-            Node node = new Node(newPuzzle, puzzleNode, 0);
-            if (findSolution(node)) return true;
+            Node father = puzzleNode;
+            Node last = null;
+            for(int i = move.steps.Count - 1; i >= 0; i--) {
+                Puzzle newPuzzle = puzzle.copy();
+                newPuzzle.executeMove(move.steps[i], move.tile);  
+                Node next = new Node(newPuzzle, father, 0);
+                father = next;
+                last = next;           
+            }        
+            if (findSolution(last)) return true;
         }
         foreach (Move move in lastMoves)
         {
-            Puzzle newPuzzle = puzzle.copy();
-            newPuzzle.executeMove(move.positions, move.tile);
-            Node node = new Node(newPuzzle, puzzleNode, 0);
-            if (findSolution(node)) return true;
+            Node father = puzzleNode;
+            Node last = null;
+            for(int i = move.steps.Count - 1; i >= 0; i--) {
+                Puzzle newPuzzle = puzzle.copy();
+                newPuzzle.executeMove(move.steps[i], move.tile);  
+                Node next = new Node(newPuzzle, father, 0);
+                father = next;
+                last = next;           
+            }        
+            if (findSolution(last)) return true;
         }
         return false;
     }
@@ -124,6 +136,7 @@ public class UniqueFirstGreedy
                 Move newMove = new Move(moveDownList, move.tile);
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
                 newMoves.Add(newMove);
             }
 
@@ -133,6 +146,7 @@ public class UniqueFirstGreedy
                 Move newMove = new Move(moveUpList, move.tile);
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
                 newMoves.Add(newMove);
             }
 
@@ -142,6 +156,7 @@ public class UniqueFirstGreedy
                 Move newMove = new Move(moveLeftList, move.tile);
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
                 newMoves.Add(newMove);
             }
 
@@ -151,6 +166,7 @@ public class UniqueFirstGreedy
                 Move newMove = new Move(moveRightList, move.tile);
                 checkMoveOnStub(newMove);
                 newMove.positions.AddRange(move.positions); //Adding prior positions to new move
+                newMove.steps.AddRange(move.steps);
                 newMoves.Add(newMove);
             }
         }
