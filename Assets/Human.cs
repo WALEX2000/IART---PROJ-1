@@ -75,7 +75,7 @@ public class Human : MonoBehaviour
         if(moveType == MoveType.Down || moveType == MoveType.Left) direction = -1;
         for(int j = 0; j < 180/5; j++) {            
             tileGroup.transform.RotateAround(target,axis, 5*direction);       
-            yield return new WaitForSeconds(0.0001f);
+            yield return new WaitForSeconds(0.01f);
         }
         newPuzzle.displayPuzzle(); 
         puzzle.hidePuzzle();
