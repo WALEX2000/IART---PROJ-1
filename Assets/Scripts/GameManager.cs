@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         // Test test = new Test(tilePrefab);
-        // test.runTests(5, "Results/All.txt");
+        // test.runTests(2, "Results/DFSNormal.txt");
 
     }
 

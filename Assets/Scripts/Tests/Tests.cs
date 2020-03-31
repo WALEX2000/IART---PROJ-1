@@ -12,7 +12,7 @@ public class Test
     public Test(GameObject tilePrefab)
     {
         this.tilePrefab = tilePrefab;
-        operators = new List<string>(new string[] { "AStar", "UniformCost", "UniqueFirstGreedy", "SimpleGreedy", "DFSUndo", "IDDFSUndo", "BFS" });
+        operators = new List<string>(new string[] { "DFS", "BFS" });
     }
 
     public void runTests(int times, string path)
@@ -29,8 +29,8 @@ public class Test
         Puzzle puzzle2275 = new Puzzle(Example.puzzle2275, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzle2275));
 
-        Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
-        System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleDifficult));
+        // Puzzle puzzleDifficult = new Puzzle(Example.puzzleDifficult, tilePrefab);
+        // System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleDifficult));
 
         Puzzle puzzleHard = new Puzzle(Example.puzzleHard, tilePrefab);
         System.IO.File.AppendAllLines(path, runPuzzleTests(times, puzzleHard));
@@ -58,6 +58,7 @@ public class Test
                 var watch = System.Diagnostics.Stopwatch.StartNew();
                 Node solution = puzzle.search(op);
                 watch.Stop();
+                if (solution == null) Debug.Log("Error");
                 time += watch.ElapsedMilliseconds;
             }
             string s = op + ": " + ((time / 1000.0) / numberOfTimes);

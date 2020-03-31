@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        puzzleMenu.setSearch("DFSUndo");
+        puzzleMenu.setSearch("DFS");
     }
 
     public void BFS()
