@@ -99,8 +99,6 @@ public class GameManager : MonoBehaviour
             if (i != 0) {
                 GameObject tileGroup = steps[i-1].puzzle.displayTilesOfType(steps[i].movedTile); //Display the tiles that moved from the last puzzle to the current                
                 Vector3 target = getTarget(tileGroup, steps[i].moveType);                
-                Debug.Log("Tile: " + steps[i].movedTile + "   Move: " + steps[i].moveType);              
-                Debug.Log("--> Target: " + target);
                 Vector3 axis = Vector3.forward;  //Forwards for down or up, Right for left or right   
                 int direction = 1; //positive for right and up  
                 if(steps[i].moveType == MoveType.Right || steps[i].moveType == MoveType.Left) axis = Vector3.right;
@@ -108,9 +106,7 @@ public class GameManager : MonoBehaviour
                 for(int j = 0; j < 180/5; j++) {            
                     tileGroup.transform.RotateAround(target,axis, 5*direction);       
                     yield return new WaitForSeconds(0.0001f);
-                }
-                
-                steps[i - 1].puzzle.hidePuzzle();                
+                }                            
             }                        
             yield return new WaitForSeconds(time);
         }

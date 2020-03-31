@@ -43,10 +43,12 @@ public class IDDFSUndo
         Node finalNode;
         foreach (TileType tile in colors)
         {
-
             if (current.puzzle.moveDown(tile))
             {
-                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                Node node = new Node(current.puzzle, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Down;
+                if ((finalNode = dls(node, limit - 1)) != null) {
                     current.puzzle.undoMoveDown(tile);
                     current.puzzle = current.puzzle.copy();
                     return finalNode;
@@ -55,7 +57,10 @@ public class IDDFSUndo
             }
             if (current.puzzle.moveUp(tile))
             {
-                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                Node node = new Node(current.puzzle, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Up;
+                if ((finalNode = dls(node, limit - 1)) != null) {
                     current.puzzle.undoMoveUp(tile);
                     current.puzzle = current.puzzle.copy();
                     return finalNode;
@@ -64,7 +69,10 @@ public class IDDFSUndo
             }
             if (current.puzzle.moveLeft(tile))
             {
-                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                Node node = new Node(current.puzzle, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Left;
+                if ((finalNode = dls(node, limit - 1)) != null) {
                     current.puzzle.undoMoveLeft(tile);
                     current.puzzle = current.puzzle.copy();
                     return finalNode;
@@ -73,7 +81,10 @@ public class IDDFSUndo
             }
             if (current.puzzle.moveRight(tile))
             {
-                if ((finalNode = dls(new Node(current.puzzle, current, 0), limit - 1)) != null) {
+                Node node = new Node(current.puzzle, current, 0);
+                node.movedTile = tile;
+                node.moveType = MoveType.Right;
+                if ((finalNode = dls(node, limit - 1)) != null) {
                     current.puzzle.undoMoveRight(tile);
                     current.puzzle = current.puzzle.copy();
                     return finalNode;
