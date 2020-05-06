@@ -5,7 +5,7 @@
 
 OR
 
-Alternatively, Windows and Mac builds were included for ease of access
+Alternatively, a Windows build was included for ease of access
 
 === Usage ===
 If you have built the Unity project, a folder will be generated with the file "Folding Blocks.exe" that may be run to play.
