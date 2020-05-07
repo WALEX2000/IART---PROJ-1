@@ -7,15 +7,10 @@ public class TrainingManager : MonoBehaviour
 {
     public GameObject tilePrefab;
     public List<TileType[][]> puzzleMatrixList = new List<TileType[][]>();
-
-    public Transform testTransform;
     public void Start() {
         puzzleMatrixList.Add(Example.puzzleEasy1);
         puzzleMatrixList.Add(Example.puzzle2);
         puzzleMatrixList.Add(Example.puzzleMedium);
-
-        Puzzle puzzle = generatePuzzle();
-        displayPuzzle(puzzle, testTransform);
     }
 
     public Puzzle generatePuzzle() {
