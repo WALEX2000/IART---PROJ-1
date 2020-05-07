@@ -8,7 +8,7 @@ public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta } //
 
 public class Puzzle
 {
-    public GameManager gameManager;
+    public GameManager gameManager = null;
     private List<GameObject> gameObjects = new List<GameObject>();
     public GameObject tilePrefab;
     private TileType[][] puzzleMatrix; //Tile Matrix used by the puzzle
