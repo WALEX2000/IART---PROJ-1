@@ -12,14 +12,20 @@ public class PuzzleAgent : Agent
     private Puzzle puzzle;
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
-        //-> Delete any puzzle that may have been there before
-        //-> Ask the Manager to generate a new Puzzle (and store it in puzzle)
-        //-> Display that puzzle (May be done in the manager)
+        //Get a new Puzzle
+        puzzle = manager.generatePuzzle();
+        if(puzzle == null) {
+            Debug.LogError("The Training Manager has an empty puzzle dataBase");
+            return;
+        }
+
+        //Display the Puzzle
+        manager.displayPuzzle(puzzle, puzzleTransform);
     }
 
     public override void CollectObservations(VectorSensor sensor)
     { //Gives the agent information regarding the puzzleState (Before each action he takes)
-        //sensor.AddObservation(puzzle.PuzzleMatrix.GetEnumerator); //TODO figure out a way to pass the puzzleMatrix (since TileType[][] is not and accepted input)
+        //sensor.AddObservation(puzzle.PuzzleMatrix); //TODO figure out a way to pass the puzzleMatrix (since TileType[][] is not and accepted input)
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -30,7 +36,7 @@ public class PuzzleAgent : Agent
         MoveDirection moveDirection = 0;// correspond to vectorAction[1]; (can only go from 0 to 3)
 
         // Change puzzle according to the actions received
-        switch(moveDirection) {
+        switch(moveDirection) { //We will probably want to check if the move was executed and give a negative reward if it wasn't
             case MoveDirection.Up:
                 puzzle.moveUp(movedTile);
                 break;
@@ -45,7 +51,8 @@ public class PuzzleAgent : Agent
                 break;
         }
 
-        //TODO Display the new puzzle state with help of manager
+        //Display the new puzzle State
+        manager.displayPuzzle(puzzle, puzzleTransform);
 
         //If puzzle was completed with success end and give a reward
         if(puzzle.isComplete()) {

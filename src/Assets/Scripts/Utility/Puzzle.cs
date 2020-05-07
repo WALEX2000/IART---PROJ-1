@@ -37,6 +37,62 @@ public class Puzzle
         return puzzle;
     }
 
+    public void displayPuzzle(Transform parentTransform)
+    {
+        float offsetX = parentTransform.position.x - puzzleMatrix.Length/2 + ((puzzleMatrix.Length+1) % 2)*0.5f;
+        float offsetZ = parentTransform.position.z - puzzleMatrix[0].Length/2 + ((puzzleMatrix[0].Length+1) % 2)*0.5f;
+        float height = parentTransform.position.y;
+
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if (puzzleMatrix[i][j] != TileType.Null)
+                {
+                    GameObject baseTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(offsetX + i, height + 0.125f, offsetZ + j), Quaternion.identity); //Base Block Below
+                    baseTile.GetComponent<MeshRenderer>().material.color = Color.white;
+                    gameObjects.Add(baseTile);
+                    baseTile.transform.parent = parentTransform;
+
+                    if ((int)puzzleMatrix[i][j] > 1)
+                    {
+                        GameObject instantiatedTile = UnityEngine.Object.Instantiate(tilePrefab, new Vector3(offsetX + i, height + 0.375f, offsetZ + j), Quaternion.identity); //Actual Tiles on top                    
+                        gameObjects.Add(instantiatedTile);                        
+                        instantiatedTile.GetComponent<Human>().puzzle = this;
+                        instantiatedTile.GetComponent<Human>().gameManager = gameManager;
+                        instantiatedTile.GetComponent<Human>().tile = puzzleMatrix[i][j];
+                        instantiatedTile.transform.parent = parentTransform;
+
+                        switch (puzzleMatrix[i][j])
+                        {
+                            case TileType.Blue:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.blue;
+                                break;
+                            case TileType.Red:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.red;
+                                break;
+                            case TileType.Yellow:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.yellow;
+                                break;
+                            case TileType.Green:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.green;
+                                break;
+                            case TileType.Magenta:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.magenta;
+                                break;
+                            case TileType.Gray:
+                                instantiatedTile.GetComponent<Renderer>().material.color = Color.gray;
+                                break;
+                            default:
+                                Debug.LogError("Unknown Material for tile: " + puzzleMatrix[i][j]);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //Displays the current puzzle in the Unity platform
     public void displayPuzzle()
     {
