@@ -82,11 +82,27 @@ public class PuzzleMenu : MonoBehaviour
     }
     public void choose9()
     {
+
+        //TEST
+        Generator generator = new Generator();
+        int size = 5;
+        TileType[][] matrix = new TileType[size][];
+        matrix = generator.generatePuzzle(size,3);
+        generator.displayConsole(matrix);
+
+
         menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        if (this.search == "") gameManager.HumanMode(matrix);
+        else gameManager.ManagerStarter(this.search, matrix);
+        search = "";
+
+
+        /*menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
         if (this.search == "") gameManager.HumanMode(Example.puzzleExpert);
         else gameManager.ManagerStarter(this.search, Example.puzzleExpert);
-        search = "";
+        search = "";*/  
     }
 
 }
