@@ -38,7 +38,8 @@ public class Generator
         return subColors;
     }
 
-
+    //Falta nao so por tudo a null como cortar a matriz
+    //Por em ordem random
     public TileType[][] generatePuzzle(int size,int numberColors,int numberMoves){
  
         System.Random rnd = new System.Random();
@@ -66,32 +67,79 @@ public class Generator
         //Generates first color and adds it to puzzle
         puzzle.Add(generateXAdjacentSqares(matrix,colors[0],initialSize,begin,end,x,y));
 
+        
+
         //Moves color some moves
         moveColor(colors[0],numberMovesFirstColor,matrix);
+        displayConsole(matrix);
 
 
         for (int i = 1; i < colors.Count; i++){
             List<(int,int)> adjacent = getAdjacent(matrix, begin,end);
             int index = UnityEngine.Random.Range(0, adjacent.Count);
+            Debug.Log("Index"+index);
+            Debug.Log("Count"+adjacent.Count);
             x = adjacent[index].Item1;
             y = adjacent[index].Item2;
+            Debug.Log("Comecei a geraçao");
             puzzle.Add(generateXAdjacentSqares(matrix,colors[i],initialSize,begin,end,x,y));
+            Debug.Log("Fiz a geraçao");
             moveColor(colors[i],numberMovesFirstColor,matrix);
+            Debug.Log("MOVI A COR");
         }
+
+        int minX = size*2,minY = size*2,maxX = 0,maxY=0;
+    
         //Set other elements to null Matrix
         for (int i = 0; i < size * 2 ; i++){
             for (int j = 0; j < size * 2; j++){
                 if(matrix[i][j] == TileType.Empty)
                     matrix[i][j] = TileType.Null;
-
-            }
-                
+                else{
+                    if(i <= minX) minX = i;
+                    if(i >= maxX) maxX = i;
+                    if(j <= minY) minY = j;
+                    if(j >= maxY) maxY = j;
+                }
+            } 
         }
+        Debug.Log("ZAS" + minX + " " +  minY + " " + maxX + " " + maxY);
+
+        //TileType[][] sliced =  sliceMatrix(matrix,minX,minY,maxX,maxY);
+
+        //createInitialMatrix(puzzle,minX,minY,maxX,maxY,matrix);
         
         return matrix;
     }
+    private TileType[][] sliceMatrix(TileType[][] matrix,int minX,int minY,int maxX,int maxY){
+        int size;
+        if (maxX-minX >= maxY-minY) size = maxX-minX+1;
+        else size = maxY -minY+1;
 
+        Debug.Log(size);
+        TileType[][] result = new TileType[size][];
 
+            //Initialize Matrix
+        for (int i = minX; i < minX + size; i++){
+            TileType[] line = new TileType[size];
+            for (int j = minY; j < minY + size-1; j++){
+                Debug.Log("i:" + i + " j:" + j+ " "+ matrix[i].Length + " " + matrix.Length);
+                TileType current = matrix[i][j];
+                line[j-minY] = current ;
+            }
+            result[i-minX] = line;
+        }
+        displayConsole(result);
+        return result;
+    }
+
+    private TileType[][] createInitialMatrix(List<List<(int,int)>> puzzle,int minX,int minY,int maxX,int maxY,TileType[][] matrix){
+
+        //TileType[][] result = new TileType[size*2][];
+        return matrix;
+    }
+
+    //Falta ir trocando a ordem dos moves
     private void moveColor(TileType color,int numberMoves,TileType[][] matrix){
         int count = 0;
         bool foundMove = true;
@@ -108,6 +156,8 @@ public class Generator
     //Gera x Quadrados adjacentes
     //Retorna as posiçoes dos quadrados gerados
     private List<(int,int)> generateXAdjacentSqares(TileType[][] matrix,TileType tile, int number,int begin,int end,int i,int j){
+
+        System.Random rnd = new System.Random();
         List<(int,int)> result = new List<(int, int)>();
         List<(int,int)> adjacent = new List<(int, int)>();
         for (int k = 0; k < number; k++)
@@ -116,9 +166,12 @@ public class Generator
             result.Add((i,j));
             //adjacent = getAdjacent(i,j,matrix,begin,end); //Ao usar isto ele vai estar a procurar em filinha, a alternativa e percorrer tudo
             adjacent = getAdjacent(tile,matrix,begin,end); //Percorre a matriz toda
-            int index = UnityEngine.Random.Range(0, adjacent.Count);
-            i = adjacent[index].Item1;
-            j = adjacent[index].Item2;  
+            if(adjacent.Count > 0){
+                int index = rnd.Next(adjacent.Count);
+                i = adjacent[index].Item1;
+                j = adjacent[index].Item2;  
+            }
+            
         }
 
         return result;
