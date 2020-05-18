@@ -38,80 +38,151 @@ public class Generator
         return subColors;
     }
 
-    public TileType getNextTile(int range,int i,int j, TileType[][] matrix){
-        TileType random = getRandomTileType(range);
-        return random;
-    }
 
-    //[B,B,0]
-    //[B,B,0]
-    //[0,0,0]
-    public TileType[][] generateSymetricPuzzle(int size,int numberColors){
-
+    public TileType[][] generatePuzzle(int size,int numberColors,int numberMoves){
+ 
         System.Random rnd = new System.Random();
 
-        //Primeiro tem que se decidir em que eixo e que ela e simetrica tanto em x como y
-        //Para cada cor tem que se definir um eixo X e Y
-        //Iterar pelas cores
-
-        TileType[][] matrix = new TileType[size][];
+        TileType[][] matrix = new TileType[size*2][];
+        int begin = size - size / 2;
+        int end = size + size / 2;
 
         //Initialize Matrix
-        for (int i = 0; i < size; i++){
-            TileType[] line = new TileType[size];
-            for (int j = 0; j < size; j++)
+        for (int i = 0; i < size * 2; i++){
+            TileType[] line = new TileType[size * 2];
+            for (int j = 0; j < size * 2; j++)
                 line[j] = TileType.Empty;
             matrix[i] = line;
         }
 
         //Get random color array
         List<TileType> colors = getColorArray(numberColors);
-        int rotationAxisX = size /2-1;
-        int rotationAxisY = size /2-1;
 
-        for (int i = 0; i < size / 2; i++){
-            TileType[] line = new TileType[size];
-            int symetricX = i + 2 * (rotationAxisX - i) + 1;
-            for (int j = 0; j < size/2; j++){
-                int symetricY = j + 2 * (rotationAxisY - j) + 1;
 
-                TileType random = getRandomTileType(colors,rnd);
-                if(symetricY < size ){
-                    line[symetricY] = random;
-                    if(symetricX < size ){
-                        matrix[symetricX][j] = random;
-                        matrix[symetricX][symetricY] = random;
-                    }
-                }
-                
-                line[j] = random;
-            }
-            matrix[i] = line;
+        int x = UnityEngine.Random.Range(begin, end);
+        int y = UnityEngine.Random.Range(begin, end);
+
+        int numberMovesFirstColor = numberMoves/numberColors;
+        int initialSize = (int) Math.Pow(((size*size)/numberColors),1.0/numberMovesFirstColor);
+
+
+        generateXAdjacentSqares(matrix,colors[0],initialSize,begin,end,x,y);
+
+
+        for (int i = 1; i < colors.Count; i++){
+            List<(int,int)> adjacent = getAdjacent(matrix, begin,end);
+            int index = UnityEngine.Random.Range(0, adjacent.Count);
+            x = adjacent[index].Item1;
+            y = adjacent[index].Item2;
+            generateXAdjacentSqares(matrix,colors[i],initialSize,begin,end,x,y);
+
         }
         
         return matrix;
     }
 
-    public void unfold(TileType[][] matrix){
+    //Gera x Quadrados adjacentes
+    private void generateXAdjacentSqares(TileType[][] matrix,TileType tile, int number,int begin,int end,int i,int j){
+        List<(int,int)> adjacent = new List<(int, int)>();
+        for (int k = 0; k < number; k++)
+        {
+            matrix[i][j] = tile;  
+            adjacent = getAdjacent(i,j,matrix,begin,end); //Ao usar isto ele vai estar a procurar em filinha, a alternativa e percorrer tudo
+            int index = UnityEngine.Random.Range(0, adjacent.Count);
+            i = adjacent[index].Item1;
+            j = adjacent[index].Item2;  
+        }
+    }
+
+    //Get adjacent Empty positions to a position
+    private List<(int,int)> getAdjacent(int x,int y, TileType[][] matrix, int begin,int end){
+        List<(int,int)> adjacents = new List<(int,int)>();
+        
+        if(x+1 < end){
+            if(matrix[x+1][y] == TileType.Empty) adjacents.Add((x+1,y));
+        } if(x-1 >= 0){
+            if(matrix[x-1][y] == TileType.Empty) adjacents.Add((x-1,y));
+        } if(y+1 < end){
+            if(matrix[x][y+1] == TileType.Empty) adjacents.Add((x,y+1));
+        } if(y-1 >= 0){
+            if(matrix[x][y-1] == TileType.Empty) adjacents.Add((x,y-1));
+        }
+        return adjacents;
+    } 
+
+    //Por mais eficiente
+    //Retorna todos os quadrados vazios a volta de uma cor
+    private List<(int,int)> getAdjacent(TileType color, TileType[][] matrix, int begin,int end){
+        List<(int,int)> adjacents = new List<(int,int)>();
+        for (int i = begin; i < end; i++){
+            for (int j = begin; j < end; j++){
+                if(isAdjacentColor(i,j,color,matrix,begin,end)){
+                    adjacents.Add((i,j));
+                }           
+            } 
+        }
+        return adjacents;
+    }
+
+    //Por mais eficiente
+    //Retorna todos os quadrados vazios a volta de qualquer cor
+    private List<(int,int)> getAdjacent(TileType[][] matrix, int begin,int end){
+        List<(int,int)> adjacents = new List<(int,int)>();
+        for (int i = begin; i < end; i++){
+            for (int j = begin; j < end; j++){
+                if(isAdjacent(i,j,matrix,begin,end)){
+                    adjacents.Add((i,j));
+                }           
+            } 
+        }
+        return adjacents;
+    }
+
+    //Returns true if a square is empty and adjacent to a color
+    private bool isAdjacent(int x,int y, TileType[][] matrix,int begin,int end){
+        if(matrix[x][y] == TileType.Empty){
+            if(x+1 < end){
+                if(matrix[x+1][y] != TileType.Empty) return true;
+            } if(x-1 >= 0){
+                if(matrix[x-1][y] != TileType.Empty) return true;
+            } if(y+1 < end){
+                if(matrix[x][y+1] != TileType.Empty) return true;
+            } if(y-1 >= 0){
+                if(matrix[x][y-1] != TileType.Empty) return true;
+            }
+        }
+        return false;
+    }
+
+    private bool isAdjacentColor(int x,int y,TileType tile, TileType[][] matrix,int begin,int end){
+        if(matrix[x][y] == TileType.Empty){
+            if(x+1 < end){
+                if(matrix[x+1][y] == tile) return true;
+            } if(x-1 >= 0){
+                if(matrix[x-1][y] == tile) return true;
+            } if(y+1 < end){
+                if(matrix[x][y+1] == tile) return true;
+            } if(y-1 >= 0){
+                if(matrix[x][y-1] == tile) return true;
+            }
+        }
+        return false;
+    }
+
+
+    /*public void unfold(TileType[][] matrix){
         List<TileType> colors = puzzleColors(matrix);
         foreach (TileType color in colors){
-            
+            int symetricAxis = canUnfoldUp(matrix,color);
+            if(symetricAxis  != -1) undoMoveUp(color,matrix);
         }      
-        
-    }
+    }*/
 
-    private void  canUnfoldUp(){
-
-    }
+    
 
       public TileType[][] generateRandomPuzzle(int size,int numberColors){
 
         System.Random rnd = new System.Random();
-
-        //Primeiro tem que se decidir em que eixo e que ela e simetrica tanto em x como y
-        //Para cada cor tem que se definir um eixo X e Y
-        //Iterar pelas cores
-
         TileType[][] matrix = new TileType[size][];
         List<TileType> colors = getColorArray(numberColors);
 
@@ -119,13 +190,6 @@ public class Generator
             TileType[] line = new TileType[size];
             for (int j = 0; j < size; j++){
                 TileType random = getRandomTileType(colors,rnd);
-                int middleX = (size + j)/2;
-                int middleY = (size + i)/2;
-
-                //Debug.Log(middleX + " X " + j);
-                //Debug.Log(middleY + " Y " + i);
-
-
                 line[j] = random;
             }
             matrix[i] = line;
@@ -152,71 +216,27 @@ public class Generator
         Debug.Log(puzzleString);
     }
 
-    private void undoMoveRight(TileType tile,TileType[][] puzzleMatrix)
-    {
 
-        int symetryAxis = calculateHorizontalSymetrixAxis(tile,puzzleMatrix);
 
-        for (int i = 0; i < puzzleMatrix.Length; i++)
-        {
-            for (int j = puzzleMatrix[i].Length - 1; j > symetryAxis; j--)
-            {
-                if (puzzleMatrix[i][j] == tile)
-                {
-                    puzzleMatrix[i][j] = TileType.Empty;
+    private int  canUnfoldUp(TileType[][] matrix,TileType tile){
+        int symetricAxis = calculateVerticalSymetrixAxis(tile,matrix);
+        for (int i = 0; i < symetricAxis; i++){
+            for (int j = 0; j < matrix[i].Length; j++){
+                if(tile == matrix[i][j]){
+                    if(tile != matrix[symetricAxis][j]){
+                        Debug.Log("Cant unfold up");
+                        return -1;
+                    }
+                        
                 }
             }
+            
         }
-    }
-
-    private void undoMoveLeft(TileType tile,TileType[][] puzzleMatrix)
-    {
-        int symetryAxis = calculateHorizontalSymetrixAxis(tile,puzzleMatrix);
-
-        for (int i = 0; i < puzzleMatrix.Length; i++)
-        {
-            for (int j = 0; j <= symetryAxis; j++)
-            {
-                if (puzzleMatrix[i][j] == tile)
-                {
-                    puzzleMatrix[i][j] = TileType.Empty;
-                }
-            }
-        }
-    }
-
-    private void undoMoveUp(TileType tile,TileType[][] puzzleMatrix)
-    {
-        int symetryAxis = calculateVerticalSymetrixAxis(tile,puzzleMatrix);
-
-        for (int i = 0; i <= symetryAxis; i++)
-        {
-            for (int j = 0; j < puzzleMatrix[i].Length; j++)
-            {
-                if (puzzleMatrix[i][j] == tile)
-                {
-                    puzzleMatrix[i][j] = TileType.Empty;
-                }
-            }
-        }
+        return symetricAxis;
     }
 
 
-    private void undoMoveDown(TileType tile,TileType[][] puzzleMatrix)
-    {
-        int symetryAxis = calculateVerticalSymetrixAxis(tile,puzzleMatrix);
 
-        for (int i = puzzleMatrix.Length - 1; i > symetryAxis; i--)
-        {
-            for (int j = 0; j < puzzleMatrix[i].Length; j++)
-            {
-                if (puzzleMatrix[i][j] == tile)
-                {
-                    puzzleMatrix[i][j] = TileType.Empty;
-                }
-            }
-        }
-    }
 
      private List<TileType> puzzleColors(TileType[][] puzzleMatrix)
     {
@@ -284,5 +304,52 @@ public class Generator
         }
 
         return (rightBound + leftBound) / 2;
+    }
+
+
+    public TileType[][] generateSymetricPuzzle(int size,int numberColors){
+
+        System.Random rnd = new System.Random();
+
+        //Primeiro tem que se decidir em que eixo e que ela e simetrica tanto em x como y
+        //Para cada cor tem que se definir um eixo X e Y
+        //Iterar pelas cores
+
+        TileType[][] matrix = new TileType[size][];
+
+        //Initialize Matrix
+        for (int i = 0; i < size; i++){
+            TileType[] line = new TileType[size];
+            for (int j = 0; j < size; j++)
+                line[j] = TileType.Empty;
+            matrix[i] = line;
+        }
+
+        //Get random color array
+        List<TileType> colors = getColorArray(numberColors);
+        int rotationAxisX = size /2-1;
+        int rotationAxisY = size /2-1;
+
+        for (int i = 0; i < size / 2; i++){
+            TileType[] line = new TileType[size];
+            int symetricX = i + 2 * (rotationAxisX - i) + 1;
+            for (int j = 0; j < size/2; j++){
+                int symetricY = j + 2 * (rotationAxisY - j) + 1;
+
+                TileType random = getRandomTileType(colors,rnd);
+                if(symetricY < size ){
+                    line[symetricY] = random;
+                    if(symetricX < size ){
+                        matrix[symetricX][j] = random;
+                        matrix[symetricX][symetricY] = random;
+                    }
+                }
+                
+                line[j] = random;
+            }
+            matrix[i] = line;
+        }
+        
+        return matrix;
     }
 }
