@@ -77,15 +77,10 @@ public class Generator
         for (int i = 1; i < colors.Count; i++){
             List<(int,int)> adjacent = getAdjacent(matrix, begin,end);
             int index = UnityEngine.Random.Range(0, adjacent.Count);
-            Debug.Log("Index"+index);
-            Debug.Log("Count"+adjacent.Count);
             x = adjacent[index].Item1;
             y = adjacent[index].Item2;
-            Debug.Log("Comecei a geraçao");
             puzzle.Add(generateXAdjacentSqares(matrix,colors[i],initialSize,begin,end,x,y));
-            Debug.Log("Fiz a geraçao");
             moveColor(colors[i],numberMovesFirstColor,matrix);
-            Debug.Log("MOVI A COR");
         }
 
         int minX = size*2,minY = size*2,maxX = 0,maxY=0;
@@ -107,7 +102,7 @@ public class Generator
 
         //TileType[][] sliced =  sliceMatrix(matrix,minX,minY,maxX,maxY);
 
-        //createInitialMatrix(puzzle,minX,minY,maxX,maxY,matrix);
+        createInitialMatrix(puzzle,colors,minX,minY,maxX,maxY,matrix);
         
         return matrix;
     }
@@ -116,13 +111,15 @@ public class Generator
         if (maxX-minX >= maxY-minY) size = maxX-minX+1;
         else size = maxY -minY+1;
 
+        if(minX < minY) 
+
         Debug.Log(size);
         TileType[][] result = new TileType[size][];
 
             //Initialize Matrix
         for (int i = minX; i < minX + size; i++){
             TileType[] line = new TileType[size];
-            for (int j = minY; j < minY + size-1; j++){
+            for (int j = minY; j < minY + size; j++){
                 Debug.Log("i:" + i + " j:" + j+ " "+ matrix[i].Length + " " + matrix.Length);
                 TileType current = matrix[i][j];
                 line[j-minY] = current ;
@@ -133,10 +130,26 @@ public class Generator
         return result;
     }
 
-    private TileType[][] createInitialMatrix(List<List<(int,int)>> puzzle,int minX,int minY,int maxX,int maxY,TileType[][] matrix){
+    private void createInitialMatrix(List<List<(int,int)>> puzzle,List<TileType> colors,int minX,int minY,int maxX,int maxY,TileType[][] matrix){
 
-        //TileType[][] result = new TileType[size*2][];
-        return matrix;
+        for (int i = 0; i < matrix.Length; i++)
+        {
+            for (int j = 0; j < matrix[i].Length; j++)
+            {
+                if(matrix[i][j] != TileType.Null){
+                    matrix[i][j] = TileType.Empty;
+                }
+            }
+            
+        }
+        for (int i = 0; i < puzzle.Count; i++){
+            for (int j = 0; j < puzzle[i].Count; j++){
+                int x = puzzle[i][j].Item1;
+                int y = puzzle[i][j].Item2;
+                matrix[x][y] = colors[i];
+            }            
+        }
+
     }
 
     //Falta ir trocando a ordem dos moves
@@ -173,6 +186,7 @@ public class Generator
             }
             
         }
+
 
         return result;
     }
