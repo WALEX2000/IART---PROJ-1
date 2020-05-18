@@ -22,11 +22,19 @@ public class Generator
         return (TileType)Enum.ToObject(typeof(TileType) , UnityEngine.Random.Range(2, range));
     }
 
+    public TileType getRandomTileType(List<TileType> colors,System.Random random){
+        int index = random.Next(colors.Count);
+        return colors[index];
+    }
+
 
     public List<TileType> getColorArray(int range){
 
         List<TileType> colors = Enum.GetValues(typeof(TileType)).Cast<TileType>().ToList();
-        List<TileType> subColors = colors.GetRange(2,range);
+        List<TileType> subColors = colors.GetRange(2,colors.Count-2);
+        IListExtensions.Shuffle(subColors);
+        subColors = subColors.GetRange(0,range);
+        
         return subColors;
     }
 
@@ -40,8 +48,11 @@ public class Generator
     //[0,0,0]
     public TileType[][] generatePuzzle(int size,int numberColors){
 
+        System.Random rnd = new System.Random();
+
         //Primeiro tem que se decidir em que eixo e que ela e simetrica tanto em x como y
         //Para cada cor tem que se definir um eixo X e Y
+        //Iterar pelas cores
 
         TileType[][] matrix = new TileType[size][];
         List<TileType> colors = getColorArray(numberColors);
@@ -49,7 +60,7 @@ public class Generator
         for (int i = 0; i < size; i++){
             TileType[] line = new TileType[size];
             for (int j = 0; j < size; j++){
-                TileType random = getRandomTileType(numberColors);
+                TileType random = getRandomTileType(colors,rnd);
                 int middleX = (size + j)/2;
                 int middleY = (size + i)/2;
 
@@ -82,4 +93,5 @@ public class Generator
         }
         Debug.Log(puzzleString);
     }
+
 }
