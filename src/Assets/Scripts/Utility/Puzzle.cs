@@ -771,7 +771,6 @@ public class Puzzle
                 puzzleString += puzzleMatrix[i][j] + " ";
             }
             puzzleString += "\n";
-
         }
         Debug.Log(puzzleString);
     }
