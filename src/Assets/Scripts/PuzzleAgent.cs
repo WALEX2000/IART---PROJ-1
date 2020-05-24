@@ -2,6 +2,7 @@
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
+using System;
 
 public enum MoveDirection { Up, Left, Right, Down }
 
@@ -25,29 +26,35 @@ public class PuzzleAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     { //Gives the agent information regarding the puzzleState (Before each action he takes)
-        //sensor.AddObservation(puzzle.PuzzleMatrix); //TODO figure out a way to pass the puzzleMatrix (since TileType[][] is not and accepted input)
+        for(int i = 0; i < puzzle.PuzzleMatrix.Length; i++) {
+            float[] result = Array.ConvertAll(puzzle.PuzzleMatrix[i], value => (float) value);
+            sensor.AddObservation(result);
+        }
+
+        Debug.Log("Collected Observations");
     }
 
     public override void OnActionReceived(float[] vectorAction)
     { //This method updates the puzzle corresponding to the received actions (And rewards in case of success)
         
+        Debug.Log("Array: " + vectorAction);
         // Actions, size = 2 (The first number is the color to move, and the second the direction)
-        TileType movedTile = 0; // will correspond to vectorAction[0]; (can only be one of the TileTypes present in the current puzzle)
-        MoveDirection moveDirection = 0;// correspond to vectorAction[1]; (can only go from 0 to 3)
+        TileType movedTile = (TileType) Mathf.FloorToInt(vectorAction[0]); // will correspond to vectorAction[0]; (can only be one of the TileTypes present in the current puzzle)
+        MoveDirection moveDirection = (MoveDirection) Mathf.FloorToInt(vectorAction[1]);// correspond to vectorAction[1]; (can only go from 0 to 3)
 
         // Change puzzle according to the actions received
-        switch(moveDirection) { //We will probably want to check if the move was executed and give a negative reward if it wasn't
+        switch(moveDirection) {
             case MoveDirection.Up:
-                puzzle.moveUp(movedTile);
+                if(!puzzle.moveUp(movedTile)) SetReward(-.1f);
                 break;
             case MoveDirection.Down:
-                puzzle.moveDown(movedTile);
+                if(!puzzle.moveDown(movedTile)) SetReward(-.1f);
                 break;
             case MoveDirection.Left:
-                puzzle.moveLeft(movedTile);
+                if(!puzzle.moveLeft(movedTile)) SetReward(-.1f);
                 break;
             case MoveDirection.Right:
-                puzzle.moveRight(movedTile);
+                if(!puzzle.moveRight(movedTile)) SetReward(-.1f);
                 break;
         }
 
@@ -60,5 +67,10 @@ public class PuzzleAgent : Agent
             EndEpisode();
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)
+    }
+
+    public override void CollectDiscreteActionMasks(DiscreteActionMasker actionMasker){
+        actionMasker.SetMask(0, puzzle.getListOfValidTypes().ToArray()); //Mask for tile types
+        actionMasker.SetMask(1, new int[4] {0,1,2,3});
     }
 }

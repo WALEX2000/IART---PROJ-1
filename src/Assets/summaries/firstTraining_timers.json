@@ -1,0 +1,36 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1590361977",
+        "python_version": "3.7.3 (default, Oct 11 2019, 19:39:43) \n[Clang 11.0.0 (clang-1100.0.33.12)]",
+        "command_line_arguments": "/Users/alexandrecarqueja/Python/3.7/bin/mlagents-learn config/trainingConfig.yaml --run-id=firstTraining --force",
+        "mlagents_version": "0.16.0",
+        "mlagents_envs_version": "0.16.0",
+        "communication_protocol_version": "1.0.0",
+        "tensorflow_version": "2.1.0",
+        "end_time_seconds": "1590362042"
+    },
+    "total": 64.967132698,
+    "count": 1,
+    "self": 0.006469007999996279,
+    "children": {
+        "run_training.setup": {
+            "total": 0.010771509999999651,
+            "count": 1,
+            "self": 0.010771509999999651
+        },
+        "TrainerController.start_learning": {
+            "total": 64.94989218,
+            "count": 1,
+            "self": 0.00021520300001043324,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 64.949676977,
+                    "count": 1,
+                    "self": 64.949676977
+                }
+            }
+        }
+    }
+}

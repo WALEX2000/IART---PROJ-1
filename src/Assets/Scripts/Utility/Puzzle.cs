@@ -18,6 +18,11 @@ public class Puzzle
         puzzleMatrix = matrix;
         this.tilePrefab = tilePrefab;
     }
+    private List<int> listOfValidTileTypes = new List<int>();
+
+    public List<int> getListOfValidTypes() {
+        return listOfValidTileTypes;
+    }
 
 
     //Returns a copy of the current puzzle
@@ -62,6 +67,8 @@ public class Puzzle
                         instantiatedTile.GetComponent<Human>().gameManager = gameManager;
                         instantiatedTile.GetComponent<Human>().tile = puzzleMatrix[i][j];
                         instantiatedTile.transform.parent = parentTransform;
+
+                        if(!listOfValidTileTypes.Contains((int)puzzleMatrix[i][j])) listOfValidTileTypes.Add((int)puzzleMatrix[i][j]);
 
                         switch (puzzleMatrix[i][j])
                         {
