@@ -11,18 +11,25 @@ public class PuzzleAgent : Agent
     public TrainingManager manager;
     public Transform puzzleTransform; //Used to tell the manager where to display the puzzle (merely graphical)
     private Puzzle puzzle;
+
+    private Boolean success = true;
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
         Debug.Log("Started new episode");
         //Get a new Puzzle
-        puzzle = manager.generatePuzzle();
+        if(!success) SetReward(-100);
+
+        puzzle = manager.generatePuzzle().copy();
         if(puzzle == null) {
             Debug.LogError("The Training Manager has an empty puzzle dataBase");
             return;
         }
+        success = false;
 
         //Display the Puzzle
         manager.displayPuzzle(puzzle, puzzleTransform);
+        
+        //puzzle.displayConsole();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -43,31 +50,56 @@ public class PuzzleAgent : Agent
         TileType movedTile = (TileType) Mathf.FloorToInt(vectorAction[0]); // Tile to move
         MoveDirection moveDirection = (MoveDirection) Mathf.FloorToInt(vectorAction[1]); // direction to move
 
+        int nPiecesMoved = 0;
+        List<Tuple<int,int>> list = null;
         // Change puzzle according to the actions received
         switch(moveDirection) {
             case MoveDirection.Up:
-                if(!puzzle.moveUp(movedTile)) SetReward(-.1f);
+                list = puzzle.getMoveUpList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;
+                if(!puzzle.moveUp(movedTile)) {
+                    SetReward(-1);
+                    return;
+                }
                 break;
             case MoveDirection.Down:
-                if(!puzzle.moveDown(movedTile)) SetReward(-.1f);
+                list = puzzle.getMoveDownList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;
+                if(!puzzle.moveDown(movedTile)) {
+                    SetReward(-1);
+                    return;
+                }
                 break;
             case MoveDirection.Left:
-                if(!puzzle.moveLeft(movedTile)) SetReward(-.1f);
+                list = puzzle.getMoveLeftList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;
+                if(!puzzle.moveLeft(movedTile)) {
+                    SetReward(-1);
+                    return;
+                }
                 break;
             case MoveDirection.Right:
-                if(!puzzle.moveRight(movedTile)) SetReward(-.1f);
+                list = puzzle.getMoveRightList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;
+                if(!puzzle.moveRight(movedTile)) {
+                    SetReward(-1);
+                    return;
+                }
                 break;
             default:
                 Debug.Log("Unknown direction");
                 break;
         }
 
+        SetReward(nPiecesMoved);
+
         //Display the new puzzle State
         manager.displayPuzzle(puzzle, puzzleTransform);
 
         //If puzzle was completed with success end and give a reward
         if(puzzle.isComplete()) {
-            SetReward(1.0f);
+            SetReward(1000);
+            success = true;
             EndEpisode();
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)
