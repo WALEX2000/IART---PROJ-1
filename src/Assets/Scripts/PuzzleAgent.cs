@@ -13,6 +13,7 @@ public class PuzzleAgent : Agent
     private Puzzle puzzle;
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
+        Debug.Log("Started new episode");
         //Get a new Puzzle
         puzzle = manager.generatePuzzle();
         if(puzzle == null) {
@@ -26,7 +27,6 @@ public class PuzzleAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     { //Gives the agent information regarding the puzzleState (Before each action he takes)
-        Debug.Log("Collecting Observations");
         for(int i = 0; i < puzzle.PuzzleMatrix.Length; i++) {
             float[] result = Array.ConvertAll(puzzle.PuzzleMatrix[i], value => (float) value);
             //Debug.Log(result);
@@ -37,8 +37,8 @@ public class PuzzleAgent : Agent
     public override void OnActionReceived(float[] vectorAction)
     { //This method updates the puzzle corresponding to the received actions (And rewards in case of success)
         
-        Debug.Log("Tile to move: " + vectorAction[0]);
-        Debug.Log("Movement Direction: " + vectorAction[1]);
+        //Debug.Log("Tile to move: " + vectorAction[0]);
+        //Debug.Log("Movement Direction: " + vectorAction[1]);
         // Actions, size = 2 (The first number is the color to move, and the second the direction)
         TileType movedTile = (TileType) Mathf.FloorToInt(vectorAction[0]); // Tile to move
         MoveDirection moveDirection = (MoveDirection) Mathf.FloorToInt(vectorAction[1]); // direction to move
@@ -75,8 +75,14 @@ public class PuzzleAgent : Agent
 
     public override void CollectDiscreteActionMasks(DiscreteActionMasker actionMasker){
         List<int> allItems = new List<int>(new int[] {1,2,3,4,5,6,7,8,9});
-        allItems.RemoveAll(item => !puzzle.getListOfValidTypes().Contains(item));
-        actionMasker.SetMask(0, allItems.ToArray()); //Mask for tile types
+        allItems.RemoveAll(item => puzzle.getListOfValidTypes().Contains(item));
+        actionMasker.SetMask(0, allItems); //Mask for tile types
         //actionMasker.SetMask(1, new int[4] {0,1,2,3}); //Unecessary Probably
+
+        /*
+        for(int i = 0; i < puzzle.getListOfValidTypes().ToArray().Length; i++) {
+            Debug.Log("Mask: " + puzzle.getListOfValidTypes().ToArray()[i]);
+        }
+        */
     }
 }
