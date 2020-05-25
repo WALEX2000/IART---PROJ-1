@@ -325,7 +325,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 100
   manager: {fileID: 306864263}
   puzzleTransform: {fileID: 46436302}
 --- !u!114 &429590833

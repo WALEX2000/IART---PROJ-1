@@ -29,6 +29,7 @@ public class PuzzleAgent : Agent
         Debug.Log("Collecting Observations");
         for(int i = 0; i < puzzle.PuzzleMatrix.Length; i++) {
             float[] result = Array.ConvertAll(puzzle.PuzzleMatrix[i], value => (float) value);
+            //Debug.Log(result);
             sensor.AddObservation(result);
         }
     }
@@ -36,10 +37,11 @@ public class PuzzleAgent : Agent
     public override void OnActionReceived(float[] vectorAction)
     { //This method updates the puzzle corresponding to the received actions (And rewards in case of success)
         
-        Debug.Log("Action Array: " + vectorAction);
+        Debug.Log("Tile to move: " + vectorAction[0]);
+        Debug.Log("Movement Direction: " + vectorAction[1]);
         // Actions, size = 2 (The first number is the color to move, and the second the direction)
-        TileType movedTile = (TileType) Mathf.FloorToInt(vectorAction[0]); // will correspond to vectorAction[0]; (can only be one of the TileTypes present in the current puzzle)
-        MoveDirection moveDirection = (MoveDirection) Mathf.FloorToInt(vectorAction[1]);// correspond to vectorAction[1]; (can only go from 0 to 3)
+        TileType movedTile = (TileType) Mathf.FloorToInt(vectorAction[0]); // Tile to move
+        MoveDirection moveDirection = (MoveDirection) Mathf.FloorToInt(vectorAction[1]); // direction to move
 
         // Change puzzle according to the actions received
         switch(moveDirection) {
@@ -55,6 +57,9 @@ public class PuzzleAgent : Agent
             case MoveDirection.Right:
                 if(!puzzle.moveRight(movedTile)) SetReward(-.1f);
                 break;
+            default:
+                Debug.Log("Unknown direction");
+                break;
         }
 
         //Display the new puzzle State
@@ -69,7 +74,9 @@ public class PuzzleAgent : Agent
     }
 
     public override void CollectDiscreteActionMasks(DiscreteActionMasker actionMasker){
-        actionMasker.SetMask(0, puzzle.getListOfValidTypes().ToArray()); //Mask for tile types
-        actionMasker.SetMask(1, new int[4] {0,1,2,3});
+        List<int> allItems = new List<int>(new int[] {1,2,3,4,5,6,7,8,9});
+        allItems.RemoveAll(item => !puzzle.getListOfValidTypes().Contains(item));
+        actionMasker.SetMask(0, allItems.ToArray()); //Mask for tile types
+        //actionMasker.SetMask(1, new int[4] {0,1,2,3}); //Unecessary Probably
     }
 }
