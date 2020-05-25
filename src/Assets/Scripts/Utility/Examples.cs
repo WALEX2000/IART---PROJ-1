@@ -17,11 +17,11 @@ public class Example
     };
     public static TileType[][] puzzleEasy2 = new TileType[][]
     {
-        new TileType[] {TileType.Red, TileType.Empty, TileType.Null, TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Null, TileType.Null},
+        new TileType[] {TileType.Red, TileType.Empty, TileType.Empty, TileType.Empty},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Blue, TileType.Empty},
         new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
-        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
-        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty, TileType.Empty},
-        new TileType[] {TileType.Null, TileType.Null, TileType.Blue, TileType.Blue}
+        new TileType[] {TileType.Null, TileType.Null, TileType.Empty, TileType.Empty}
     };
     public static TileType[][] puzzleEasy3 = new TileType[][]
     {

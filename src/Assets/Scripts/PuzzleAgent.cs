@@ -15,9 +15,12 @@ public class PuzzleAgent : Agent
     private Boolean success = true;
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
-        Debug.Log("Started new episode");
+        //Debug.Log("Started new episode");
         //Get a new Puzzle
-        if(!success) SetReward(-100);
+        if(!success) {
+            //Debug.Log("Negative Rewards because he didn't complete the puzzle");
+            SetReward(-100);
+        }
 
         puzzle = manager.generatePuzzle().copy();
         if(puzzle == null) {
@@ -58,7 +61,7 @@ public class PuzzleAgent : Agent
                 list = puzzle.getMoveUpList(movedTile);
                 nPiecesMoved = list == null ? 0 : list.Count;
                 if(!puzzle.moveUp(movedTile)) {
-                    SetReward(-1);
+                    //SetReward(-1);
                     return;
                 }
                 break;
@@ -66,7 +69,7 @@ public class PuzzleAgent : Agent
                 list = puzzle.getMoveDownList(movedTile);
                 nPiecesMoved = list == null ? 0 : list.Count;
                 if(!puzzle.moveDown(movedTile)) {
-                    SetReward(-1);
+                    //SetReward(-1);
                     return;
                 }
                 break;
@@ -74,7 +77,7 @@ public class PuzzleAgent : Agent
                 list = puzzle.getMoveLeftList(movedTile);
                 nPiecesMoved = list == null ? 0 : list.Count;
                 if(!puzzle.moveLeft(movedTile)) {
-                    SetReward(-1);
+                    //SetReward(-1);
                     return;
                 }
                 break;
@@ -82,7 +85,7 @@ public class PuzzleAgent : Agent
                 list = puzzle.getMoveRightList(movedTile);
                 nPiecesMoved = list == null ? 0 : list.Count;
                 if(!puzzle.moveRight(movedTile)) {
-                    SetReward(-1);
+                    //SetReward(-1);
                     return;
                 }
                 break;
@@ -100,6 +103,7 @@ public class PuzzleAgent : Agent
         if(puzzle.isComplete()) {
             SetReward(1000);
             success = true;
+            Debug.Log("Nailed it");
             EndEpisode();
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)

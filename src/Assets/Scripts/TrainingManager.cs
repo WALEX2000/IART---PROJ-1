@@ -11,8 +11,8 @@ public class TrainingManager : MonoBehaviour
     //public Transform testTransform;
     public void Start() {
         //puzzleMatrixList.Add(Example.puzzleEasy1);
-        //puzzleMatrixList.Add(Example.puzzle2);
-        puzzleMatrixList.Add(Example.puzzleMedium);
+        puzzleMatrixList.Add(Example.puzzleEasy2);
+        //puzzleMatrixList.Add(Example.puzzleMedium);
 
         //displayPuzzle(generatePuzzle(), testTransform);
     }
