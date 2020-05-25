@@ -16,7 +16,7 @@ default:
     time_horizon: 1024
     sequence_length: 64
     summary_freq: 20
-    use_recurrent: false
+    use_recurrent: true
     vis_encode_type: simple
     reward_signals:
         extrinsic:
