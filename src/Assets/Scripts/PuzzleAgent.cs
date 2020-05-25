@@ -26,18 +26,17 @@ public class PuzzleAgent : Agent
 
     public override void CollectObservations(VectorSensor sensor)
     { //Gives the agent information regarding the puzzleState (Before each action he takes)
+        Debug.Log("Collecting Observations");
         for(int i = 0; i < puzzle.PuzzleMatrix.Length; i++) {
             float[] result = Array.ConvertAll(puzzle.PuzzleMatrix[i], value => (float) value);
             sensor.AddObservation(result);
         }
-
-        Debug.Log("Collected Observations");
     }
 
     public override void OnActionReceived(float[] vectorAction)
     { //This method updates the puzzle corresponding to the received actions (And rewards in case of success)
         
-        Debug.Log("Array: " + vectorAction);
+        Debug.Log("Action Array: " + vectorAction);
         // Actions, size = 2 (The first number is the color to move, and the second the direction)
         TileType movedTile = (TileType) Mathf.FloorToInt(vectorAction[0]); // will correspond to vectorAction[0]; (can only be one of the TileTypes present in the current puzzle)
         MoveDirection moveDirection = (MoveDirection) Mathf.FloorToInt(vectorAction[1]);// correspond to vectorAction[1]; (can only go from 0 to 3)

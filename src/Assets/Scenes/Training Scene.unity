@@ -325,7 +325,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 5000
   manager: {fileID: 306864263}
   puzzleTransform: {fileID: 46436302}
 --- !u!114 &429590833
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: PuzzleBehaviour
   TeamId: 0
   m_UseChildSensors: 1
 --- !u!1 &722497599
