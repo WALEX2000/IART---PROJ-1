@@ -2,11 +2,13 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 using System.Collections;
 
 
 public class Generator
 {
+    private int count = 0;
     //HARDCODED PUZZLES//
     public TileType[][] puzzleEasy1 = new TileType[][]
     {
@@ -58,7 +60,6 @@ public class Generator
             matrix[i] = line;
         }
 
-
         int x = UnityEngine.Random.Range(begin, end);
         int y = UnityEngine.Random.Range(begin, end);
         int numberMovesFirstColor = numberMoves/numberColors;
@@ -67,8 +68,7 @@ public class Generator
         //Generates first color and adds it to puzzle
         puzzle.Add(generateXAdjacentSqares(matrix,colors[0],initialSize,begin,end,x,y));
 
-        
-
+    
         //Moves color some moves
         moveColor(colors[0],numberMovesFirstColor,matrix);
         displayConsole(matrix);
@@ -98,7 +98,8 @@ public class Generator
                 }
             } 
         }
-        Debug.Log("ZAS" + minX + " " +  minY + " " + maxX + " " + maxY);
+
+        Debug.Log(minX + " " + maxX + " " + minY + " " + maxY);
 
         //TileType[][] sliced =  sliceMatrix(matrix,minX,minY,maxX,maxY);
 
@@ -154,10 +155,16 @@ public class Generator
 
     //Falta ir trocando a ordem dos moves
     private void moveColor(TileType color,int numberMoves,TileType[][] matrix){
-        int count = 0;
+        count = 0;
         bool foundMove = true;
         while(count < numberMoves && foundMove){
+            int zas = count;
             foundMove = true;
+
+            //var list = new List<Action> { moveUp, moveDown, moveLeft,moveRight };
+            //list.Shuffle();
+            //list.ForEach(method => method());
+            if(zas == count) foundMove = false;
             if(moveUp(color,matrix)) count++;
             else if(moveDown(color,matrix)) count++;
             else if(moveLeft(color,matrix)) count++;
@@ -487,6 +494,7 @@ public class Generator
         for (int i = 0; i < positions.Count; i++){
             puzzleMatrix[positions[i].Item1][positions[i].Item2] = tile;
         }
+        count++;
 
         return true;
     }
@@ -535,6 +543,8 @@ public class Generator
         {
             puzzleMatrix[positions[i].Item1][positions[i].Item2] = tile;
         }
+        count++;
+
 
         return true;
     }
@@ -586,6 +596,9 @@ public class Generator
             puzzleMatrix[positions[i].Item1][positions[i].Item2] = tile;
         }
 
+        count++;
+
+
         return true;
     }
 
@@ -634,6 +647,9 @@ public class Generator
             puzzleMatrix[positions[i].Item1][positions[i].Item2] = tile;
         }
 
+        count++;
+
+
         return true;
     }
   
@@ -650,6 +666,67 @@ public class Generator
         return false;
     }
 
+    public void writeMatrix(TileType[][] matrix){
+        using (TextWriter tw = new StreamWriter("GeneratedMatrix.txt"))
+            {
+                tw.Write(matrix.Length + " " +  matrix[0].Length);
+                tw.WriteLine();
+
+                for (int j = 0; j < matrix.Length; j++)
+                {
+                    for (int i = 0; i < matrix[j].Length; i++)
+                    {
+                        tw.Write(matrix[j][i] + " ");
+                    }
+                    tw.WriteLine();
+                }
+            }
+    }
+
+    public TileType[][] readMatrix(){
+
+        //TileType[][] matrix;
+        String input = File.ReadAllText( "GeneratedMatrix.txt" );
+
+        int i = 0, j = 0;
+
+        List<List<TileType>> tileTypesList = new List<List<TileType>>();
+
+
+        foreach (var row in input.Split('\n'))
+        {
+            List<TileType> tileTypes = new List<TileType>();
+            j = 0;
+            foreach (var col in row.Trim().Split(' '))
+            {
+                tileTypes.Add(parseTiletype(col.Trim()));
+                j++;
+            }
+            tileTypesList.Add(tileTypes);
+            i++;
+        }
+        tileTypesList.RemoveAt(tileTypesList.Count-1);
+
+        TileType[][] matrix = new TileType[tileTypesList.Count][];
+
+        //Debug.Log(tileTypesList.Count + " " + tileTypesList[tileTypesList.Count-1][tileTypesList[tileTypesList.Count-1].Count-1]);
+        Debug.Log(tileTypesList[11][11] + "ZAS");
+
+        for (int k = 0; k < tileTypesList.Count; k++)
+        {
+            for (int l = 0; l < tileTypesList[0].Count; l++)
+            {
+                matrix[k][l] = tileTypesList[k][l];
+                //Debug.Log(k +" "+ l);
+                //TileType ti = tileTypesList[k][l];
+
+                
+            }
+        }
+
+        return matrix;
+    }
+
 
     /*public void unfold(TileType[][] matrix){
         List<TileType> colors = puzzleColors(matrix);
@@ -658,4 +735,27 @@ public class Generator
             if(symetricAxis  != -1) undoMoveUp(color,matrix);
         }      
     }*/
+
+
+    private TileType parseTiletype(string zas){
+        switch(zas){
+            case "Null":
+                return TileType.Null;
+            case "Blue":
+                return TileType.Blue;
+            case "Empty":
+                return TileType.Empty;
+            case "Gray":
+                return TileType.Gray;
+            case "Green":
+                return TileType.Green;
+            case "Magenta":
+                return TileType.Magenta;
+            case "Red":
+                return TileType.Red;
+            case "Yellow":
+                return TileType.Yellow; 
+        }
+        return TileType.Null;
+    }
 }

@@ -85,10 +85,12 @@ public class PuzzleMenu : MonoBehaviour
 
         //TEST
         Generator generator = new Generator();
-        int size = 12;
+        int size = 10;
         TileType[][] matrix = new TileType[size][];
-        matrix = generator.generatePuzzle(size,3,6);
-        //generator.unfold(matrix);
+        matrix = generator.generatePuzzle(size,3,8);
+        //generator.writeMatrix(matrix);
+
+        //TileType[][] matrix = generator.readMatrix();
         generator.displayConsole(matrix);
 
 

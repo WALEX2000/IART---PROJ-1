@@ -161,4 +161,34 @@ public class Example
         new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty},
         new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty}
     };
+
+
+
+    public static TileType[][] puzzleRl1 = new TileType[][]
+    {
+        new TileType[] {TileType.Blue,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Empty,TileType.Green,TileType.Empty},
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Yellow,TileType.Empty,TileType.Magenta}
+    };
+
+    public static TileType[][] puzzleRl2 = new TileType[][]
+    {
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Blue,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Red,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Yellow,TileType.Empty,TileType.Empty,TileType.Green}
+    };
+
+    public static TileType[][] puzzleRl3 = new TileType[][]
+    {
+        new TileType[] {TileType.Blue,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Yellow,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Yellow,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Green,TileType.Green,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty,TileType.Empty},
+        new TileType[] {TileType.Empty,TileType.Empty,TileType.Empty,TileType.Red}
+    };
 }
