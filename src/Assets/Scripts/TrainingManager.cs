@@ -10,10 +10,11 @@ public class TrainingManager : MonoBehaviour
 
     //public Transform testTransform;
     public void Start() {
-        //puzzleMatrixList.Add(Example.puzzleEasy1);
-        puzzleMatrixList.Add(Example.puzzleEasy2);
-        //puzzleMatrixList.Add(Example.puzzleMedium);
-
+        //puzzleMatrixList.Add(Example.puzzleRl1);
+        //puzzleMatrixList.Add(Example.puzzleRl2);
+        //puzzleMatrixList.Add(Example.puzzleRl3);
+        
+        puzzleMatrixList.Add(Example.puzzleRlTestEasy);
         //displayPuzzle(generatePuzzle(), testTransform);
     }
 
@@ -33,5 +34,6 @@ public class TrainingManager : MonoBehaviour
         }
 
         puzzle.displayPuzzle(puzzleTransform);
+        //puzzle.startPuzzle();
     }
 }

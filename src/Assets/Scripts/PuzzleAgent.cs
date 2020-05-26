@@ -11,24 +11,15 @@ public class PuzzleAgent : Agent
     public TrainingManager manager;
     public Transform puzzleTransform; //Used to tell the manager where to display the puzzle (merely graphical)
     private Puzzle puzzle;
-
-    private Boolean success = true;
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
         //Debug.Log("Started new episode");
         //Get a new Puzzle
-        if(!success) {
-            //Debug.Log("Negative Rewards because he didn't complete the puzzle");
-            SetReward(-100);
-        }
-
         puzzle = manager.generatePuzzle().copy();
         if(puzzle == null) {
             Debug.LogError("The Training Manager has an empty puzzle dataBase");
             return;
         }
-        success = false;
-
         //Display the Puzzle
         manager.displayPuzzle(puzzle, puzzleTransform);
         
@@ -53,39 +44,37 @@ public class PuzzleAgent : Agent
         TileType movedTile = (TileType) Mathf.FloorToInt(vectorAction[0]); // Tile to move
         MoveDirection moveDirection = (MoveDirection) Mathf.FloorToInt(vectorAction[1]); // direction to move
 
-        int nPiecesMoved = 0;
-        List<Tuple<int,int>> list = null;
         // Change puzzle according to the actions received
         switch(moveDirection) {
             case MoveDirection.Up:
-                list = puzzle.getMoveUpList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;
+                /*list = puzzle.getMoveUpList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveUp(movedTile)) {
-                    //SetReward(-1);
+                    SetReward(-0.15f);
                     return;
                 }
                 break;
             case MoveDirection.Down:
-                list = puzzle.getMoveDownList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;
+                /*list = puzzle.getMoveDownList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveDown(movedTile)) {
-                    //SetReward(-1);
+                    SetReward(-0.15f);
                     return;
                 }
                 break;
             case MoveDirection.Left:
-                list = puzzle.getMoveLeftList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;
+                /*list = puzzle.getMoveLeftList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveLeft(movedTile)) {
-                    //SetReward(-1);
+                    SetReward(-0.15f);
                     return;
                 }
                 break;
             case MoveDirection.Right:
-                list = puzzle.getMoveRightList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;
+                /*list = puzzle.getMoveRightList(movedTile);
+                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveRight(movedTile)) {
-                    //SetReward(-1);
+                    SetReward(-0.15f);
                     return;
                 }
                 break;
@@ -94,17 +83,22 @@ public class PuzzleAgent : Agent
                 break;
         }
 
-        SetReward(nPiecesMoved);
+        SetReward(-0.05f);
+        //SetReward(0.1f);
 
         //Display the new puzzle State
         manager.displayPuzzle(puzzle, puzzleTransform);
 
         //If puzzle was completed with success end and give a reward
         if(puzzle.isComplete()) {
-            SetReward(1000);
-            success = true;
-            Debug.Log("Nailed it");
-            EndEpisode();
+            SetReward(1);
+            //Debug.Log("Nailed it");
+            //EndEpisode();
+        }
+        else if(puzzle.hasFailed()) {
+            SetReward(-0.8f);
+            //Debug.Log("Failed Puzzle");
+            //EndEpisode();
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)
     }

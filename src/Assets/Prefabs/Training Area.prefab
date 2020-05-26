@@ -93,7 +93,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 100
+  MaxStep: 500
   manager: {fileID: 2836289708939901013}
   puzzleTransform: {fileID: 2836289709217126172}
 --- !u!114 &2836289709093949923
@@ -109,12 +109,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 20
+    VectorObservationSize: 24
     NumStackedVectorObservations: 1
     VectorActionSize: 0a00000004000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: f4ba25229a4374d51a5ff70d90373824, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 31a9ad25b26a4430aac9220c28cdb12e, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PuzzleBehaviour
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 20
   TakeActionsBetweenDecisions: 1
 --- !u!1 &2836289709217126175
 GameObject:

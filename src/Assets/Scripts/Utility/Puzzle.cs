@@ -24,6 +24,16 @@ public class Puzzle
         return listOfValidTileTypes;
     }
 
+    public Boolean hasFailed() {
+        foreach(TileType color in listOfValidTileTypes) {
+            if(getMoveUpList(color) != null) return false;
+            else if(getMoveDownList(color) != null) return false;
+            else if(getMoveLeftList(color) != null) return false;
+            else if(getMoveRightList(color) != null) return false;
+        }
+        return true;
+    }
+
 
     //Returns a copy of the current puzzle
     public Puzzle copy()
@@ -40,6 +50,17 @@ public class Puzzle
         Puzzle puzzle = new Puzzle(copy, tilePrefab);
         puzzle.gameManager = gameManager;
         return puzzle;
+    }
+
+    public void startPuzzle() {
+        for (int i = 0; i < puzzleMatrix.Length; i++)
+        {
+            for (int j = 0; j < puzzleMatrix[i].Length; j++)
+            {
+                if ((int)puzzleMatrix[i][j] > 1)
+                    if(!listOfValidTileTypes.Contains((int)puzzleMatrix[i][j])) listOfValidTileTypes.Add((int)puzzleMatrix[i][j]);
+            }
+        }
     }
 
     public void displayPuzzle(Transform parentTransform)
@@ -264,6 +285,7 @@ public class Puzzle
     {
         int rotationAxis = puzzleMatrix.Length;
         bool foundAxis = false;
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
 
         //Discover the rotation axis
         for (int i = 0; (i < puzzleMatrix.Length) && (!foundAxis); i++)
@@ -279,7 +301,6 @@ public class Puzzle
             }
         }
 
-        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
         //Discovers if all the elements can rotate
         //Adds positions of the tiles to a List
         for (int i = rotationAxis; i < puzzleMatrix.Length; i++)
@@ -388,6 +409,7 @@ public class Puzzle
     {
         int rotationAxis = -1;
         bool foundAxis = false;
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
 
         //Discover the rotation axis
         for (int i = puzzleMatrix.Length - 1; (i >= 0) && (!foundAxis); i--)
@@ -402,8 +424,6 @@ public class Puzzle
                 }
             }
         }
-
-        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
 
         //Discovers if all the elements can rotate
         //Adds positions of the tiles to a List
@@ -514,6 +534,7 @@ public class Puzzle
     public List<Tuple<int, int>> getMoveRightList(TileType tile)
     {
         int rotationAxis = -1;
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
 
         //Discover the rotation axis
         for (int i = 0; i < puzzleMatrix.Length; i++)
@@ -526,8 +547,6 @@ public class Puzzle
                 }
             }
         }
-
-        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
 
         //Discovers if all the elements can rotate
         //Adds positions of the tiles to a List
@@ -640,6 +659,7 @@ public class Puzzle
         int rotationAxis = puzzleMatrix.Length;
 
         bool foundAxis = false;
+        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
 
         //Discover the rotation axis
         for (int j = 0; (j < puzzleMatrix[0].Length) && (!foundAxis); j++)
@@ -654,8 +674,6 @@ public class Puzzle
                 }
             }
         }
-
-        List<Tuple<int, int>> positions = new List<Tuple<int, int>>();
 
         //Discovers if all the elements can rotate
         //Adds positions of the tiles to a List
