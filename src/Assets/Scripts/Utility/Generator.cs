@@ -675,9 +675,7 @@ public class Generator
 
                 for (int j = 0; j < matrix.Length; j++)
                 {
-                    tw.Write("new TileType[] {");
-                //tw.Write(matrix.Length + " " +  matrix[0].Length);
-                tw.WriteLine();
+                    tw.Write("\tnew TileType[] {");
                     for (int i = 0; i < matrix[j].Length; i++)
                     {
                         tw.Write("TileType."+matrix[j][i] + ", ");
