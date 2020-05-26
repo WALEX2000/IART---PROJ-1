@@ -99,6 +99,18 @@ public class GameManager : MonoBehaviour
         hintButton.GetComponent<GetHint>().puzzle = currentPuzzle;
     }
 
+    public void RLMode(TileType[][] puzzleLevel)
+    {
+        AIrunning = true;
+        canvas.SetActive(true);
+        hintButton.SetActive(false);
+        currentPuzzle = new Puzzle(copyMatrix(puzzleLevel), tilePrefab);
+        firstPuzzle = new Puzzle(puzzleLevel, tilePrefab);
+        currentPuzzle.displayPuzzle();
+        Debug.Log("Called RL Game manager option");
+
+    }
+
     private List<Puzzle> puzzleStates = new List<Puzzle>();
     public void DisplayState(Puzzle puzzle)
     {
