@@ -669,15 +669,20 @@ public class Generator
     public void writeMatrix(TileType[][] matrix){
         using (TextWriter tw = new StreamWriter("GeneratedMatrix.txt"))
             {
-                tw.Write(matrix.Length + " " +  matrix[0].Length);
+                tw.Write("public static TileType[][] puzzleEasy1 = new TileType[][]{");
+                //tw.Write(matrix.Length + " " +  matrix[0].Length);
                 tw.WriteLine();
 
                 for (int j = 0; j < matrix.Length; j++)
                 {
+                    tw.Write("new TileType[] {");
+                //tw.Write(matrix.Length + " " +  matrix[0].Length);
+                tw.WriteLine();
                     for (int i = 0; i < matrix[j].Length; i++)
                     {
-                        tw.Write(matrix[j][i] + " ");
+                        tw.Write("TileType."+matrix[j][i] + ", ");
                     }
+                    tw.Write("},");
                     tw.WriteLine();
                 }
             }

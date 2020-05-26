@@ -85,13 +85,13 @@ public class PuzzleMenu : MonoBehaviour
 
         //TEST
         Generator generator = new Generator();
-        int size = 10;
+        int size = 4;
         TileType[][] matrix = new TileType[size][];
-        matrix = generator.generatePuzzle(size,3,8);
-        //generator.writeMatrix(matrix);
+        matrix = generator.generatePuzzle(size,3,4);
+        generator.writeMatrix(matrix);
 
         //TileType[][] matrix = generator.readMatrix();
-        generator.displayConsole(matrix);
+        //generator.displayConsole(matrix);
 
 
         menuCamera.gameObject.SetActive(false);
