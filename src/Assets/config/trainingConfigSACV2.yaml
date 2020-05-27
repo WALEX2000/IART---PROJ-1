@@ -19,11 +19,11 @@ default:
     use_recurrent: true #Because there aren't a lot of immediate rewards
 
     #sac
-    buffer_init_steps: 500
-    init_entcoef: 0.30 #to have some degree of exploration in the beggining
+    buffer_init_steps: 3000
+    init_entcoef: 0.10 #to have some degree of exploration in the beggining
     save_replay_buffer: false #false because unity is slow and I don't have a lot of free disk space
     tau: 0.005
-    steps_per_update: 9 #Unity is taking a long time to update so this value is 1
+    steps_per_update: 6
 
     reward_signals:
         extrinsic:

@@ -5,21 +5,20 @@
 \paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
 \pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Config file used:\
-	trainingConfigSimple.yaml\
+\f0\fs24 \cf0 Config file:\
+	trainingConfigSACV3.yaml\
 Rewards:\
-	1 for success\
-	-0.8 for failure\
-	-0.05 for invalid move\
-	0.1 for valid move\
+	1 for Success\
+	-0.8 for Failure\
+	-0.05 for valid step (so we minimize the number of steps)\
+	-0.15 for invalid tiles\
 \
-Training Set Results:\
-100% Success Rate\
-61.55% Valid Moves\
-13.99 Avg Moves per Puzzle\
+Test Ser Results:\
+90% Success Rate\
+18% Valid Move Rate\
+43.94 average moves per puzzle\
 \
 Test Puzzle Results:\
-5% Success Rate\
-2.1% Valid Moves\
-169.72 Avg Moves per Puzzle\
-}
+0% Success Rate\
+0.1% Valid Move Rate\
+448.3 Avg Moves per Puzzles}

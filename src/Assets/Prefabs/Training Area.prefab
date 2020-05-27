@@ -115,7 +115,7 @@ MonoBehaviour:
     VectorActionSize: 0a00000004000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ea8f95d3a664c4e77a83275468c9a396, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: a237378b881bf4a98ac797775f5a5f59, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PuzzleBehaviour
