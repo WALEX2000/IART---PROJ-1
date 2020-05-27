@@ -96,6 +96,7 @@ MonoBehaviour:
   MaxStep: 500
   manager: {fileID: 2836289708939901013}
   puzzleTransform: {fileID: 2836289709217126172}
+  testing: 1
 --- !u!114 &2836289709093949923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +115,7 @@ MonoBehaviour:
     VectorActionSize: 0a00000004000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 31a9ad25b26a4430aac9220c28cdb12e, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: ea8f95d3a664c4e77a83275468c9a396, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PuzzleBehaviour
@@ -132,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 20
+  DecisionPeriod: 1
   TakeActionsBetweenDecisions: 1
 --- !u!1 &2836289709217126175
 GameObject:

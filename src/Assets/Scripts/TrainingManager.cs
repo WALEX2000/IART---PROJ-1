@@ -15,7 +15,8 @@ public class TrainingManager : MonoBehaviour
         //puzzleMatrixList.Add(Example.puzzleRl3);
         
         puzzleMatrixList.Add(Example.puzzleRlTestEasy);
-        //displayPuzzle(generatePuzzle(), testTransform);
+        
+        //displayPuzzle(generatePuzzle(), testTransform); //DEBUG
     }
 
     public Puzzle generatePuzzle() {
@@ -29,11 +30,13 @@ public class TrainingManager : MonoBehaviour
 
     public void displayPuzzle(Puzzle puzzle, Transform puzzleTransform) {
         //Delete all children of the puzzleTransform
+        /*
         foreach(Transform child in puzzleTransform) {
             Destroy(child.gameObject);
         }
 
         puzzle.displayPuzzle(puzzleTransform);
-        //puzzle.startPuzzle();
+        */
+        puzzle.startPuzzle();
     }
 }

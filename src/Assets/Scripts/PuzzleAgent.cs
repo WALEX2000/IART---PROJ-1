@@ -11,6 +11,15 @@ public class PuzzleAgent : Agent
     public TrainingManager manager;
     public Transform puzzleTransform; //Used to tell the manager where to display the puzzle (merely graphical)
     private Puzzle puzzle;
+    public Boolean testing = false;
+    private int nPuzzles = 0;
+    private int nSuccess = 0;
+    private int nFailed = 0;
+
+    private int nInvalidMoves = 0;
+    private int nValidMoves = 0;
+
+    private int maxPuzzles = 100;
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
         //Debug.Log("Started new episode");
@@ -24,6 +33,13 @@ public class PuzzleAgent : Agent
         manager.displayPuzzle(puzzle, puzzleTransform);
         
         //puzzle.displayConsole();
+
+        if(testing && nPuzzles == maxPuzzles) {
+            Debug.Log("-----------------------------------------------------------------");
+            Debug.Log("There were " + nSuccess + " Successful puzzles out of " + nPuzzles);
+            Debug.Log("There were " + nFailed + " Failed puzzles out of " + nPuzzles);
+            Debug.Log("There were " + nValidMoves + " valid moves out of " + (nValidMoves + nInvalidMoves));
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -47,34 +63,30 @@ public class PuzzleAgent : Agent
         // Change puzzle according to the actions received
         switch(moveDirection) {
             case MoveDirection.Up:
-                /*list = puzzle.getMoveUpList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveUp(movedTile)) {
-                    SetReward(-0.15f);
+                    SetReward(-0.05f);
+                    nInvalidMoves++;
                     return;
                 }
                 break;
             case MoveDirection.Down:
-                /*list = puzzle.getMoveDownList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveDown(movedTile)) {
-                    SetReward(-0.15f);
+                    SetReward(-0.05f);
+                    nInvalidMoves++;
                     return;
                 }
                 break;
             case MoveDirection.Left:
-                /*list = puzzle.getMoveLeftList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveLeft(movedTile)) {
-                    SetReward(-0.15f);
+                    SetReward(-0.05f);
+                    nInvalidMoves++;
                     return;
                 }
                 break;
             case MoveDirection.Right:
-                /*list = puzzle.getMoveRightList(movedTile);
-                nPiecesMoved = list == null ? 0 : list.Count;*/
                 if(!puzzle.moveRight(movedTile)) {
-                    SetReward(-0.15f);
+                    SetReward(-0.05f);
+                    nInvalidMoves++;
                     return;
                 }
                 break;
@@ -83,22 +95,27 @@ public class PuzzleAgent : Agent
                 break;
         }
 
-        SetReward(-0.05f);
-        //SetReward(0.1f);
+        //SetReward(-0.05f);
+        SetReward(0.1f);
+        nValidMoves++;
 
         //Display the new puzzle State
-        manager.displayPuzzle(puzzle, puzzleTransform);
+        //manager.displayPuzzle(puzzle, puzzleTransform);
 
         //If puzzle was completed with success end and give a reward
         if(puzzle.isComplete()) {
             SetReward(1);
             //Debug.Log("Nailed it");
-            //EndEpisode();
+            nPuzzles++;
+            nSuccess++;
+            EndEpisode();
         }
         else if(puzzle.hasFailed()) {
             SetReward(-0.8f);
             //Debug.Log("Failed Puzzle");
-            //EndEpisode();
+            nPuzzles++;
+            nFailed++;
+            EndEpisode();
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)
     }
