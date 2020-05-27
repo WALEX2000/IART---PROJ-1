@@ -10,12 +10,27 @@ public class TrainingManager : MonoBehaviour
 
     //public Transform testTransform;
     public void Start() {
+        //EASY
         //puzzleMatrixList.Add(Example.puzzleRl1);
         //puzzleMatrixList.Add(Example.puzzleRl2);
         //puzzleMatrixList.Add(Example.puzzleRl3);
-        
-        puzzleMatrixList.Add(Example.puzzleRlTestEasy);
-        
+        //EASY_TEST
+        //puzzleMatrixList.Add(Example.puzzleRlTestEasy);
+
+        //MEDIUM
+        puzzleMatrixList.Add(Example.puzzleNNmedium1);
+        puzzleMatrixList.Add(Example.puzzleNNmedium2);
+        puzzleMatrixList.Add(Example.puzzleNNmedium3);
+        //MEDIUM_TEST
+        //puzzleMatrixList.Add(Example.puzzleNNmediumTest);
+
+        //HARD
+        //puzzleMatrixList.Add(Example.puzzleNNhard1);
+        //puzzleMatrixList.Add(Example.puzzleNNhard2);
+        //puzzleMatrixList.Add(Example.puzzleNNhard3);
+        //Hard_TEST
+        //puzzleMatrixList.Add(Example.puzzleNNhardTest);
+
         //displayPuzzle(generatePuzzle(), testTransform); //DEBUG
     }
 
