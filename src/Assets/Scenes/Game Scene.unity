@@ -3133,6 +3133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88643bf8d4ad04eeabfe7be7e94cebeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inferencePrefab: {fileID: 653272884837051795, guid: 821e6cdea87279b4d9e9d090c4224223,
+    type: 3}
   gameManagerRL: {fileID: 551643975}
   gameCameraRl: {fileID: 963194227}
   menuCameraRl: {fileID: 963194227}
@@ -3162,7 +3164,6 @@ GameObject:
   m_Component:
   - component: {fileID: 459254107}
   - component: {fileID: 459254106}
-  - component: {fileID: 459254105}
   m_Layer: 0
   m_Name: MenuCamera
   m_TagString: MainCamera
@@ -3170,14 +3171,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &459254105
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 459254104}
-  m_Enabled: 1
 --- !u!20 &459254106
 Camera:
   m_ObjectHideFlags: 0
@@ -4040,7 +4033,7 @@ GameObject:
   - component: {fileID: 551643975}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

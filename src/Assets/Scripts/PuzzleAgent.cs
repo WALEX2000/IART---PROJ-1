@@ -8,38 +8,23 @@ public enum MoveDirection { Up, Left, Right, Down }
 
 public class PuzzleAgent : Agent
 {
-    public TrainingManager manager;
+    public PuzzleManager manager;
     public Transform puzzleTransform; //Used to tell the manager where to display the puzzle (merely graphical)
     private Puzzle puzzle;
     public Boolean testing = false;
-    private int nPuzzles = 0;
-    private int nSuccess = 0;
-    private int nFailed = 0;
-
-    private int nInvalidMoves = 0;
-    private int nValidMoves = 0;
-
-    private int maxPuzzles = 100;
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
         //Debug.Log("Started new episode");
         //Get a new Puzzle
-        puzzle = manager.generatePuzzle().copy();
+        puzzle = manager.generatePuzzle();
         if(puzzle == null) {
             Debug.LogError("The Training Manager has an empty puzzle dataBase");
             return;
         }
         //Display the Puzzle
-        manager.displayPuzzle(puzzle, puzzleTransform);
+        //manager.displayPuzzle(puzzle, puzzleTransform);
         
         //puzzle.displayConsole();
-
-        if(testing && nPuzzles == maxPuzzles) {
-            Debug.Log("-----------------------------------------------------------------");
-            Debug.Log("There were " + nSuccess + " Successful puzzles out of " + nPuzzles);
-            Debug.Log("There were " + nFailed + " Failed puzzles out of " + nPuzzles);
-            Debug.Log("There were " + nValidMoves + " valid moves out of " + (nValidMoves + nInvalidMoves));
-        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -65,63 +50,69 @@ public class PuzzleAgent : Agent
             case MoveDirection.Up:
                 if(!puzzle.moveUp(movedTile)) {
                     SetReward(-0.05f);
-                    nInvalidMoves++;
                     return;
                 }
                 break;
             case MoveDirection.Down:
                 if(!puzzle.moveDown(movedTile)) {
                     SetReward(-0.05f);
-                    nInvalidMoves++;
                     return;
                 }
                 break;
             case MoveDirection.Left:
                 if(!puzzle.moveLeft(movedTile)) {
                     SetReward(-0.05f);
-                    nInvalidMoves++;
                     return;
                 }
                 break;
             case MoveDirection.Right:
                 if(!puzzle.moveRight(movedTile)) {
                     SetReward(-0.05f);
-                    nInvalidMoves++;
                     return;
                 }
                 break;
             default:
                 Debug.Log("Unknown direction");
-                break;
+                return;
         }
 
-        //SetReward(-0.05f);
-        SetReward(0.1f);
-        nValidMoves++;
+        Node next = new Node(puzzle.copy(), null, 0);
+        next.movedTile = movedTile;
+        switch(moveDirection) {
+            case MoveDirection.Down:
+                next.moveType = MoveType.Down;
+                break;
+            case MoveDirection.Up:
+                next.moveType = MoveType.Up;
+                break;
+            case MoveDirection.Left:
+                next.moveType = MoveType.Left;
+                break;
+            case MoveDirection.Right:
+                next.moveType = MoveType.Right;
+                break;
+            default:
+                break;
+        }
+        manager.addStep(next);
 
-        //Display the new puzzle State
-        //manager.displayPuzzle(puzzle, puzzleTransform);
+        SetReward(0.1f);
 
         //If puzzle was completed with success end and give a reward
         if(puzzle.isComplete()) {
+            manager.showResult();
             SetReward(1);
-            //Debug.Log("Nailed it");
-            nPuzzles++;
-            nSuccess++;
-            EndEpisode();
+            Destroy(GetComponent<DecisionRequester>());
         }
         else if(puzzle.hasFailed()) {
+            manager.showResult();
             SetReward(-0.8f);
-            //Debug.Log("Failed Puzzle");
-            nPuzzles++;
-            nFailed++;
-            EndEpisode();
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)
     }
 
     public override void CollectDiscreteActionMasks(DiscreteActionMasker actionMasker){
-        List<int> allItems = new List<int>(new int[] {1,2,3,4,5,6,7,8,9});
+        List<int> allItems = new List<int>(new int[] {0,1,2,3,4,5,6,7,8,9});
         allItems.RemoveAll(item => puzzle.getListOfValidTypes().Contains(item));
         actionMasker.SetMask(0, allItems); //Mask for tile types
         //actionMasker.SetMask(1, new int[4] {0,1,2,3}); //Unecessary Probably

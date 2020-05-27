@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RLPuzzleMenu : MonoBehaviour
 {
+    public GameObject inferencePrefab;
     public GameManager gameManagerRL;
     private string algorithm = "";
 
@@ -20,8 +21,9 @@ public class RLPuzzleMenu : MonoBehaviour
         Debug.Log("RL Puzzle 1");
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        //if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
+        //algorithm = "";
     }
     public void chooseRL2()
     {
