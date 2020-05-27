@@ -3130,9 +3130,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 456786865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5689fba451fb13c428cf82439fa4c96f, type: 3}
+  m_Script: {fileID: 11500000, guid: 88643bf8d4ad04eeabfe7be7e94cebeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManagerRL: {fileID: 551643975}
+  gameCameraRl: {fileID: 963194227}
+  menuCameraRl: {fileID: 963194227}
 --- !u!114 &456786868
 MonoBehaviour:
   m_ObjectHideFlags: 0
