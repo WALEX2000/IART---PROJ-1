@@ -84,8 +84,8 @@ public class PuzzleMenu : MonoBehaviour
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        if (this.search == "") gameManager.HumanMode(Example.puzzleRL8x8_3);
-        else gameManager.ManagerStarter(this.search, Example.puzzleRL8x8_3);
+        if (this.search == "") gameManager.HumanMode(Example.puzzleNNmedium1);
+        else gameManager.ManagerStarter(this.search, Example.puzzleNNmedium2);
         search = "";
     }
 

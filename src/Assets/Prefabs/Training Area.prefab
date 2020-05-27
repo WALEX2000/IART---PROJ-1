@@ -110,12 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 24
+    VectorObservationSize: 64
     NumStackedVectorObservations: 1
     VectorActionSize: 0a00000004000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 4b420748a7db14cdaa968c321c327909, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 5f1b43d1ccc484811aa02d3cf1276e88, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PuzzleBehaviour
