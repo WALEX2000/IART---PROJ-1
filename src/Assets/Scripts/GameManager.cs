@@ -7,7 +7,7 @@ enum playerType { Bot, Player };
 public class GameManager : MonoBehaviour
 {
     public Puzzle currentPuzzle;
-    private Puzzle firstPuzzle;
+    public Puzzle firstPuzzle;
     private playerType currentPlayer;
     public GameObject tilePrefab;
     public GameObject hintButton;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     private Boolean trail = false;
 
-    private Boolean AIrunning = false;
+    public Boolean AIrunning = false;
 
     private List<GameObject> tileGroups = new List<GameObject>();
 
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     }
 
     //Displays the steps taken to reach the solution
-    private IEnumerator DisplayPuzzleStates(List<Node> steps, float time)
+    public IEnumerator DisplayPuzzleStates(List<Node> steps, float time)
     {        
         //Debug.Log(puzzleStates.Count);
         for (int i = 0; i < steps.Count; i++)
