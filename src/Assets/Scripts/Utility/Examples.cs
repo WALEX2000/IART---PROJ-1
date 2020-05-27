@@ -46,6 +46,43 @@ public class Example
         new TileType[] {TileType.Empty,TileType.Green,TileType.Red,TileType.Empty}
     };
 
+    //8x8_HARD//
+    public static TileType[][] puzzleNNhard1 = new TileType[][]
+    {
+        new TileType[] {TileType.Null, TileType.Null, TileType.Red,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Red, TileType.Magenta,TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Yellow, TileType.Null, TileType.Empty,TileType.Empty,TileType.Gray,TileType.Empty,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Yellow, TileType.Empty, TileType.Green,TileType.Gray,TileType.Gray,TileType.Empty,TileType.Empty,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Green,TileType.Green,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Blue, TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Blue, TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null}
+    };
+
+    public static TileType[][] puzzleNNhard2 = new TileType[][] //TODO
+    {
+        new TileType[] {TileType.Null, TileType.Null, TileType.Red,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Red, TileType.Magenta,TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Yellow, TileType.Null, TileType.Empty,TileType.Empty,TileType.Gray,TileType.Empty,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Yellow, TileType.Empty, TileType.Green,TileType.Gray,TileType.Gray,TileType.Empty,TileType.Empty,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Green,TileType.Green,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Blue, TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Blue, TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null}
+    };
+
+    public static TileType[][] puzzleNNhard3 = new TileType[][] //TODO
+    {
+        new TileType[] {TileType.Null, TileType.Null, TileType.Red,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Red, TileType.Magenta,TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Empty,TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Yellow, TileType.Null, TileType.Empty,TileType.Empty,TileType.Gray,TileType.Empty,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Yellow, TileType.Empty, TileType.Green,TileType.Gray,TileType.Gray,TileType.Empty,TileType.Empty,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Empty, TileType.Green,TileType.Green,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Blue, TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null},
+        new TileType[] {TileType.Empty, TileType.Blue, TileType.Empty,TileType.Empty,TileType.Null,TileType.Null,TileType.Null,TileType.Null}
+    };
+
     //HARDCODED PUZZLES//
     public static TileType[][] puzzleEasy1 = new TileType[][]
     {
