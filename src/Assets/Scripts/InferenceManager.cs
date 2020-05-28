@@ -38,6 +38,10 @@ public class InferenceManager : PuzzleManager
         steps.Add(step);
     }
 
+    public override void resetSteps() {
+        steps.Clear();
+    }
+
     public override void showResult() {
         Debug.Log("Got " + steps.Count + " steps");
         gameManager.GetComponent<GameManager>().AIrunning = true;
