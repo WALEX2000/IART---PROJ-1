@@ -60,5 +60,7 @@ public class TrainingManager : PuzzleManager
 
     public override void addStep(Node step) {}
 
+    public override void resetSteps() {}
+
     public override void showResult() {}
 }

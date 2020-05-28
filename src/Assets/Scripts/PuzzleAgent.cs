@@ -105,7 +105,7 @@ public class PuzzleAgent : Agent
             Destroy(GetComponent<DecisionRequester>());
         }
         else if(puzzle.hasFailed()) {
-            manager.showResult();
+            manager.resetSteps();
             SetReward(-0.8f);
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)

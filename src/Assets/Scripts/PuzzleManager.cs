@@ -8,5 +8,7 @@ public abstract class PuzzleManager : MonoBehaviour {
 
     public abstract void addStep(Node step);
 
+    public abstract void resetSteps();
+
     public abstract void showResult();
 }
