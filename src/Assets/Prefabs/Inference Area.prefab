@@ -192,12 +192,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 24
+    VectorObservationSize: 64
     NumStackedVectorObservations: 1
     VectorActionSize: 0a00000004000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 4b420748a7db14cdaa968c321c327909, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 5b988000c21804acbb2bbe19df7530ab, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PuzzleBehaviour
@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 9204866760938597554}
   m_Layer: 0
   m_Name: InferenceManager
-  m_TagString: Untagged
+  m_TagString: Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

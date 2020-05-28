@@ -7,6 +7,7 @@ public class InferenceManager : PuzzleManager
 {
     public GameObject tilePrefab;
     public GameObject gameManager;
+    public TileType[][] puzzleMatrix;
     private Puzzle puzzle;
     private List<Node> steps;
 
@@ -17,7 +18,7 @@ public class InferenceManager : PuzzleManager
     }
 
     public override Puzzle generatePuzzle() {
-        puzzle = new Puzzle(Example.puzzleRl2, tilePrefab).copy();
+        puzzle = new Puzzle(puzzleMatrix, tilePrefab).copy();
         puzzle.startPuzzle();
         puzzle.displayPuzzle();
         steps.Add(new Node(puzzle.copy(), null, 0));

@@ -22,56 +22,61 @@ public class RLPuzzleMenu : MonoBehaviour
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
         Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
-        //if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        //algorithm = "";
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNeasy1;
     }
     public void chooseRL2()
     {
         Debug.Log("RL Puzzle 2");
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNeasy2;
     }
     public void chooseRL3()
     {
         Debug.Log("RL Puzzle 3");
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNeasy3;
     }
     public void chooseRL4()
     {
         Debug.Log("RL Puzzle 4");
-       menuCameraRl.gameObject.SetActive(false);
+        menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNmedium1;
     }
     public void chooseRL5()
     {
         Debug.Log("RL Puzzle 5");
         menuCameraRl.gameObject.SetActive(false);
-        gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNmedium2;
     }
     public void chooseRL6()
     {
         Debug.Log("RL Puzzle 6");
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNmedium3;
     }
     public void chooseRL7()
     {
         Debug.Log("RL Puzzle 7");
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNhard1;
     }
 
     public void chooseRL8()
@@ -79,16 +84,18 @@ public class RLPuzzleMenu : MonoBehaviour
         Debug.Log("RL Puzzle 8");
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNhard2;
     }
     public void chooseRL9()
     {
         Debug.Log("RL Puzzle 9");
         menuCameraRl.gameObject.SetActive(false);
         gameCameraRl.gameObject.SetActive(true);
-        if (this.algorithm == "") gameManagerRL.RLMode(Example.puzzleEasy1);
-        algorithm = "";
+        Instantiate(inferencePrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject manager = GameObject.FindWithTag("Manager");
+        manager.GetComponent<InferenceManager>().puzzleMatrix = Example.puzzleNNhard3;
     }
 
 }
