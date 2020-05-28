@@ -13,8 +13,14 @@ public class MainMenu : MonoBehaviour
 
     public void Start()
     {
-        gameCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(false);       
     }
+
+
+    
+
+    
+
     public void DFS()
     {
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
