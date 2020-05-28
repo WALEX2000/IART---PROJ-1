@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 
-public enum TileType { Empty, Null, Red, Blue, Green, Yellow, Gray, Magenta } //Colors in all the puzzles
+public enum TileType {Empty, Null,Red, Blue, Green, Yellow, Gray, Magenta} //Colors in all the puzzles
 
 public class Puzzle
 {
@@ -796,7 +796,6 @@ public class Puzzle
                 puzzleString += puzzleMatrix[i][j] + " ";
             }
             puzzleString += "\n";
-
         }
         Debug.Log(puzzleString);
     }

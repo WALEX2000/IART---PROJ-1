@@ -84,9 +84,26 @@ public class PuzzleMenu : MonoBehaviour
     {
         menuCamera.gameObject.SetActive(false);
         gameCamera.gameObject.SetActive(true);
-        if (this.search == "") gameManager.HumanMode(Example.puzzleNNmedium1);
-        else gameManager.ManagerStarter(this.search, Example.puzzleNNmedium2);
+        if (this.search == "") gameManager.HumanMode(Example.puzzleExpert);
+        else gameManager.ManagerStarter(this.search, Example.puzzleExpert);
         search = "";
+    }
+
+    public void chooseGenerator(){
+
+        //TEST
+        Generator generator = new Generator();
+        int size = 4;
+        TileType[][] matrix = new TileType[size][];
+        matrix = generator.generatePuzzle(size,3,4);
+        //generator.writeMatrix(matrix);
+
+        menuCamera.gameObject.SetActive(false);
+        gameCamera.gameObject.SetActive(true);
+        if (this.search == "") gameManager.HumanMode(matrix);
+        else gameManager.ManagerStarter(this.search, matrix);
+        search = "";
+
     }
 
 }
