@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using Unity.MLAgents;
 public class InferenceManager : PuzzleManager
 {
     public GameObject tilePrefab;
@@ -14,13 +14,25 @@ public class InferenceManager : PuzzleManager
     //public Transform testTransform;
     public void Start() {
         gameManager = GameObject.FindGameObjectsWithTag("GameManager")[0];
-        steps = new List<Node>();
+        if(steps == null) steps = new List<Node>();
+    }
+
+    public void startDecisions() {
+        GameObject agent = GameObject.FindWithTag("Agent");
+        agent.AddComponent(typeof(DecisionRequester));
+    }
+
+    public Puzzle getPuzzle() {
+        return puzzle;
     }
 
     public override Puzzle generatePuzzle() {
         puzzle = new Puzzle(puzzleMatrix, tilePrefab).copy();
         puzzle.startPuzzle();
         puzzle.displayPuzzle();
+        if(steps == null) {
+            steps = new List<Node>();
+        }
         steps.Add(new Node(puzzle.copy(), null, 0));
         return puzzle;
     }

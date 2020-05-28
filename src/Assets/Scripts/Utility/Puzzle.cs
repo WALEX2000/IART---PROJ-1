@@ -217,6 +217,7 @@ public class Puzzle
     //Destroys the puzzle by destroying all its tiles
     public void hidePuzzle()
     {
+        Debug.Log("Game Objects: " + gameObjects.Count);
         for (int i = 0; i < gameObjects.Count; i++)
         {
             UnityEngine.Object.Destroy(gameObjects[i]);

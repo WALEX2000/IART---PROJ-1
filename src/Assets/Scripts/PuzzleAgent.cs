@@ -12,6 +12,10 @@ public class PuzzleAgent : Agent
     public Transform puzzleTransform; //Used to tell the manager where to display the puzzle (merely graphical)
     private Puzzle puzzle;
     public Boolean testing = false;
+
+    public Puzzle getPuzzle() {
+        return puzzle;
+    }
     public override void OnEpisodeBegin()
     { //Sets up the Training Area at the beggining of each Episode
         //Debug.Log("Started new episode");
@@ -107,6 +111,7 @@ public class PuzzleAgent : Agent
         else if(puzzle.hasFailed()) {
             manager.resetSteps();
             SetReward(-0.8f);
+            EndEpisode();
         }
         //Else if there are no more moves that can be executed in the puzzle: EndEpisode(); (With no Reward)
     }

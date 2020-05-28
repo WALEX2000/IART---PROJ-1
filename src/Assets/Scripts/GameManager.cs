@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.MLAgents;
 enum playerType { Bot, Player };
 
 public class GameManager : MonoBehaviour
@@ -72,7 +73,16 @@ public class GameManager : MonoBehaviour
 
     public void hidePuzzle()
     {
-        currentPuzzle.hidePuzzle();
+        GameObject agent = GameObject.FindWithTag("Agent");
+        if(agent != null) {
+            agent.GetComponent<PuzzleAgent>().getPuzzle().hidePuzzle();
+            
+            GameObject[] tiles = GameObject.FindGameObjectsWithTag("Tile");
+            foreach(GameObject tile in tiles) Destroy(tile);
+
+            Destroy(GameObject.FindWithTag("Area"));
+        }
+        else currentPuzzle.hidePuzzle();
     }
     public void backToOriginal()
     {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 653272884837051756}
   m_Layer: 0
   m_Name: Inference Area
-  m_TagString: Untagged
+  m_TagString: Area
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,14 +138,14 @@ GameObject:
   - component: {fileID: 653272885585993923}
   - component: {fileID: 653272885585993948}
   - component: {fileID: 653272885585993949}
-  - component: {fileID: 5178435245579416051}
+  - component: {fileID: 217847208366421038}
   m_Layer: 0
   m_Name: Agent
-  m_TagString: Untagged
+  m_TagString: Agent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &653272885585993923
 Transform:
   m_ObjectHideFlags: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_BehaviorName: PuzzleBehaviour
   TeamId: 0
   m_UseChildSensors: 1
---- !u!114 &5178435245579416051
+--- !u!114 &217847208366421038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
